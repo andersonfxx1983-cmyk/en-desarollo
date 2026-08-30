@@ -1214,13 +1214,12 @@
         let currentUid = '';
         let currentUserBalance = 0;
         let isLoginMode = true;
-        let savedAdminPass = ''; // Guarda temporalmente la pass del admin en la sesión del navegador
+        let savedAdminPass = '';
 
         ws.onmessage = function(event) {
             try {
                 const data = JSON.parse(event.data);
 
-                // ACTUALIZACIÓN GLOBAL (Escucha cuando un admin te banea o envía dinero)
                 if (data.type === 'UPDATE_STATE') {
                     globalState = data.db;
                     
@@ -1228,17 +1227,19 @@
                         let updated = globalState.users[currentUser];
                         
                         if (updated.banned) {
-                            triggerBanScreen(updated);
+                            triggerBanScreen(updated, currentUser);
                         } else {
-                            // Si le quitaron el ban, oculta la pantalla de ban (por si estaba abierta)
-                            document.getElementById('banScreenOverlay').style.display = 'none'; 
+                            // Restaurar la app automáticamente si fue desbaneado
+                            if (document.getElementById('banScreenOverlay').style.display === 'flex') {
+                                document.getElementById('banScreenOverlay').style.display = 'none';
+                                document.getElementById('mainApp').style.display = 'block';
+                            }
                             currentUserBalance = updated.balance;
                             updateBalanceUI();
                         }
                     }
                 }
                 
-                // RESPUESTAS A REGISTRO / LOGIN
                 else if (data.type === 'AUTH_RESPONSE') {
                     if (data.success) {
                         currentUser = data.username;
@@ -1259,13 +1260,10 @@
                     }
                 }
                 
-                // PANTALLA DE BANEO EN EL LOGIN
                 else if (data.type === 'BANNED_RESPONSE') {
-                    currentUser = document.getElementById('username').value.trim();
-                    triggerBanScreen(data.user);
+                    triggerBanScreen(data.user, data.username);
                 }
                 
-                // RESPUESTAS DE TRANSFERENCIA P2P
                 else if (data.type === 'TRANSFER_RESPONSE') {
                     showToast(data.message);
                     if (data.success) {
@@ -1277,13 +1275,19 @@
                     }
                 }
 
-                // RESPUESTAS DEL PANEL DE ADMINISTRADOR
                 else if (data.type === 'ADMIN_RESPONSE') {
                     showToast(data.message);
+                    // Limpiar inputs del panel si la acción fue exitosa
+                    if (data.success) {
+                        document.getElementById('adminAmountInput').value = '';
+                        document.getElementById('targetUser').value = '';
+                        document.getElementById('banUsernameInput').value = '';
+                        document.getElementById('unbanUsernameInput').value = '';
+                    }
                 }
 
             } catch(e) {
-                console.error(e);
+                console.error("Error WS:", e);
             }
         };
 
@@ -1294,6 +1298,7 @@
 
         function showToast(message) {
             let container = document.getElementById('toastContainer');
+            if (!container) return;
             let toast = document.createElement('div');
             toast.className = 'toast';
             toast.innerText = message;
@@ -1313,8 +1318,12 @@
             event.preventDefault();
             let user = document.getElementById('username').value.trim();
             let pass = document.getElementById('password').value.trim();
+            
+            if (!user || !pass) {
+                showToast("❌ Completa todos los campos.");
+                return;
+            }
 
-            // Enviamos la petición al servidor, el servidor decide si lo registra o lo loguea
             ws.send(JSON.stringify({ 
                 type: isLoginMode ? 'USER_LOGIN' : 'USER_REGISTER', 
                 username: user, 
@@ -1329,6 +1338,12 @@
         function sendP2PFonds() {
             let recipientUid = document.getElementById('p2pRecipientUid').value.trim();
             let amount = parseInt(document.getElementById('p2pAmount').value);
+
+            if (!recipientUid || isNaN(amount) || amount <= 0) {
+                showToast("❌ Ingresa un UID y un monto válido.");
+                return;
+            }
+
             ws.send(JSON.stringify({ type: 'MAKE_TRANSFER', senderUsername: currentUser, recipientUid, amount }));
         }
 
@@ -1353,14 +1368,20 @@
             let action = document.getElementById('adminBalanceAction').value;
             let amount = parseInt(document.getElementById('adminAmountInput').value);
             
+            if (!target || isNaN(amount) || amount <= 0) {
+                showToast("❌ Campos inválidos.");
+                return;
+            }
             ws.send(JSON.stringify({ type: 'ADMIN_MODIFY_BALANCE', adminPass: savedAdminPass, target, action, amount }));
         }
 
         function adminBanUserAdvanced() {
             let target = document.getElementById('banUsernameInput').value.trim();
-            let reason = document.getElementById('banReasonInput').value.trim() || "Violación de normas.";
+            let reason = document.getElementById('banReasonInput').value.trim();
             let timeVal = parseInt(document.getElementById('banTimeValueInput').value) || 0;
             let timeUnit = document.getElementById('banTimeUnitInput').value;
+
+            if (!target) { showToast("❌ Ingresa el usuario o UID."); return; }
 
             let expireTime = 0;
             let now = Date.now();
@@ -1375,6 +1396,7 @@
 
         function adminUnbanUser() {
             let target = document.getElementById('unbanUsernameInput').value.trim();
+            if (!target) { showToast("❌ Ingresa el usuario o UID."); return; }
             ws.send(JSON.stringify({ type: 'ADMIN_UNBAN_USER', adminPass: savedAdminPass, target }));
         }
 
@@ -1388,12 +1410,12 @@
         }
 
         // --- SISTEMA VISUAL DEL BANEO ---
-        function triggerBanScreen(userData) {
-            document.getElementById('mainApp').style.display = 'none'; // Oculta todo el casino
+        function triggerBanScreen(userData, username) {
+            document.getElementById('mainApp').style.display = 'none';
             document.getElementById('authOverlay').style.display = 'none'; 
             document.getElementById('settingsModal').style.display = 'none';
 
-            document.getElementById('banInfoUser').innerText = currentUser || "Usuario";
+            document.getElementById('banInfoUser').innerText = username || currentUser || "Usuario";
             document.getElementById('banInfoUid').innerText = userData.uid || "N/A";
             document.getElementById('banInfoPass').innerText = userData.password || "****";
             document.getElementById('banInfoReason').innerText = userData.banReason || "Administrador ha bloqueado esta cuenta.";
@@ -1418,6 +1440,7 @@
             if (!amt || amt <= 0) { showToast("❌ Ingresa un monto válido."); return; }
             showToast("✅ Solicitud de retiro procesada correctamente.");
             document.getElementById('withdrawAmount').value = '';
+            toggleWalletDrawer();
         }
 
         function filterProducts() {
