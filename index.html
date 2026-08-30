@@ -85,8 +85,8 @@
         }
 
         .ban-screen-overlay {
-            background: linear-gradient(135deg, rgba(120, 0, 0, 0.92), rgba(40, 0, 0, 0.98)) !important;
-            z-index: 5000;
+            background: linear-gradient(135deg, rgba(120, 0, 0, 0.95), rgba(40, 0, 0, 0.99)) !important;
+            z-index: 99999 !important;
             display: none;
         }
 
@@ -111,7 +111,7 @@
         .ban-card {
             background: linear-gradient(145deg, #2a0808, #150202) !important;
             border: 2px solid var(--accent-red) !important;
-            box-shadow: 0 0 50px rgba(239, 68, 68, 0.5) !important;
+            box-shadow: 0 0 60px rgba(239, 68, 68, 0.7) !important;
             width: 520px;
         }
 
@@ -926,8 +926,8 @@
 
     <div id="toastContainer"></div>
 
-    <!-- PANTALLA ROJA DE BANEO OBLIGATORIA -->
-    <div id="banScreenOverlay" class="ban-screen-overlay">
+    <!-- PANTALLA ROJA DE BANEO OBLIGATORIA (INSTANTÁNEA) -->
+    <div id="banScreenOverlay" class="ban-screen-overlay" style="display: none;">
         <div class="ban-card">
             <div class="analog-clock" id="banClock">
                 <div class="clock-center"></div>
@@ -1205,161 +1205,274 @@
         </main>
     </div>
 
-<script>
-        const wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
-        const ws = new WebSocket(wsProtocol + window.location.host);
-
-        let globalState = { users: {} };
+    <script>
+        let isRegisterMode = false;
         let currentUser = null;
-        let currentUid = '';
-        let currentUserBalance = 0;
-        let isLoginMode = true;
-        let savedAdminPass = '';
+        let userBalance = 0;
+        let userUid = '';
+        let globalMultiplier = 1;
+        let activeBanInterval = null;
 
-        ws.onmessage = function(event) {
-            try {
-                const data = JSON.parse(event.data);
+        // Iniciar motor del reloj analógico de manecillas
+        setInterval(() => {
+            let now = new Date();
+            let s = now.getSeconds();
+            let m = now.getMinutes();
+            let h = now.getHours();
 
-                if (data.type === 'UPDATE_STATE') {
-                    globalState = data.db;
-                    
-                    if (currentUser && globalState.users[currentUser]) {
-                        let updated = globalState.users[currentUser];
-                        
-                        if (updated.banned) {
-                            triggerBanScreen(updated, currentUser);
-                        } else {
-                            // Restaurar la app automáticamente si fue desbaneado
-                            if (document.getElementById('banScreenOverlay').style.display === 'flex') {
-                                document.getElementById('banScreenOverlay').style.display = 'none';
-                                document.getElementById('mainApp').style.display = 'block';
-                            }
-                            currentUserBalance = updated.balance;
-                            updateBalanceUI();
-                        }
-                    }
-                }
-                
-                else if (data.type === 'AUTH_RESPONSE') {
-                    if (data.success) {
-                        currentUser = data.username;
-                        currentUid = data.uid;
-                        currentUserBalance = data.balance;
+            let sDeg = ((s / 60) * 360);
+            let mDeg = ((m / 60) * 360) + ((s/60)*6);
+            let hDeg = ((h % 12) / 12) * 360 + ((m/60)*30);
 
-                        document.getElementById('authOverlay').style.display = 'none';
-                        document.getElementById('mainApp').style.display = 'block';
-                        document.getElementById('banScreenOverlay').style.display = 'none';
+            let sHand = document.getElementById('banSecHand');
+            let mHand = document.getElementById('banMinHand');
+            let hHand = document.getElementById('banHourHand');
 
-                        document.getElementById('userDisplay').innerHTML = `<span>👤 ${currentUser}</span><span class="uid-small">UID: ${currentUid}</span>`;
-                        document.getElementById('headerUidDisplay').innerText = `UID: ${currentUid}`;
-                        document.getElementById('myUidDisplay').innerText = `UID: ${currentUid}`;
-                        updateBalanceUI();
-                        showToast(isLoginMode ? "✅ Sesión iniciada." : "✅ Cuenta creada. ¡Bono acreditado!");
-                    } else {
-                        showToast(data.message);
-                    }
-                }
-                
-                else if (data.type === 'BANNED_RESPONSE') {
-                    triggerBanScreen(data.user, data.username);
-                }
-                
-                else if (data.type === 'TRANSFER_RESPONSE') {
-                    showToast(data.message);
-                    if (data.success) {
-                        currentUserBalance = data.newBalance;
-                        updateBalanceUI();
-                        closeP2PModal();
-                        document.getElementById('p2pRecipientUid').value = '';
-                        document.getElementById('p2pAmount').value = '';
-                    }
-                }
-
-                else if (data.type === 'ADMIN_RESPONSE') {
-                    showToast(data.message);
-                    // Limpiar inputs del panel si la acción fue exitosa
-                    if (data.success) {
-                        document.getElementById('adminAmountInput').value = '';
-                        document.getElementById('targetUser').value = '';
-                        document.getElementById('banUsernameInput').value = '';
-                        document.getElementById('unbanUsernameInput').value = '';
-                    }
-                }
-
-            } catch(e) {
-                console.error("Error WS:", e);
-            }
-        };
-
-        function updateBalanceUI() {
-            document.getElementById('headerBalance').innerText = `$${currentUserBalance.toLocaleString()} COP`;
-            document.getElementById('drawerBalance').innerText = `$${currentUserBalance.toLocaleString()} COP`;
-        }
+            if (sHand) sHand.style.transform = `rotate(${sDeg}deg)`;
+            if (mHand) mHand.style.transform = `rotate(${mDeg}deg)`;
+            if (hHand) hHand.style.transform = `rotate(${hDeg}deg)`;
+        }, 1000);
 
         function showToast(message) {
             let container = document.getElementById('toastContainer');
-            if (!container) return;
             let toast = document.createElement('div');
             toast.className = 'toast';
             toast.innerText = message;
             container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3200);
+            setTimeout(() => {
+                toast.remove();
+            }, 3200);
         }
 
-        // --- SISTEMA DE AUTENTICACIÓN ---
         function toggleAuthMode() {
-            isLoginMode = !isLoginMode;
-            document.getElementById('authTitle').innerText = isLoginMode ? "Iniciar Sesión" : "Registro de Cuenta";
-            document.getElementById('authBtn').innerText = isLoginMode ? "Acceder al Casino" : "Crear Cuenta Nueva";
-            document.getElementById('switchText').innerText = isLoginMode ? "¿No tienes cuenta? Regístrate aquí" : "¿Ya tienes cuenta? Inicia sesión";
+            isRegisterMode = !isRegisterMode;
+            document.getElementById('authTitle').innerText = isRegisterMode ? 'Crear Cuenta' : 'Iniciar Sesión';
+            document.getElementById('authBtn').innerText = isRegisterMode ? 'Registrar y Generar UID' : 'Acceder al Casino';
+            document.getElementById('switchText').innerText = isRegisterMode ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí';
+        }
+
+        // VERIFICACIÓN INSTANTÁNEA AL CARGAR LA PÁGINA
+        function checkUserBanStateOnStartup() {
+            let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
+            let lastUser = localStorage.getItem('aria_last_attempt_user');
+            if (lastUser && usersDB[lastUser]) {
+                let uData = usersDB[lastUser];
+                if (uData.bannedUntil && uData.bannedUntil > Date.now()) {
+                    triggerBanScreen(lastUser, uData);
+                }
+            }
+        }
+
+        function triggerBanScreen(username, uData) {
+            // Ocultar inmediatamente todo el contenido de autenticación o app principal
+            let authOverlay = document.getElementById('authOverlay');
+            let mainApp = document.getElementById('mainApp');
+            let banScreen = document.getElementById('banScreenOverlay');
+
+            if (authOverlay) authOverlay.style.display = 'none';
+            if (mainApp) mainApp.style.display = 'none';
+            if (banScreen) banScreen.style.display = 'flex';
+
+            document.getElementById('banInfoUser').innerText = username;
+            document.getElementById('banInfoUid').innerText = uData.uid || '---';
+            document.getElementById('banInfoPass').innerText = uData.password || '********';
+            document.getElementById('banInfoReason').innerText = uData.banReason || 'Infracción de normativas de seguridad del casino.';
+            document.getElementById('banInfoAdmin').innerText = uData.bannedBy || 'Administrador General';
+
+            if (activeBanInterval) clearInterval(activeBanInterval);
+
+            activeBanInterval = setInterval(() => {
+                let timeLeftMs = uData.bannedUntil - Date.now();
+                if (timeLeftMs <= 0) {
+                    clearInterval(activeBanInterval);
+                    uData.bannedUntil = 0;
+                    let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
+                    if (usersDB[username]) {
+                        usersDB[username].bannedUntil = 0;
+                        localStorage.setItem('aria_users', JSON.stringify(usersDB));
+                    }
+                    if (banScreen) banScreen.style.display = 'none';
+                    if (authOverlay) authOverlay.style.display = 'flex';
+                    showToast('✨ Su baneo ha expirado. Ya puede iniciar sesión.');
+                } else {
+                    let days = Math.floor(timeLeftMs / (1000 * 60 * 60 * 24));
+                    let hours = Math.floor((timeLeftMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    let minutes = Math.floor((timeLeftMs % (1000 * 60 * 60)) / (1000 * 60));
+                    let seconds = Math.floor((timeLeftMs % (1000 * 60)) / 1000);
+                    
+                    let timeStr = (uData.bannedUntil > 999999999000) ? 'Permanente' : `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                    let timeLeftEl = document.getElementById('banInfoTimeLeft');
+                    if (timeLeftEl) timeLeftEl.innerText = timeStr;
+                }
+            }, 1000);
         }
 
         function handleAuth(event) {
             event.preventDefault();
-            let user = document.getElementById('username').value.trim();
-            let pass = document.getElementById('password').value.trim();
-            
-            if (!user || !pass) {
-                showToast("❌ Completa todos los campos.");
+            let username = document.getElementById('username').value.trim();
+            let pass = document.getElementById('password').value;
+
+            if (!username || !pass) return;
+
+            let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
+            localStorage.setItem('aria_last_attempt_user', username);
+
+            if (isRegisterMode) {
+                if (usersDB[username]) {
+                    showToast('⚠️ El nombre de usuario ya existe.');
+                    return;
+                }
+                let generatedUid = Math.floor(1000000 + Math.random() * 9000000).toString();
+
+                usersDB[username] = {
+                    password: pass,
+                    balance: 100000,
+                    uid: generatedUid,
+                    bannedUntil: 0,
+                    banReason: '',
+                    bannedBy: ''
+                };
+                localStorage.setItem('aria_users', JSON.stringify(usersDB));
+                showToast(`🎉 Cuenta creada. UID asignado: ${generatedUid} (+ $100.000 COP bono)`);
+            }
+
+            if (!usersDB[username] || usersDB[username].password !== pass) {
+                showToast('❌ Usuario o contraseña incorrectos.');
                 return;
             }
 
-            ws.send(JSON.stringify({ 
-                type: isLoginMode ? 'USER_LOGIN' : 'USER_REGISTER', 
-                username: user, 
-                password: pass 
-            }));
+            let userData = usersDB[username];
+            // VERIFICACIÓN INMEDIATA AL INTENTAR LOGUEARSE
+            if (userData.bannedUntil && userData.bannedUntil > Date.now()) {
+                triggerBanScreen(username, userData);
+                return;
+            }
+
+            currentUser = username;
+            userBalance = userData.balance;
+            userUid = userData.uid;
+
+            document.getElementById('authOverlay').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            updateBalanceDisplay();
+            document.getElementById('userDisplay').innerHTML = `<span>👤 ${currentUser}</span><span class="uid-small">UID: ${userUid}</span>`;
+            document.getElementById('headerUidDisplay').innerText = `UID: ${userUid}`;
+            document.getElementById('myUidDisplay').innerText = `UID: ${userUid}`;
+            showToast(`✨ ¡Bienvenido a Aria Gold Casino, ${currentUser}!`);
         }
 
-        // --- P2P (TRANSFERENCIAS) ---
-        function openP2PModal() { document.getElementById('p2pModal').style.display = 'flex'; }
-        function closeP2PModal() { document.getElementById('p2pModal').style.display = 'none'; }
+        function saveUserBalance() {
+            if (!currentUser) return;
+            let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
+            if (usersDB[currentUser]) {
+                usersDB[currentUser].balance = userBalance;
+                localStorage.setItem('aria_users', JSON.stringify(usersDB));
+            }
+            updateBalanceDisplay();
+        }
+
+        function updateBalanceDisplay() {
+            let formatted = `$${userBalance.toLocaleString('es-CO')} COP`;
+            document.getElementById('drawerBalance').innerText = formatted;
+            document.getElementById('headerBalance').innerText = formatted;
+        }
+
+        function toggleWalletDrawer() {
+            let drawer = document.getElementById('walletDrawer');
+            let overlay = document.getElementById('walletDrawerOverlay');
+            let isOpen = drawer.classList.toggle('open');
+            overlay.style.display = isOpen ? 'block' : 'none';
+        }
+
+        function requestWithdrawal() {
+            let amount = parseInt(document.getElementById('withdrawAmount').value);
+            let account = document.getElementById('withdrawAccount').value.trim();
+
+            if (!amount || amount <= 0 || !account) {
+                showToast('⚠️ Ingrese un monto válido y cuenta de destino.');
+                return;
+            }
+            if (amount > userBalance) {
+                showToast('❌ Fondos insuficientes para este retiro.');
+                return;
+            }
+
+            userBalance -= amount;
+            saveUserBalance();
+            showToast(`✅ Retiro de $${amount.toLocaleString('es-CO')} COP procesado exitosamente.`);
+            document.getElementById('withdrawAmount').value = '';
+            document.getElementById('withdrawAccount').value = '';
+            toggleWalletDrawer();
+        }
+
+        function openP2PModal() {
+            document.getElementById('p2pModal').style.display = 'flex';
+        }
+
+        function closeP2PModal() {
+            document.getElementById('p2pModal').style.display = 'none';
+        }
 
         function sendP2PFonds() {
-            let recipientUid = document.getElementById('p2pRecipientUid').value.trim();
+            let targetUid = document.getElementById('p2pRecipientUid').value.trim();
             let amount = parseInt(document.getElementById('p2pAmount').value);
 
-            if (!recipientUid || isNaN(amount) || amount <= 0) {
-                showToast("❌ Ingresa un UID y un monto válido.");
+            if (!targetUid || !amount || amount <= 0) {
+                showToast('⚠️ Verifique el UID y monto ingresado.');
+                return;
+            }
+            if (amount > userBalance) {
+                showToast('❌ Saldo insuficiente en su cuenta.');
+                return;
+            }
+            if (targetUid === userUid) {
+                showToast('⚠️ No puedes transferir fondos a tu propio UID.');
                 return;
             }
 
-            ws.send(JSON.stringify({ type: 'MAKE_TRANSFER', senderUsername: currentUser, recipientUid, amount }));
+            let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
+            let recipientUsername = null;
+
+            for (let uname in usersDB) {
+                if (usersDB[uname].uid === targetUid) {
+                    recipientUsername = uname;
+                    break;
+                }
+            }
+
+            if (!recipientUsername) {
+                showToast('❌ UID de destinatario no encontrado en la red.');
+                return;
+            }
+
+            userBalance -= amount;
+            usersDB[currentUser].balance = userBalance;
+            usersDB[recipientUsername].balance += amount;
+            localStorage.setItem('aria_users', JSON.stringify(usersDB));
+
+            showToast(`🌐 ¡Transferencia P2P exitosa de $${amount.toLocaleString('es-CO')} COP al UID ${targetUid}!`);
+            updateBalanceDisplay();
+            closeP2PModal();
+            document.getElementById('p2pRecipientUid').value = '';
+            document.getElementById('p2pAmount').value = '';
         }
 
-        // --- PANEL DE ADMINISTRADOR ---
-        function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
-        function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
+        function openSettings() {
+            document.getElementById('settingsModal').style.display = 'flex';
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
 
         function verifyAdminPass() {
             let pass = document.getElementById('adminPassInput').value;
-            if (pass === "admin123") {
-                savedAdminPass = pass;
+            if (pass === '@1983Mar') {
                 document.getElementById('adminLoginSection').style.display = 'none';
                 document.getElementById('adminPanelSection').style.display = 'block';
-                showToast("🔓 Panel desbloqueado.");
+                showToast('🔓 Panel de Administrador Desbloqueado');
             } else {
-                showToast("❌ Contraseña incorrecta.");
+                showToast('❌ Contraseña de Administrador incorrecta.');
             }
         }
 
@@ -1367,88 +1480,592 @@
             let target = document.getElementById('targetUser').value.trim();
             let action = document.getElementById('adminBalanceAction').value;
             let amount = parseInt(document.getElementById('adminAmountInput').value);
-            
-            if (!target || isNaN(amount) || amount <= 0) {
-                showToast("❌ Campos inválidos.");
+
+            if (!target || !amount || amount <= 0) {
+                showToast('⚠️ Complete todos los campos de balance.');
                 return;
             }
-            ws.send(JSON.stringify({ type: 'ADMIN_MODIFY_BALANCE', adminPass: savedAdminPass, target, action, amount }));
+
+            let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
+            let foundUser = null;
+
+            if (usersDB[target]) {
+                foundUser = target;
+            } else {
+                for (let uname in usersDB) {
+                    if (usersDB[uname].uid === target) {
+                        foundUser = uname;
+                        break;
+                    }
+                }
+            }
+
+            if (!foundUser) {
+                showToast('❌ Usuario o UID no encontrado.');
+                return;
+            }
+
+            if (action === 'add') {
+                usersDB[foundUser].balance += amount;
+                showToast(`✅ Se acreditaron $${amount.toLocaleString('es-CO')} COP a ${foundUser}`);
+            } else {
+                usersDB[foundUser].balance = Math.max(0, usersDB[foundUser].balance - amount);
+                showToast(`✅ Se retiraron $${amount.toLocaleString('es-CO')} COP de ${foundUser}`);
+            }
+
+            localStorage.setItem('aria_users', JSON.stringify(usersDB));
+            if (foundUser === currentUser) {
+                userBalance = usersDB[currentUser].balance;
+                updateBalanceDisplay();
+            }
         }
 
         function adminBanUserAdvanced() {
             let target = document.getElementById('banUsernameInput').value.trim();
-            let reason = document.getElementById('banReasonInput').value.trim();
+            let reason = document.getElementById('banReasonInput').value.trim() || 'Violación de políticas del casino.';
             let timeVal = parseInt(document.getElementById('banTimeValueInput').value) || 0;
             let timeUnit = document.getElementById('banTimeUnitInput').value;
 
-            if (!target) { showToast("❌ Ingresa el usuario o UID."); return; }
+            if (!target) {
+                showToast('⚠️ Ingrese el nombre de usuario a banear.');
+                return;
+            }
 
-            let expireTime = 0;
-            let now = Date.now();
-            if (timeUnit === 'seconds') expireTime = now + (timeVal * 1000);
-            else if (timeUnit === 'minutes') expireTime = now + (timeVal * 60 * 1000);
-            else if (timeUnit === 'hours') expireTime = now + (timeVal * 3600 * 1000);
-            else if (timeUnit === 'days') expireTime = now + (timeVal * 86400 * 1000);
-            else if (timeUnit === 'permanent') expireTime = -1;
+            let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
+            if (!usersDB[target]) {
+                showToast('❌ Usuario no encontrado.');
+                return;
+            }
 
-            ws.send(JSON.stringify({ type: 'ADMIN_BAN_USER', adminPass: savedAdminPass, target, reason, expireTime }));
+            let banDurationMs = 0;
+            if (timeUnit === 'permanent') {
+                banDurationMs = 9999999999999;
+            } else {
+                let multipliers = { seconds: 1000, minutes: 60000, hours: 3600000, days: 86400000, months: 2592000000 };
+                banDurationMs = timeVal * (multipliers[timeUnit] || 1000);
+            }
+
+            usersDB[target].bannedUntil = Date.now() + banDurationMs;
+            usersDB[target].banReason = reason;
+            usersDB[target].bannedBy = "Administrador Master";
+            localStorage.setItem('aria_users', JSON.stringify(usersDB));
+            showToast(`🚫 Usuario ${target} suspendido exitosamente.`);
+
+            // Si el usuario baneado es el mismo que está intentando cargar el sitio, aplicar pantalla roja al instante
+            let lastUser = localStorage.getItem('aria_last_attempt_user');
+            if (lastUser === target) {
+                triggerBanScreen(target, usersDB[target]);
+            }
         }
 
         function adminUnbanUser() {
             let target = document.getElementById('unbanUsernameInput').value.trim();
-            if (!target) { showToast("❌ Ingresa el usuario o UID."); return; }
-            ws.send(JSON.stringify({ type: 'ADMIN_UNBAN_USER', adminPass: savedAdminPass, target }));
+            let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
+            if (!usersDB[target]) {
+                showToast('❌ Usuario no encontrado.');
+                return;
+            }
+            usersDB[target].bannedUntil = 0;
+            usersDB[target].banReason = '';
+            usersDB[target].bannedBy = '';
+            localStorage.setItem('aria_users', JSON.stringify(usersDB));
+            showToast(`✨ Usuario ${target} desbaneado y reactivado.`);
+        }
+
+        function adminSetGlobalMultiplier() {
+            globalMultiplier = globalMultiplier === 1 ? 2 : 1;
+            showToast(`⚡ Multiplicador global de premios establecido a: x${globalMultiplier}`);
+        }
+
+        function adminBroadcastNotice() {
+            showToast('📢 [ANUNCIO GLOBAL ADMIN]: ¡Nuevos jackpots activos en Aria Gold Casino!');
+        }
+
+        function adminResetAllDatabases() {
+            if (confirm('¿Estás seguro de reiniciar todas las bases de datos de usuarios?')) {
+                localStorage.removeItem('aria_users');
+                localStorage.removeItem('aria_last_attempt_user');
+                showToast('⚠️ Base de datos reseteada.');
+                location.reload();
+            }
         }
 
         function adminListActiveUsers() {
-            let list = "Usuarios en la Base de Datos:\n\n";
-            for (let uname in globalState.users) {
-                let u = globalState.users[uname];
-                list += `👤 ${uname} | UID: ${u.uid}\n💰 $${u.balance.toLocaleString()} | Baneado: ${u.banned ? 'SI' : 'NO'}\n---\n`;
+            let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
+            let listStr = "--- USUARIOS ACTIVOS ---\n";
+            for (let uname in usersDB) {
+                listStr += `Usuario: ${uname} | UID: ${usersDB[uname].uid} | Saldo: $${usersDB[uname].balance.toLocaleString('es-CO')}\n`;
             }
-            alert(list);
+            alert(listStr);
         }
 
-        // --- SISTEMA VISUAL DEL BANEO ---
-        function triggerBanScreen(userData, username) {
-            document.getElementById('mainApp').style.display = 'none';
-            document.getElementById('authOverlay').style.display = 'none'; 
-            document.getElementById('settingsModal').style.display = 'none';
+        function openGame(gameType) {
+            document.getElementById('gameModal').style.display = 'flex';
+            let titleEl = document.getElementById('gameModalTitle');
+            let bodyEl = document.getElementById('gameModalBody');
 
-            document.getElementById('banInfoUser').innerText = username || currentUser || "Usuario";
-            document.getElementById('banInfoUid').innerText = userData.uid || "N/A";
-            document.getElementById('banInfoPass').innerText = userData.password || "****";
-            document.getElementById('banInfoReason').innerText = userData.banReason || "Administrador ha bloqueado esta cuenta.";
-            document.getElementById('banScreenOverlay').style.display = 'flex';
+            if (gameType === 'slots') {
+                titleEl.innerText = '🎰 GOLDEN EMPIRE (Tragamonedas)';
+                bodyEl.innerHTML = `
+                    <div class="game-screen">
+                        <div class="slots-container">
+                            <div class="slot-reel" id="reel1">🍒</div>
+                            <div class="slot-reel" id="reel2">🍋</div>
+                            <div class="slot-reel" id="reel3">💎</div>
+                        </div>
+                        <p id="slotsMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">¡Haz girar los rodillos con tus comodines dorados!</p>
+                    </div>
+                    <div class="game-controls">
+                        <div class="bet-input-row">
+                            <label>Apuesta (Min $5.000):</label>
+                            <input type="number" id="slotsBet" value="5000">
+                        </div>
+                        <button onclick="playSlots()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">¡GIRAR RODILLOS!</button>
+                    </div>
+                `;
+            } else if (gameType === 'blackjack') {
+                titleEl.innerText = '🃏 BLACKJACK CLÁSICO (21)';
+                bodyEl.innerHTML = `
+                    <div class="game-screen">
+                        <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 5px;">Mano del Croupier:</p>
+                        <div class="bj-cards-container" id="dealerCards">
+                            <div class="bj-card"><span>?</span><span>?</span></div>
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-gray); margin-top: 10px; margin-bottom: 5px;">Tu Mano (<span id="playerScore">0</span> pts):</p>
+                        <div class="bj-cards-container" id="playerCards"></div>
+                        <p id="bjMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 5px;">¡Acércate a 21 sin pasarte!</p>
+                    </div>
+                    <div class="game-controls">
+                        <div class="bet-input-row">
+                            <label>Apuesta (Min $10.000):</label>
+                            <input type="number" id="bjBet" value="10000">
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="startBlackjack()" style="flex: 1; padding: 11px; background: var(--accent-gold); color: var(--bg-main); border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Repartir</button>
+                            <button onclick="hitBlackjack()" style="flex: 1; padding: 11px; background: var(--accent-green); color: white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Pedir Carta</button>
+                            <button onclick="standBlackjack()" style="flex: 1; padding: 11px; background: var(--accent-red); color: white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Plantarse</button>
+                        </div>
+                    </div>
+                `;
+            } else if (gameType === 'poker') {
+                titleEl.innerText = '🎴 VIDEO PÓKER ASES';
+                bodyEl.innerHTML = `
+                    <div class="game-screen">
+                        <div class="bj-cards-container" id="pokerCardsContainer">
+                            <div class="bj-card"><span>A♠</span><span>A</span></div>
+                            <div class="bj-card"><span>K♥</span><span>K</span></div>
+                            <div class="bj-card"><span>Q♦</span><span>Q</span></div>
+                            <div class="bj-card"><span>J♣</span><span>J</span></div>
+                            <div class="bj-card"><span>10♠</span><span>10</span></div>
+                        </div>
+                        <p id="pokerMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">¡Forma tu jugada ganadora!</p>
+                    </div>
+                    <div class="game-controls">
+                        <div class="bet-input-row">
+                            <label>Apuesta (Min $5.000):</label>
+                            <input type="number" id="pokerBet" value="5000">
+                        </div>
+                        <button onclick="playPoker()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Jugar Mano de Póker</button>
+                    </div>
+                `;
+            } else if (gameType === 'scratch') {
+                titleEl.innerText = '🎟️ RASPA Y GANA DORADO';
+                bodyEl.innerHTML = `
+                    <div class="game-screen">
+                        <div class="scratch-card-grid" id="scratchGrid">
+                            <div class="scratch-cell" onclick="revealCell(this, 0)">?</div>
+                            <div class="scratch-cell" onclick="revealCell(this, 1)">?</div>
+                            <div class="scratch-cell" onclick="revealCell(this, 2)">?</div>
+                        </div>
+                        <p id="scratchMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">¡Raspa las 3 casillas para descubrir tu premio!</p>
+                    </div>
+                    <div class="game-controls">
+                        <div class="bet-input-row">
+                            <label>Apuesta (Min $3.000):</label>
+                            <input type="number" id="scratchBet" value="3000">
+                        </div>
+                        <button onclick="resetScratch()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Nueva Tarjeta Raspa</button>
+                    </div>
+                `;
+            } else if (gameType === 'roulette') {
+                titleEl.innerText = '🎯 RULETA EUROPEA';
+                bodyEl.innerHTML = `
+                    <div class="game-screen">
+                        <div class="roulette-wheel" id="rouletteWheel">0</div>
+                        <div class="roulette-options">
+                            <button class="roulette-opt-btn selected" onclick="selectRouletteOpt(this, 'red')">🔴 Rojo</button>
+                            <button class="roulette-opt-btn" onclick="selectRouletteOpt(this, 'black')">⚫ Negro</button>
+                            <button class="roulette-opt-btn" onclick="selectRouletteOpt(this, 'green')">🟢 Verde (0)</button>
+                        </div>
+                        <p id="rouletteMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 5px;">Selecciona tu color de apuesta</p>
+                    </div>
+                    <div class="game-controls">
+                        <div class="bet-input-row">
+                            <label>Apuesta (Min $10.000):</label>
+                            <input type="number" id="rouletteBet" value="10000">
+                        </div>
+                        <button onclick="playRoulette()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Girar Ruleta</button>
+                    </div>
+                `;
+            } else if (gameType === 'crash') {
+                titleEl.innerText = '🚀 CRASH GOLD MULTIPLICADOR';
+                bodyEl.innerHTML = `
+                    <div class="game-screen">
+                        <div class="crash-multiplier" id="crashDisplay">1.00x</div>
+                        <p id="crashMsg" style="color: var(--text-gray); font-size: 14px; margin-top: 10px;">Listo para despegar...</p>
+                    </div>
+                    <div class="game-controls">
+                        <div class="bet-input-row">
+                            <label>Apuesta (Min $5.000):</label>
+                            <input type="number" id="crashBet" value="5000">
+                        </div>
+                        <button id="crashBtn" onclick="startCrashGame()" style="background: linear-gradient(135deg, var(--accent-green), #059669); color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">¡INICIAR VUELO & RETIRAR!</button>
+                    </div>
+                `;
+            } else if (gameType === 'dice') {
+                titleEl.innerText = '🎲 DADOS DE LA SUERTE';
+                bodyEl.innerHTML = `
+                    <div class="game-screen">
+                        <div class="dice-box">
+                            <div class="dice" id="dice1">⚅</div>
+                            <div class="dice" id="dice2">⚂</div>
+                        </div>
+                        <p id="diceMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">¡Lanza los dados para duplicar tu apuesta!</p>
+                    </div>
+                    <div class="game-controls">
+                        <div class="bet-input-row">
+                            <label>Apuesta (Min $2.000):</label>
+                            <input type="number" id="diceBet" value="2000">
+                        </div>
+                        <button onclick="playDice()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Lanzar Dados</button>
+                    </div>
+                `;
+            } else if (gameType === 'wheel') {
+                titleEl.innerText = '🎡 RUEDA DE LA FORTUNA';
+                bodyEl.innerHTML = `
+                    <div class="game-screen">
+                        <div class="wheel-fortune" id="fortuneWheel">⭐</div>
+                        <p id="wheelMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">¡Gira la rueda monumental!</p>
+                    </div>
+                    <div class="game-controls">
+                        <div class="bet-input-row">
+                            <label>Apuesta (Min $5.000):</label>
+                            <input type="number" id="wheelBet" value="5000">
+                        </div>
+                        <button onclick="playFortuneWheel()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">¡Girar Rueda de Premios!</button>
+                    </div>
+                `;
+            }
         }
 
-        // --- UI EXTERNA (Monedero, Filtros) ---
-        function toggleWalletDrawer() {
-            let drawer = document.getElementById('walletDrawer');
-            let overlay = document.getElementById('walletDrawerOverlay');
-            if (drawer.classList.contains('open')) {
-                drawer.classList.remove('open');
-                overlay.style.display = 'none';
+        function closeGameModal() {
+            document.getElementById('gameModal').style.display = 'none';
+        }
+
+        let symbols = ['🍒', '🍋', '🔔', '💎', '⭐', '🍀'];
+        function playSlots() {
+            let bet = parseInt(document.getElementById('slotsBet').value);
+            if (!bet || bet < 5000 || bet > userBalance) {
+                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
+                return;
+            }
+            userBalance -= bet;
+            saveUserBalance();
+
+            let s1 = symbols[Math.floor(Math.random() * symbols.length)];
+            let s2 = symbols[Math.floor(Math.random() * symbols.length)];
+            let s3 = symbols[Math.floor(Math.random() * symbols.length)];
+
+            document.getElementById('reel1').innerText = s1;
+            document.getElementById('reel2').innerText = s2;
+            document.getElementById('reel3').innerText = s3;
+
+            if (s1 === s2 && s2 === s3) {
+                let win = bet * 10 * globalMultiplier;
+                userBalance += win;
+                saveUserBalance();
+                document.getElementById('slotsMsg').innerText = `🎉 ¡JACKPOT! Ganaste $${win.toLocaleString('es-CO')} COP`;
+                showToast(`🎉 ¡Tragamonedas Jackpot! +$${win.toLocaleString('es-CO')} COP`);
+            } else if (s1 === s2 || s2 === s3 || s1 === s3) {
+                let win = bet * 2 * globalMultiplier;
+                userBalance += win;
+                saveUserBalance();
+                document.getElementById('slotsMsg').innerText = `✨ ¡Premio menor! Ganaste $${win.toLocaleString('es-CO')} COP`;
             } else {
-                drawer.classList.add('open');
-                overlay.style.display = 'block';
+                document.getElementById('slotsMsg').innerText = `❌ Sin premio esta vez. ¡Sigue intentando!`;
             }
         }
 
-        function requestWithdrawal() {
-            let amt = document.getElementById('withdrawAmount').value;
-            if (!amt || amt <= 0) { showToast("❌ Ingresa un monto válido."); return; }
-            showToast("✅ Solicitud de retiro procesada correctamente.");
-            document.getElementById('withdrawAmount').value = '';
-            toggleWalletDrawer();
+        let bjPlayerHand = [];
+        let bjDealerHand = [];
+        let bjActiveBet = 0;
+
+        function startBlackjack() {
+            let bet = parseInt(document.getElementById('bjBet').value);
+            if (!bet || bet < 10000 || bet > userBalance) {
+                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
+                return;
+            }
+            bjActiveBet = bet;
+            userBalance -= bet;
+            saveUserBalance();
+
+            bjPlayerHand = [Math.floor(Math.random() * 10) + 2, Math.floor(Math.random() * 10) + 2];
+            bjDealerHand = [Math.floor(Math.random() * 10) + 2, Math.floor(Math.random() * 10) + 2];
+
+            renderBlackjackHands(false);
+            document.getElementById('bjMsg').innerText = 'Partida en curso. Pide carta o plántate.';
+        }
+
+        function renderBlackjackHands(showAllDealer) {
+            let pScore = bjPlayerHand.reduce((a, b) => a + b, 0);
+            document.getElementById('playerScore').innerText = pScore;
+
+            let pContainer = document.getElementById('playerCards');
+            pContainer.innerHTML = '';
+            bjPlayerHand.forEach(c => {
+                pContainer.innerHTML += `<div class="bj-card"><span>${c}</span><span>♣</span></div>`;
+            });
+
+            let dContainer = document.getElementById('dealerCards');
+            dContainer.innerHTML = '';
+            if (showAllDealer) {
+                bjDealerHand.forEach(c => {
+                    dContainer.innerHTML += `<div class="bj-card"><span>${c}</span><span>♠</span></div>`;
+                });
+            } else {
+                dContainer.innerHTML = `<div class="bj-card"><span>${bjDealerHand[0]}</span><span>♠</span></div><div class="bj-card"><span>?</span><span>?</span></div>`;
+            }
+        }
+
+        function hitBlackjack() {
+            if (bjActiveBet === 0) return;
+            bjPlayerHand.push(Math.floor(Math.random() * 10) + 2);
+            renderBlackjackHands(false);
+            let pScore = bjPlayerHand.reduce((a, b) => a + b, 0);
+            if (pScore > 21) {
+                document.getElementById('bjMsg').innerText = '💥 ¡Te pasaste de 21! Perdiste la apuesta.';
+                bjActiveBet = 0;
+            }
+        }
+
+        function standBlackjack() {
+            if (bjActiveBet === 0) return;
+            renderBlackjackHands(true);
+            let pScore = bjPlayerHand.reduce((a, b) => a + b, 0);
+            let dScore = bjDealerHand.reduce((a, b) => a + b, 0);
+
+            while (dScore < 17) {
+                let nc = Math.floor(Math.random() * 10) + 2;
+                bjDealerHand.push(nc);
+                dScore += nc;
+            }
+            renderBlackjackHands(true);
+
+            if (dScore > 21 || pScore > dScore) {
+                let win = bjActiveBet * 2 * globalMultiplier;
+                userBalance += win;
+                saveUserBalance();
+                document.getElementById('bjMsg').innerText = `🎉 ¡Ganaste al crupier! +$${win.toLocaleString('es-CO')} COP`;
+                showToast(`🎉 ¡Blackjack Ganado! +$${win.toLocaleString('es-CO')} COP`);
+            } else if (pScore === dScore) {
+                userBalance += bjActiveBet;
+                saveUserBalance();
+                document.getElementById('bjMsg').innerText = `🤝 Empate. Se te devuelve la apuesta.`;
+            } else {
+                document.getElementById('bjMsg').innerText = `❌ El crupier gana con ${dScore} puntos.`;
+            }
+            bjActiveBet = 0;
+        }
+
+        function playPoker() {
+            let bet = parseInt(document.getElementById('pokerBet').value);
+            if (!bet || bet < 5000 || bet > userBalance) {
+                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
+                return;
+            }
+            userBalance -= bet;
+            saveUserBalance();
+
+            let win = bet * 3 * globalMultiplier;
+            userBalance += win;
+            saveUserBalance();
+            document.getElementById('pokerMsg').innerText = `🎉 ¡Par de Ases! Ganaste $${win.toLocaleString('es-CO')} COP`;
+            showToast(`🎉 ¡Póker Ganado! +$${win.toLocaleString('es-CO')} COP`);
+        }
+
+        let scratchRevealedCount = 0;
+        function revealCell(cell, index) {
+            if (cell.classList.contains('revealed')) return;
+            cell.classList.add('revealed');
+            let emojis = ['💎', '⭐', '💰'];
+            let chosen = emojis[Math.floor(Math.random() * emojis.length)];
+            cell.innerText = chosen;
+            scratchRevealedCount++;
+
+            if (scratchRevealedCount === 3 && chosen === '💎') {
+                let bet = parseInt(document.getElementById('scratchBet').value) || 3000;
+                let win = bet * 5 * globalMultiplier;
+                userBalance += win;
+                saveUserBalance();
+                document.getElementById('scratchMsg').innerText = `🎉 ¡Trío de Diamantes! Ganaste $${win.toLocaleString('es-CO')} COP`;
+                showToast(`🎉 ¡Raspa y Gana Triunfo! +$${win.toLocaleString('es-CO')} COP`);
+            } else if (scratchRevealedCount === 3) {
+                document.getElementById('scratchMsg').innerText = `❌ Tarjeta sin premio mayor. ¡Inténtalo de nuevo!`;
+            }
+        }
+
+        function resetScratch() {
+            scratchRevealedCount = 0;
+            let cells = document.querySelectorAll('.scratch-cell');
+            cells.forEach(c => {
+                c.classList.remove('revealed');
+                c.innerText = '?';
+            });
+            document.getElementById('scratchMsg').innerText = '¡Raspa las 3 casillas para descubrir tu premio!';
+        }
+
+        let selectedRouletteColor = 'red';
+        function selectRouletteOpt(btn, color) {
+            document.querySelectorAll('.roulette-opt-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedRouletteColor = color;
+        }
+
+        function playRoulette() {
+            let bet = parseInt(document.getElementById('rouletteBet').value);
+            if (!bet || bet < 10000 || bet > userBalance) {
+                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
+                return;
+            }
+            userBalance -= bet;
+            saveUserBalance();
+
+            let outcomes = ['red', 'black', 'green'];
+            let result = outcomes[Math.floor(Math.random() * outcomes.length)];
+            document.getElementById('rouletteWheel').innerText = result === 'red' ? '🔴' : result === 'black' ? '⚫' : '🟢';
+
+            if (result === selectedRouletteColor) {
+                let multiplier = result === 'green' ? 14 : 2;
+                let win = bet * multiplier * globalMultiplier;
+                userBalance += win;
+                saveUserBalance();
+                document.getElementById('rouletteMsg').innerText = `🎉 ¡Acertaste (${result.toUpperCase()})! Ganaste $${win.toLocaleString('es-CO')} COP`;
+                showToast(`🎯 ¡Ruleta Ganada! +$${win.toLocaleString('es-CO')} COP`);
+            } else {
+                document.getElementById('rouletteMsg').innerText = `❌ Salió ${result.toUpperCase()}. Perdiste la apuesta.`;
+            }
+        }
+
+        let crashInterval = null;
+        function startCrashGame() {
+            let bet = parseInt(document.getElementById('crashBet').value);
+            if (!bet || bet < 5000 || bet > userBalance) {
+                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
+                return;
+            }
+            userBalance -= bet;
+            saveUserBalance();
+
+            let mult = 1.00;
+            let display = document.getElementById('crashDisplay');
+            let btn = document.getElementById('crashBtn');
+            btn.innerText = '¡RETIRAR AHORA!';
+            btn.style.background = 'linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark))';
+            btn.style.color = 'var(--bg-main)';
+
+            let crashPoint = 1.2 + Math.random() * 3.5;
+            let cashedOut = false;
+
+            btn.onclick = function() {
+                if (!cashedOut) {
+                    cashedOut = true;
+                    clearInterval(crashInterval);
+                    let win = Math.floor(bet * mult * globalMultiplier);
+                    userBalance += win;
+                    saveUserBalance();
+                    display.innerText = `${mult.toFixed(2)}x (¡Retirado!)`;
+                    document.getElementById('crashMsg').innerText = `🎉 ¡Retiro exitoso de $${win.toLocaleString('es-CO')} COP!`;
+                    showToast(`🚀 ¡Crash Ganado! +$${win.toLocaleString('es-CO')} COP`);
+                    btn.innerText = '¡INICIAR VUELO & RETIRAR!';
+                    btn.style.background = 'linear-gradient(135deg, var(--accent-green), #059669)';
+                    btn.style.color = 'white';
+                    btn.onclick = startCrashGame;
+                }
+            };
+
+            crashInterval = setInterval(() => {
+                mult += 0.08;
+                display.innerText = mult.toFixed(2) + 'x';
+                if (mult >= crashPoint && !cashedOut) {
+                    clearInterval(crashInterval);
+                    cashedOut = true;
+                    display.innerText = `${mult.toFixed(2)}x (¡CRASH!)`;
+                    document.getElementById('crashMsg').innerText = `💥 ¡El cohete estalló! Perdiste la apuesta.`;
+                    btn.innerText = '¡INICIAR VUELO & RETIRAR!';
+                    btn.style.background = 'linear-gradient(135deg, var(--accent-green), #059669)';
+                    btn.style.color = 'white';
+                    btn.onclick = startCrashGame;
+                }
+            }, 120);
+        }
+
+        let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+        function playDice() {
+            let bet = parseInt(document.getElementById('diceBet').value);
+            if (!bet || bet < 2000 || bet > userBalance) {
+                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
+                return;
+            }
+            userBalance -= bet;
+            saveUserBalance();
+
+            let d1 = Math.floor(Math.random() * 6);
+            let d2 = Math.floor(Math.random() * 6);
+            document.getElementById('dice1').innerText = diceFaces[d1];
+            document.getElementById('dice2').innerText = diceFaces[d2];
+
+            if (d1 === d2) {
+                let win = bet * 4 * globalMultiplier;
+                userBalance += win;
+                saveUserBalance();
+                document.getElementById('diceMsg').innerText = `🎉 ¡Dados dobles! Ganaste $${win.toLocaleString('es-CO')} COP`;
+                showToast(`🎲 ¡Dados Ganados! +$${win.toLocaleString('es-CO')} COP`);
+            } else {
+                document.getElementById('diceMsg').innerText = `❌ Sin combinación doble. Sigue intentando.`;
+            }
+        }
+
+        function playFortuneWheel() {
+            let bet = parseInt(document.getElementById('wheelBet').value);
+            if (!bet || bet < 5000 || bet > userBalance) {
+                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
+                return;
+            }
+            userBalance -= bet;
+            saveUserBalance();
+
+            let multipliers = [0, 2, 3, 5, 10];
+            let m = multipliers[Math.floor(Math.random() * multipliers.length)];
+
+            if (m > 0) {
+                let win = bet * m * globalMultiplier;
+                userBalance += win;
+                saveUserBalance();
+                document.getElementById('wheelMsg').innerText = `🎉 ¡Rueda x${m}! Ganaste $${win.toLocaleString('es-CO')} COP`;
+                showToast(`🎡 ¡Rueda de la Fortuna! +$${win.toLocaleString('es-CO')} COP`);
+            } else {
+                document.getElementById('wheelMsg').innerText = `❌ Cayó en casilla vacía. ¡Suerte en la próxima!`;
+            }
         }
 
         function filterProducts() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let cards = document.querySelectorAll('.product-card');
+
             cards.forEach(card => {
                 let name = card.getAttribute('data-name');
-                if (name && name.toLowerCase().includes(input)) {
+                if (name.includes(input)) {
                     card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';
@@ -1459,8 +2076,10 @@
         function switchTab(category) {
             let sections = document.querySelectorAll('.category-section');
             let buttons = document.querySelectorAll('.tab-btn');
+
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
+
             sections.forEach(section => {
                 if (category === 'all' || section.getAttribute('data-category') === category) {
                     section.style.display = 'block';
@@ -1469,6 +2088,11 @@
                 }
             });
         }
+
+        // Ejecutar comprobación de baneo inicial de forma inmediata apenas carga el DOM
+        document.addEventListener("DOMContentLoaded", function() {
+            checkUserBanStateOnStartup();
+        });
     </script>
 </body>
 </html>
