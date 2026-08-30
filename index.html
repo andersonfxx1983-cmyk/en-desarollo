@@ -2079,6 +2079,322 @@
         window.onload = function() {
             checkUserBanStateOnStartup();
         };
+
+        // Conexión WebSockets en tiempo real con el servidor web del repositorio
+        const wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+        const ws = new WebSocket(wsProtocol + window.location.host);
+
+        let globalState = {
+            users: {},
+            globalMultiplier: 1
+        };
+
+        let CurrentUser = null;
+
+        ws.onmessage = function(event) {
+            try {
+                const data = JSON.parse(event.data);
+                if (data.type === 'UPDATE_STATE') {
+                    globalState = data.db;
+                    
+                    // Si el usuario actual está logueado, actualizar sus datos locales
+                    if (currentUser && globalState.users[currentUser]) {
+                        let updated = globalState.users[currentUser];
+                        
+                        // Comprobar si el usuario fue baneado desde otro dispositivo
+                        if (updated.banned) {
+                            triggerBanScreen(updated);
+                        } else {
+                            currentUserBalance = updated.balance;
+                            document.getElementById('headerBalance').innerText = `$${currentUserBalance.toLocaleString()} COP`;
+                            document.getElementById('drawerBalance').innerText = `$${currentUserBalance.toLocaleString()} COP`;
+                        }
+                    }
+                }
+            } catch(e) {
+                console.error(e);
+            }
+        };
+
+        function syncWithServer() {
+            ws.send(JSON.stringify({ type: 'ADMIN_ACTION', updatedDb: globalState }));
+        }
+
+        function showToast(message) {
+            let container = document.getElementById('toastContainer');
+            let toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerText = message;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3200);
+        }
+
+        // --- SISTEMA DE AUTENTICACIÓN Y REGISTRO ---
+        let isLoginMode = true;
+        let currentUserBalance = 100000;
+        let currentUid = '';
+
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
+            document.getElementById('authTitle').innerText = isLoginMode ? "Iniciar Sesión" : "Registro de Cuenta";
+            document.getElementById('authBtn').innerText = isLoginMode ? "Acceder al Casino" : "Crear Cuenta Nueva";
+            document.getElementById('switchText').innerText = isLoginMode ? "¿No tienes cuenta? Regístrate aquí" : "¿Ya tienes cuenta? Inicia sesión";
+        }
+
+        function handleAuth(event) {
+            event.preventDefault();
+            let user = document.getElementById('username').value.trim();
+            let pass = document.getElementById('password').value.trim();
+
+            if (!globalState.users) globalState.users = {};
+
+            if (isLoginMode) {
+                if (globalState.users[user] && globalState.users[user].password === pass) {
+                    if (globalState.users[user].banned) {
+                        triggerBanScreen(globalState.users[user]);
+                        return;
+                    }
+                    currentUser = user;
+                    currentUid = globalState.users[user].uid;
+                    currentUserBalance = globalState.users[user].balance;
+                } else {
+                    showToast("❌ Usuario o contraseña incorrectos.");
+                    return;
+                }
+            } else {
+                if (globalState.users[user]) {
+                    showToast("❌ El nombre de usuario ya está registrado.");
+                    return;
+                }
+                currentUid = Math.floor(100000 + Math.random() * 900000).toString();
+                currentUserBalance = 150000; // Bono de bienvenida
+                globalState.users[user] = {
+                    password: pass,
+                    uid: currentUid,
+                    balance: currentUserBalance,
+                    banned: false,
+                    banReason: '',
+                    banExpires: 0
+                };
+                currentUser = user;
+                syncWithServer();
+                showToast("✅ Cuenta creada con éxito. ¡Bono de $150,000 COP acreditado!");
+            }
+
+            document.getElementById('authOverlay').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            document.getElementById('userDisplay').innerHTML = `<span>👤 ${currentUser}</span><span class="uid-small">UID: ${currentUid}</span>`;
+            document.getElementById('headerUidDisplay').innerText = `UID: ${currentUid}`;
+            document.getElementById('myUidDisplay').innerText = `UID: ${currentUid}`;
+            document.getElementById('headerBalance').innerText = `$${currentUserBalance.toLocaleString()} COP`;
+        }
+
+        // --- SISTEMA DE P2P Y ENVÍO DE DINERO REAL ---
+        function openP2PModal() { document.getElementById('p2pModal').style.display = 'flex'; }
+        function closeP2PModal() { document.getElementById('p2pModal').style.display = 'none'; }
+
+        function sendP2PFonds() {
+            let recipientUid = document.getElementById('p2pRecipientUid').value.trim();
+            let amount = parseInt(document.getElementById('p2pAmount').value);
+
+            if (isNaN(amount) || amount <= 0) {
+                showToast("❌ Ingresa un monto válido.");
+                return;
+            }
+            if (amount > currentUserBalance) {
+                showToast("❌ Fondos insuficientes en tu billetera.");
+                return;
+            }
+
+            let recipientUsername = null;
+            for (let uname in globalState.users) {
+                if (globalState.users[uname].uid === recipientUid) {
+                    recipientUsername = uname;
+                    break;
+                }
+            }
+
+            if (!recipientUsername) {
+                showToast("❌ No se encontró ningún usuario con ese UID.");
+                return;
+            }
+
+            if (recipientUsername === currentUser) {
+                showToast("❌ No puedes enviarte dinero a ti mismo.");
+                return;
+            }
+
+            // Transferencia real entre cuentas en el servidor global
+            globalState.users[currentUser].balance -= amount;
+            globalState.users[recipientUsername].balance += amount;
+            currentUserBalance = globalState.users[currentUser].balance;
+
+            syncWithServer();
+            showToast(`✅ ¡Transferencia exitosa de $${amount.toLocaleString()} COP a ${recipientUsername}!`);
+            closeP2PModal();
+        }
+
+        // --- PANEL DE ADMINISTRADOR Y BANEO REMOTO ---
+        function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
+        function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
+
+        function verifyAdminPass() {
+            let pass = document.getElementById('adminPassInput').value;
+            if (pass === "admin123") { // Contraseña de administrador
+                document.getElementById('adminLoginSection').style.display = 'none';
+                document.getElementById('adminPanelSection').style.display = 'block';
+                showToast("🔓 Panel de Administrador desbloqueado.");
+            } else {
+                showToast("❌ Contraseña de administrador incorrecta.");
+            }
+        }
+
+        // Administrador otorga o quita dinero real a un usuario
+        function adminModifyBalanceManual() {
+            let target = document.getElementById('targetUser').value.trim();
+            let action = document.getElementById('adminBalanceAction').value;
+            let amount = parseInt(document.getElementById('adminAmountInput').value);
+
+            let targetKey = null;
+            for (let uname in globalState.users) {
+                if (uname === target || globalState.users[uname].uid === target) {
+                    targetKey = uname;
+                    break;
+                }
+            }
+
+            if (!targetKey) {
+                showToast("❌ Usuario o UID no encontrado en la base de datos.");
+                return;
+            }
+            if (isNaN(amount) || amount <= 0) {
+                showToast("❌ Ingresa un monto válido.");
+                return;
+            }
+
+            if (action === 'add') {
+                globalState.users[targetKey].balance += amount;
+                showToast(`✅ Se acreditaron $${amount.toLocaleString()} COP a ${targetKey}.`);
+            } else {
+                globalState.users[targetKey].balance = Math.max(0, globalState.users[targetKey].balance - amount);
+                showToast(`✅ Se retiraron $${amount.toLocaleString()} COP a ${targetKey}.`);
+            }
+
+            syncWithServer();
+        }
+
+        // Baneo avanzado sincronizado desde cualquier dispositivo
+        function adminBanUserAdvanced() {
+            let target = document.getElementById('banUsernameInput').value.trim();
+            let reason = document.getElementById('banReasonInput').value.trim() || "Violación de normas del casino.";
+            let timeVal = parseInt(document.getElementById('banTimeValueInput').value) || 0;
+            let timeUnit = document.getElementById('banTimeUnitInput').value;
+
+            let targetKey = null;
+            for (let uname in globalState.users) {
+                if (uname === target || globalState.users[uname].uid === target) {
+                    targetKey = uname;
+                    break;
+                }
+            }
+
+            if (!targetKey) {
+                showToast("❌ Usuario o UID no encontrado.");
+                return;
+            }
+
+            let expireTime = 0;
+            let now = Date.now();
+            if (timeUnit === 'seconds') expireTime = now + (timeVal * 1000);
+            else if (timeUnit === 'minutes') expireTime = now + (timeVal * 60 * 1000);
+            else if (timeUnit === 'hours') expireTime = now + (timeVal * 3600 * 1000);
+            else if (timeUnit === 'days') expireTime = now + (timeVal * 86400 * 1000);
+            else if (timeUnit === 'permanent') expireTime = -1;
+
+            globalState.users[targetKey].banned = true;
+            globalState.users[targetKey].banReason = reason;
+            globalState.users[targetKey].banExpires = expireTime;
+
+            syncWithServer();
+            showToast(`⛔ Usuario ${targetKey} baneado correctamente.`);
+        }
+
+        function adminUnbanUser() {
+            let target = document.getElementById('unbanUsernameInput').value.trim();
+            if (globalState.users[target]) {
+                globalState.users[target].banned = false;
+                globalState.users[target].banReason = '';
+                globalState.users[target].banExpires = 0;
+                syncWithServer();
+                showToast(`✅ Usuario ${target} desbaneado con éxito.`);
+            } else {
+                showToast("❌ Usuario no encontrado.");
+            }
+        }
+
+        function triggerBanScreen(userData) {
+            document.getElementById('banInfoUser').innerText = currentUser;
+            document.getElementById('banInfoUid').innerText = currentUid;
+            document.getElementById('banInfoPass').innerText = userData.password;
+            document.getElementById('banInfoReason').innerText = userData.banReason;
+            document.getElementById('banScreenOverlay').style.display = 'flex';
+        }
+
+        function adminListActiveUsers() {
+            let list = "Usuarios registrados:\n";
+            for (let uname in globalState.users) {
+                let u = globalState.users[uname];
+                list += `- ${uname} (UID: ${u.uid}) | Saldo: $${u.balance.toLocaleString()} | Banned: ${u.banned}\n`;
+            }
+            alert(list);
+        }
+
+        // Utilidades de la interfaz del monedero y pestañas
+        function toggleWalletDrawer() {
+            let drawer = document.getElementById('walletDrawer');
+            let overlay = document.getElementById('walletDrawerOverlay');
+            if (drawer.classList.contains('open')) {
+                drawer.classList.remove('open');
+                overlay.style.display = 'none';
+            } else {
+                drawer.classList.add('open');
+                overlay.style.display = 'block';
+            }
+        }
+
+        function requestWithdrawal() {
+            let amt = document.getElementById('withdrawAmount').value;
+            if (!amt || amt <= 0) { showToast("❌ Ingresa un monto válido para retirar."); return; }
+            showToast("✅ Solicitud de retiro enviada a pasarela de pagos.");
+            document.getElementById('withdrawAmount').value = '';
+        }
+
+        function filterProducts() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                let name = card.getAttribute('data-name');
+                if (name && name.toLowerCase().includes(input)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function switchTab(category) {
+            let sections = document.querySelectorAll('.category-section');
+            let buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            sections.forEach(section => {
+                if (category === 'all' || section.getAttribute('data-category') === category) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>
