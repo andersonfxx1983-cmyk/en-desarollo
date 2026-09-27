@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARIA GOLD CASINO | Experiencia de Juego Exclusiva</title>
+    <title>ARIA GOLD CASINO | Experiencia Vegas VIP</title>
     <style>
         :root {
             --bg-main: #07090e;
@@ -41,7 +41,7 @@
             position: fixed;
             bottom: 25px;
             right: 25px;
-            z-index: 3000;
+            z-index: 5000;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -55,7 +55,7 @@
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.7);
             font-size: 14px;
-            animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), fadeOut 0.4s ease 2.8s forwards;
+            animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid rgba(241, 196, 15, 0.25);
             backdrop-filter: blur(10px);
         }
@@ -65,29 +65,19 @@
             to { transform: translateX(0) scale(1); opacity: 1; }
         }
 
-        @keyframes fadeOut {
-            to { opacity: 0; transform: translateY(15px); }
-        }
-
-        .auth-overlay, .modal-overlay, .wallet-drawer-overlay, .p2p-modal-overlay, .ban-screen-overlay {
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(4, 6, 10, 0.85);
+            background-color: rgba(4, 6, 10, 0.88);
             backdrop-filter: blur(12px);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .ban-screen-overlay {
-            background: linear-gradient(135deg, rgba(120, 0, 0, 0.95), rgba(40, 0, 0, 0.99)) !important;
-            z-index: 99999 !important;
-            display: none;
+            animation: fadeIn 0.3s ease;
         }
 
         @keyframes fadeIn {
@@ -95,12 +85,12 @@
             to { opacity: 1; }
         }
 
-        .auth-card, .modal-card, .ban-card {
+        .modal-card {
             background: linear-gradient(145deg, #131a2b, #0e1320);
             border: 2px solid rgba(241, 196, 15, 0.4);
-            padding: 40px;
+            padding: 35px;
             border-radius: 20px;
-            width: 480px;
+            width: 540px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), var(--shadow-gold);
             text-align: center;
             max-height: 90vh;
@@ -108,83 +98,23 @@
             animation: scaleUp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .ban-card {
-            background: linear-gradient(145deg, #2a0808, #150202) !important;
-            border: 2px solid var(--accent-red) !important;
-            box-shadow: 0 0 60px rgba(239, 68, 68, 0.7) !important;
-            width: 520px;
-        }
-
         @keyframes scaleUp {
             from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
-        .auth-card h2, .modal-card h2 {
+        .modal-card h2 {
             color: var(--accent-gold);
-            margin-bottom: 25px;
-            font-size: 26px;
+            margin-bottom: 20px;
+            font-size: 24px;
             letter-spacing: 2px;
             text-shadow: 0 2px 15px rgba(241, 196, 15, 0.4);
         }
 
-        /* Reloj analógico de manecillas */
-        .analog-clock {
-            width: 110px;
-            height: 110px;
-            border: 4px solid var(--text-white);
-            border-radius: 50%;
-            margin: 0 auto 10px auto;
-            position: relative;
-            background: rgba(0,0,0,0.3);
-            box-shadow: 0 0 15px rgba(255,255,255,0.3);
-        }
-
-        .clock-center {
-            width: 8px;
-            height: 8px;
-            background: var(--text-white);
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-        }
-
-        .hand {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform-origin: bottom;
-            border-radius: 4px;
-        }
-
-        .hour-hand {
-            width: 4px;
-            height: 30px;
-            background: var(--text-white);
-            z-index: 3;
-        }
-
-        .minute-hand {
-            width: 3px;
-            height: 42px;
-            background: var(--accent-gold-light);
-            z-index: 4;
-        }
-
-        .second-hand {
-            width: 2px;
-            height: 48px;
-            background: var(--accent-red);
-            z-index: 5;
-        }
-
-        .auth-card input, .modal-card input, .modal-card select, .modal-card textarea {
+        .modal-card input, .modal-card select {
             width: 100%;
-            padding: 14px 18px;
-            margin-bottom: 16px;
+            padding: 12px 16px;
+            margin-bottom: 14px;
             background-color: var(--bg-input);
             border: 1px solid rgba(241, 196, 15, 0.3);
             border-radius: 10px;
@@ -194,49 +124,48 @@
             font-size: 14px;
         }
 
-        .auth-card input:focus, .modal-card input:focus, .modal-card select:focus {
+        .modal-card input:focus, .modal-card select:focus {
             border-color: var(--accent-gold);
-            box-shadow: 0 0 20px rgba(241, 196, 15, 0.35);
+            box-shadow: 0 0 15px rgba(241, 196, 15, 0.35);
             background-color: #212b42;
         }
 
-        .auth-card button, .modal-card button {
+        .modal-card button {
             width: 100%;
-            padding: 14px;
+            padding: 13px;
             background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
             color: var(--bg-main);
             border: none;
             border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            margin-bottom: 12px;
-            letter-spacing: 1.2px;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
             box-shadow: 0 6px 20px rgba(241, 196, 15, 0.3);
             font-size: 14px;
         }
 
-        .auth-card button:hover, .modal-card button:hover {
-            transform: translateY(-3px);
+        .modal-card button:hover:not(:disabled) {
+            transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(241, 196, 15, 0.5);
             filter: brightness(1.1);
         }
 
-        .switch-auth {
+        .modal-card button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(1);
+        }
+
+        .auth-switch-text {
             color: var(--text-gray);
             font-size: 13px;
+            margin-top: 10px;
             cursor: pointer;
             text-decoration: underline;
-            transition: color 0.2s;
-            margin-top: 10px;
-            display: inline-block;
         }
-
-        .switch-auth:hover { color: var(--accent-gold-light); }
-
-        .main-app {
-            display: none;
-        }
+        .auth-switch-text:hover { color: var(--accent-gold); }
 
         header {
             background: rgba(17, 22, 34, 0.9);
@@ -253,31 +182,14 @@
         }
 
         .logo {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             color: var(--accent-gold);
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             display: flex;
             align-items: center;
             gap: 12px;
             text-shadow: 0 2px 15px rgba(241, 196, 15, 0.5);
-        }
-
-        .search-container input {
-            padding: 12px 22px;
-            width: 320px;
-            background-color: var(--bg-input);
-            border: 1px solid rgba(241, 196, 15, 0.3);
-            border-radius: 30px;
-            color: var(--text-white);
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .search-container input:focus {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);
-            width: 350px;
         }
 
         .header-actions {
@@ -289,21 +201,29 @@
         .user-badge {
             font-size: 13px;
             background: var(--bg-input);
-            padding: 10px 18px;
+            padding: 6px 14px;
             border-radius: 25px;
             border: 1px solid rgba(241, 196, 15, 0.3);
             color: var(--accent-gold-light);
             font-weight: 600;
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            line-height: 1.2;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .user-badge span.uid-small {
-            font-size: 10px;
-            color: var(--text-gray);
-            font-family: monospace;
+        .user-badge:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 15px rgba(241,196,15,0.3);
+        }
+
+        .profile-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-gold);
+            object-fit: cover;
         }
 
         .wallet-btn {
@@ -317,51 +237,30 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s;
             box-shadow: 0 4px 18px rgba(241,196,15,0.3);
         }
 
         .wallet-btn:hover {
-            transform: scale(1.06);
+            transform: scale(1.05);
             box-shadow: 0 6px 22px rgba(241,196,15,0.5);
         }
 
-        .p2p-btn {
-            background: linear-gradient(135deg, var(--accent-purple), #7c3aed);
-            border: none;
-            color: var(--text-white);
-            padding: 11px 18px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(139,92,246,0.3);
-        }
-
-        .p2p-btn:hover {
-            transform: scale(1.06);
-            box-shadow: 0 6px 20px rgba(139,92,246,0.5);
-        }
-
-        .settings-btn {
+        .settings-btn, .logout-btn {
             background: var(--bg-input);
             border: 1px solid var(--accent-gold);
             color: var(--accent-gold);
-            padding: 11px 18px;
+            padding: 10px 16px;
             border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
         }
 
-        .settings-btn:hover {
+        .settings-btn:hover, .logout-btn:hover {
             background: var(--accent-gold);
             color: var(--bg-main);
-            box-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
-            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(241, 196, 15, 0.5);
         }
 
         .wallet-drawer {
@@ -379,55 +278,7 @@
             transition: right 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .wallet-drawer.open {
-            right: 0;
-        }
-
-        .wallet-actions {
-            display: grid;
-            gap: 16px;
-        }
-
-        .glass-panel {
-            background: rgba(17, 20, 31, 0.86);
-            border: 1px solid rgba(241, 196, 15, 0.22);
-            border-radius: 16px;
-            padding: 18px;
-            box-shadow: inset 0 0 18px rgba(255,255,255,0.02), 0 14px 30px rgba(0,0,0,0.35);
-        }
-
-        .wallet-action-title {
-            color: var(--accent-gold);
-            margin-bottom: 12px;
-            font-size: 14px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .topup-btn {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #22c55e, #15803d);
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .topup-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 22px rgba(34, 197, 94, 0.35);
-        }
-
-        .admin-transaction-box {
-            background: rgba(12, 18, 30, 0.8);
-            border: 1px solid rgba(241, 196, 15, 0.25);
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 12px;
-        }
+        .wallet-drawer.open { right: 0; }
 
         .wallet-header {
             padding: 25px;
@@ -437,11 +288,7 @@
             align-items: center;
         }
 
-        .wallet-header h3 {
-            color: var(--accent-gold);
-            font-size: 20px;
-            letter-spacing: 1px;
-        }
+        .wallet-header h3 { color: var(--accent-gold); font-size: 20px; }
 
         .close-drawer {
             background: none;
@@ -449,10 +296,7 @@
             color: var(--text-gray);
             font-size: 26px;
             cursor: pointer;
-            transition: color 0.2s;
         }
-
-        .close-drawer:hover { color: var(--text-white); }
 
         .wallet-content {
             flex: 1;
@@ -460,90 +304,76 @@
             padding: 25px;
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            gap: 20px;
         }
 
         .wallet-balance-box {
             background: var(--bg-input);
-            padding: 24px;
+            padding: 20px;
             border-radius: 14px;
             text-align: center;
             border: 1px solid rgba(241, 196, 15, 0.3);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
         }
 
-        .wallet-balance-box h4 {
-            color: var(--text-gray);
-            font-size: 13px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .wallet-balance-box h4 { color: var(--text-gray); font-size: 12px; margin-bottom: 6px; }
+        .wallet-balance-box span { color: var(--accent-gold); font-size: 30px; font-weight: bold; }
+
+        .glass-panel {
+            background: rgba(17, 20, 31, 0.86);
+            border: 1px solid rgba(241, 196, 15, 0.22);
+            border-radius: 16px;
+            padding: 18px;
         }
 
-        .wallet-balance-box span {
-            color: var(--accent-gold);
-            font-size: 32px;
-            font-weight: bold;
-            text-shadow: 0 2px 12px rgba(241,196,15,0.35);
-        }
-
-        .withdraw-section {
-            background: var(--bg-input);
-            padding: 22px;
-            border-radius: 14px;
-            border: 1px solid rgba(241, 196, 15, 0.2);
-        }
-
-        .withdraw-section h4 {
-            color: var(--text-white);
-            font-size: 15px;
-            margin-bottom: 15px;
-        }
-
-        .withdraw-section input {
+        .topup-btn, .withdraw-btn {
             width: 100%;
-            padding: 13px;
-            margin-bottom: 12px;
-            background-color: var(--bg-main);
-            border: 1px solid rgba(241, 196, 15, 0.3);
-            border-radius: 8px;
-            color: var(--text-white);
-            outline: none;
-        }
-
-        .withdraw-btn {
-            width: 100%;
-            padding: 13px;
-            background: linear-gradient(135deg, var(--accent-green), #059669);
-            color: white;
+            padding: 12px;
             border: none;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(16,185,129,0.3);
+            transition: all 0.3s;
         }
 
-        .withdraw-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16,185,129,0.5);
-        }
+        .topup-btn { background: linear-gradient(135deg, #22c55e, #15803d); color: white; }
+        .withdraw-btn { background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); }
 
-        .admin-section-box {
-            background: rgba(26, 33, 51, 0.7);
-            border: 1px dashed rgba(241, 196, 15, 0.4);
-            padding: 18px;
+        .admin-box {
+            background: rgba(22, 30, 48, 0.95);
+            border: 1px solid var(--accent-gold);
             border-radius: 12px;
-            margin-bottom: 15px;
+            padding: 18px;
+            margin-top: 15px;
+            text-align: left;
         }
 
-        .admin-section-box h5 {
+        .admin-box h4 {
             color: var(--accent-gold);
-            font-size: 14px;
-            margin-bottom: 10px;
+            font-size: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            border-bottom: 1px solid rgba(241, 196, 15, 0.2);
+            padding-bottom: 6px;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .admin-grid button {
+            padding: 9px;
+            font-size: 11px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 30px 20px;
         }
 
         .casino-banner {
@@ -555,102 +385,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 10px 35px rgba(241, 196, 15, 0.1);
-            position: relative;
-            overflow: hidden;
         }
 
-        .casino-banner::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(241, 196, 15, 0.07) 0%, transparent 65%);
-            animation: pulseGlow 7s infinite linear;
-        }
-
-        @keyframes pulseGlow {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.12); }
-            100% { transform: scale(1); }
-        }
-
-        .banner-info h3 {
-            color: var(--accent-gold);
-            margin-bottom: 6px;
-            font-size: 22px;
-            letter-spacing: 1px;
-        }
-
-        .banner-info p {
-            color: var(--text-gray);
-            font-size: 14px;
-        }
-
-        .vip-badge-box {
-            background: var(--bg-main);
-            border: 1px solid var(--accent-gold);
-            padding: 14px 22px;
-            border-radius: 10px;
-            color: var(--accent-gold-light);
-            font-weight: bold;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(241,196,15,0.25);
-            z-index: 1;
-        }
-
-        .categories {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 10px 0 30px 0;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            background-color: var(--bg-card);
-            border: 1px solid var(--bg-input);
-            color: var(--text-gray);
-            padding: 12px 26px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            font-size: 14px;
-        }
-
-        .tab-btn.active, .tab-btn:hover {
-            background-color: var(--accent-gold);
-            color: var(--bg-main);
-            box-shadow: 0 0 25px rgba(241, 196, 15, 0.5);
-            border-color: var(--accent-gold);
-            transform: translateY(-2px);
-        }
-
-        .container {
-            max-width: 1250px;
-            margin: 0 auto;
-            padding: 0 20px 40px 20px;
-        }
-
-        .category-section {
-            margin-bottom: 45px;
-        }
-
-        .category-section h2 {
-            font-size: 22px;
-            margin-bottom: 22px;
-            border-left: 4px solid var(--accent-gold);
-            padding-left: 12px;
-            color: var(--accent-gold-light);
-            text-shadow: 0 2px 10px rgba(241, 196, 15, 0.2);
-        }
+        .banner-info h3 { color: var(--accent-gold); font-size: 22px; margin-bottom: 6px; }
+        .banner-info p { color: var(--text-gray); font-size: 14px; }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
         }
 
@@ -658,548 +400,214 @@
             background-color: var(--bg-card);
             border: 1px solid var(--bg-input);
             border-radius: 14px;
-            padding: 24px;
-            transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+            padding: 22px;
+            transition: all 0.3s;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(241, 196, 15, 0.22);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(241, 196, 15, 0.2);
             border-color: rgba(241, 196, 15, 0.5);
         }
 
-        .product-card:hover::after {
-            opacity: 1;
-        }
-
-        .product-card h3 {
-            font-size: 18px;
-            color: var(--accent-gold);
-            margin-bottom: 10px;
-        }
-
-        .product-card p {
-            color: var(--text-gray);
-            font-size: 14px;
-            margin-bottom: 22px;
-            min-height: 42px;
-            line-height: 1.4;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .price {
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--accent-green);
-        }
+        .product-card h3 { color: var(--accent-gold); font-size: 18px; margin-bottom: 8px; }
+        .product-card p { color: var(--text-gray); font-size: 13px; margin-bottom: 18px; }
 
         .play-game-btn {
-            padding: 11px 20px;
+            padding: 10px 18px;
             background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
             color: var(--bg-main);
             border: none;
-            font-size: 13px;
             font-weight: bold;
             border-radius: 8px;
-            transition: all 0.3s ease;
             cursor: pointer;
-            box-shadow: 0 4px 14px rgba(241,196,15,0.3);
+            transition: all 0.3s;
         }
 
-        .play-game-btn:hover {
-            transform: scale(1.06);
-            box-shadow: 0 6px 20px rgba(241,196,15,0.5);
-        }
-
-        .game-modal-card {
-            background: linear-gradient(145deg, #131a2b, #0e1320);
-            border: 2px solid var(--accent-gold);
-            padding: 32px;
-            border-radius: 18px;
-            width: 600px;
-            box-shadow: 0 0 70px rgba(241, 196, 15, 0.35);
-            text-align: center;
-            max-height: 95vh;
-            overflow-y: auto;
-            animation: scaleUp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .game-header {
+        .profile-info-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
-            border-bottom: 1px solid var(--bg-input);
-            padding-bottom: 12px;
+            background: var(--bg-input);
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 13px;
         }
 
-        .game-header h2 {
-            color: var(--accent-gold);
-            font-size: 21px;
-            margin: 0;
-            text-shadow: 0 2px 8px rgba(241,196,15,0.3);
-        }
+        .profile-info-row span:first-child { color: var(--text-gray); }
+        .profile-info-row span:last-child { color: var(--accent-gold-light); font-weight: bold; }
 
-        .close-game {
-            background: none;
-            border: none;
-            color: var(--text-gray);
-            font-size: 26px;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .close-game:hover { color: var(--text-white); }
-
-        .game-screen {
-            background: var(--bg-main);
-            border: 1px solid rgba(241, 196, 15, 0.3);
-            border-radius: 14px;
-            padding: 28px;
-            margin-bottom: 22px;
-            min-height: 200px;
+        /* ESTILOS DE JUEGOS Y ANIMACIONES */
+        .game-arena {
+            background: #0a0d14;
+            border: 2px solid var(--accent-gold);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 18px;
+            min-height: 190px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            box-shadow: inset 0 0 25px rgba(0,0,0,0.7);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
             overflow: hidden;
-            animation: scenePulse 2.2s ease-in-out infinite alternate;
         }
 
-        .game-screen::before {
-            content: '';
-            position: absolute;
-            inset: -40% 0 auto 0;
-            height: 150%;
-            background: linear-gradient(180deg, rgba(241,196,15,0.12), transparent 45%, rgba(139,92,246,0.08));
-            animation: shimmer 4s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes scenePulse {
-            0% { box-shadow: inset 0 0 25px rgba(0,0,0,0.7), 0 0 0 rgba(241,196,15,0.0); }
-            100% { box-shadow: inset 0 0 25px rgba(0,0,0,0.7), 0 0 30px rgba(241,196,15,0.12); }
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateY(-8%) rotate(0deg); opacity: 0.25; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(8%) rotate(0deg); opacity: 0.25; }
-        }
-
-        .game-controls {
+        .slots-box {
             display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .bet-input-row {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .bet-input-row label {
-            color: var(--text-gray);
-            font-size: 13px;
-            white-space: nowrap;
-        }
-
-        .bet-input-row input {
-            flex: 1;
-            padding: 11px;
-            background: var(--bg-input);
-            border: 1px solid rgba(241, 196, 15, 0.3);
-            border-radius: 8px;
-            color: white;
-            outline: none;
-        }
-
-        .slots-container {
-            display: flex;
-            gap: 18px;
-            justify-content: center;
-            font-size: 48px;
-            margin: 15px 0;
+            gap: 15px;
+            font-size: 55px;
         }
 
         .slot-reel {
-            background: linear-gradient(180deg, #1d2438, #121827);
+            background: #151c2e;
             border: 2px solid var(--accent-gold);
             width: 80px;
-            height: 100px;
+            height: 90px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 10px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.7), 0 0 18px rgba(241,196,15,0.18);
-            text-shadow: 0 2px 12px rgba(255,255,255,0.25);
-            position: relative;
-            overflow: hidden;
-            perspective: 600px;
-            transform-style: preserve-3d;
+            border-radius: 12px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.9);
         }
 
-        .slot-reel::before {
-            content: '';
-            position: absolute;
-            inset: -20% 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
-            transform: translateX(-120%) skewX(-18deg);
-            opacity: 0;
+        .spinning {
+            animation: slotSpin 0.15s linear infinite;
         }
 
-        .slot-reel.spinning {
-            animation: reelSpin 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) infinite alternate;
-            box-shadow: 0 0 28px rgba(241,196,15,0.45), inset 0 0 18px rgba(0,0,0,0.9);
+        @keyframes slotSpin {
+            0% { transform: translateY(-10px) scale(0.9); filter: blur(2px); }
+            50% { transform: translateY(10px) scale(1.1); filter: blur(4px); }
+            100% { transform: translateY(-10px) scale(0.9); filter: blur(2px); }
         }
 
-        .slot-reel.spinning::before {
-            opacity: 1;
-            animation: shinePass 0.9s ease-in-out infinite;
-        }
-
-        .slot-reel.settled {
-            animation: settleBounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        @keyframes shinePass {
-            0% { transform: translateX(-120%) skewX(-18deg); }
-            100% { transform: translateX(140%) skewX(-18deg); }
-        }
-
-        @keyframes reelSpin {
-            0% { transform: rotateY(0deg) scale(0.98); filter: brightness(1); }
-            25% { transform: rotateY(90deg) scale(1.06); filter: brightness(1.2); }
-            50% { transform: rotateY(180deg) scale(1.1); filter: brightness(1.35); }
-            75% { transform: rotateY(270deg) scale(1.06); filter: brightness(1.2); }
-            100% { transform: rotateY(360deg) scale(1); filter: brightness(1); }
-        }
-
-        @keyframes settleBounce {
-            0% { transform: scale(0.95); }
-            45% { transform: scale(1.12); }
-            100% { transform: scale(1); }
-        }
-
-        .jackpot-flash {
-            animation: jackpotFlash 0.7s ease-in-out infinite alternate;
-        }
-
-        @keyframes jackpotFlash {
-            0% { box-shadow: 0 0 0 rgba(241,196,15,0.0); transform: scale(1); }
-            100% { box-shadow: 0 0 30px rgba(241,196,15,0.6), 0 0 60px rgba(241,196,15,0.35); transform: scale(1.02); }
-        }
-
-        .roulette-wheel {
-            width: 115px;
-            height: 115px;
-            border: 4px solid var(--accent-gold);
+        .roulette-wheel-box {
+            width: 120px;
+            height: 120px;
+            border: 6px solid var(--accent-gold);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
-            background: var(--bg-input);
-            margin: 10px auto;
-            box-shadow: 0 0 25px rgba(241,196,15,0.35);
-            transition: transform 0.8s cubic-bezier(0.15, 1, 0.2, 1);
+            background: radial-gradient(circle, #1e293b, #0f172a);
+            box-shadow: 0 0 30px rgba(241,196,15,0.4);
+            transition: transform 2s cubic-bezier(0.1, 0.8, 0.1, 1);
         }
 
-        .roulette-wheel.spin {
-            animation: rouletteSpin 1.4s cubic-bezier(0.12, 0.8, 0.18, 1);
+        .wheel-fast-spin {
+            animation: spinWheel 0.2s linear infinite;
         }
 
-        @keyframes rouletteSpin {
-            0% { transform: rotate(0deg) scale(1); }
-            40% { transform: rotate(320deg) scale(1.08); }
-            100% { transform: rotate(1140deg) scale(1); }
+        @keyframes spinWheel {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        .roulette-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .roulette-opt-btn {
-            padding: 9px;
-            background: var(--bg-input);
-            border: 1px solid rgba(241, 196, 15, 0.3);
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 12px;
-            transition: all 0.2s;
-        }
-
-        .roulette-opt-btn.selected {
-            background: var(--accent-gold);
-            color: var(--bg-main);
-            box-shadow: 0 0 12px rgba(241,196,15,0.5);
-        }
-
-        .bj-cards-container {
-            display: flex;
-            gap: 10px;
-            margin: 10px 0;
-            justify-content: center;
-            min-height: 78px;
-        }
-
-        .bj-card {
-            background: #ffffff;
-            color: #111;
-            width: 52px;
-            height: 75px;
-            border-radius: 7px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 6px;
-            font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-            transform-origin: center bottom;
-        }
-
-        .bj-card.deal {
-            animation: cardDeal 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes cardDeal {
-            0% { transform: translateY(-30px) rotate(-10deg) scale(0.75); opacity: 0; }
-            60% { opacity: 1; }
-            100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
-        }
-
-        .crash-multiplier {
-            font-size: 45px;
+        .crash-value {
+            font-size: 50px;
             font-weight: bold;
             color: var(--accent-gold);
-            letter-spacing: 2px;
-            text-shadow: 0 0 25px rgba(241,196,15,0.5);
+            text-shadow: 0 0 20px rgba(241,196,15,0.6);
         }
 
-        .dice-box {
+        .dice-container {
             display: flex;
-            gap: 22px;
-            font-size: 45px;
-            margin: 15px 0;
+            gap: 20px;
+            font-size: 50px;
         }
 
-        .dice {
-            background: #fff;
-            color: #111;
-            width: 68px;
-            height: 68px;
-            border-radius: 12px;
+        .dice-roll {
+            animation: diceShake 0.1s linear infinite;
+        }
+
+        @keyframes diceShake {
+            0% { transform: rotate(-20deg) scale(0.9); }
+            50% { transform: rotate(20deg) scale(1.1); }
+            100% { transform: rotate(-20deg) scale(0.9); }
+        }
+
+        .card-hand {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 6px 22px rgba(0,0,0,0.6);
-        }
-
-        .scratch-card-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
             gap: 12px;
-            margin: 15px 0;
         }
 
-        .scratch-cell {
-            background: var(--bg-input);
-            border: 2px dashed var(--accent-gold);
-            height: 65px;
+        .card-item {
+            background: #ffffff;
+            color: #111;
+            width: 60px;
+            height: 85px;
+            border-radius: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 26px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .scratch-cell.revealed {
-            border-style: solid;
-            background: #252d42;
-            animation: scratchPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        @keyframes scratchPop {
-            0% { transform: scale(0.7) rotateY(0deg); }
-            50% { transform: scale(1.1) rotateY(90deg); }
-            100% { transform: scale(1) rotateY(180deg); }
-        }
-
-        .wheel-fortune {
-            width: 125px;
-            height: 125px;
-            border-radius: 50%;
-            border: 5px solid var(--accent-gold);
-            background: conic-gradient(#ef4444 0deg 60deg, #f1c40f 60deg 120deg, #10b981 120deg 180deg, #3b82f6 180deg 240deg, #8b5cf6 240deg 300deg, #f97316 300deg 360deg);
-            margin: 10px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
             font-weight: bold;
-            box-shadow: 0 0 30px rgba(241,196,15,0.45);
-            transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+            border: 1px solid #ccc;
         }
 
-        .wheel-fortune.spin {
-            animation: wheelSpin 1.4s cubic-bezier(0.12, 0.8, 0.18, 1);
-        }
-
-        @keyframes wheelSpin {
-            0% { transform: rotate(0deg) scale(1); }
-            40% { transform: rotate(260deg) scale(1.08); }
-            100% { transform: rotate(1120deg) scale(1); }
-        }
-
-        .mine-grid {
+        .grid-5x5 {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 8px;
             width: 100%;
-            margin: 10px 0;
+            max-width: 320px;
         }
 
-        .mine-cell {
-            height: 52px;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.06);
+        .grid-cell {
+            background: var(--bg-input);
             border: 1px solid rgba(241,196,15,0.3);
-            color: var(--accent-gold);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .mine-cell.revealed {
-            background: rgba(16,185,129,0.18);
-            border-color: rgba(16,185,129,0.6);
-            animation: mineReveal 0.5s ease;
-        }
-
-        .mine-cell.bomb {
-            background: rgba(239,68,68,0.2);
-            border-color: rgba(239,68,68,0.7);
-            animation: bombHit 0.5s ease;
-        }
-
-        @keyframes mineReveal {
-            0% { transform: scale(0.8); opacity: 0.6; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes bombHit {
-            0% { transform: scale(1); }
-            30% { transform: scale(1.12) rotateZ(8deg); }
-            60% { transform: scale(0.98) rotateZ(-8deg); }
-            100% { transform: scale(1); }
-        }
-
-        .keno-board {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            width: 100%;
-            margin: 15px 0;
-        }
-
-        .keno-number {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(241,196,15,0.25);
-            border-radius: 10px;
+            border-radius: 8px;
             height: 48px;
             display: flex;
             justify-content: center;
             align-items: center;
+            font-size: 18px;
             cursor: pointer;
-            transition: all 0.25s ease;
             font-weight: bold;
+            user-select: none;
+            transition: all 0.2s;
         }
 
-        .keno-number.selected {
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
-            color: var(--bg-main);
-            box-shadow: 0 0 14px rgba(241,196,15,0.35);
+        .grid-cell:hover {
+            border-color: var(--accent-gold);
+            background: #25314d;
         }
 
-        .hilo-card-display {
+        .grid-cell.revealed {
+            background: #1e293b;
+            border-color: var(--accent-gold);
+        }
+
+        .coin-flip-anim {
+            animation: coinFlip 0.5s ease-in-out infinite;
+        }
+
+        @keyframes coinFlip {
+            0% { transform: rotateY(0deg) scale(1); }
+            50% { transform: rotateY(180deg) scale(1.2); }
+            100% { transform: rotateY(360deg) scale(1); }
+        }
+
+        .chests-container {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            margin: 15px 0;
+            gap: 20px;
+            font-size: 50px;
         }
 
-        .hilo-card {
-            width: 90px;
-            height: 120px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 38px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #fff, #dfe7fa);
-            color: #111827;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-            transform-origin: center;
+        .chest-item {
+            cursor: pointer;
+            transition: transform 0.2s;
         }
 
-        .hilo-card.flip {
-            animation: cardFlip 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes cardFlip {
-            0% { transform: rotateY(0deg) scale(0.8); opacity: 0.5; }
-            50% { transform: rotateY(90deg) scale(1.05); }
-            100% { transform: rotateY(180deg) scale(1); opacity: 1; }
-        }
-
-        #gameModalBody.locked {
-            pointer-events: none;
-            opacity: 0.92;
-        }
-
-        #gameModalBody button:disabled,
-        #gameModalBody input:disabled {
-            opacity: 0.55;
-            cursor: not-allowed;
-            pointer-events: none;
+        .chest-item:hover {
+            transform: scale(1.15);
         }
     </style>
 </head>
@@ -1207,1665 +615,1032 @@
 
     <div id="toastContainer"></div>
 
-    <!-- PANTALLA ROJA DE BANEO OBLIGATORIA (INSTANTÁNEA) -->
-    <div id="banScreenOverlay" class="ban-screen-overlay" style="display: none;">
-        <div class="ban-card">
-            <div class="analog-clock" id="banClock">
-                <div class="clock-center"></div>
-                <div class="hand hour-hand" id="banHourHand"></div>
-                <div class="hand minute-hand" id="banMinHand"></div>
-                <div class="hand second-hand" id="banSecHand"></div>
-            </div>
-            <h1 style="color: var(--accent-gold); font-size: 19px; letter-spacing: 2px; margin-bottom: 15px;">Aria Gold Casino</h1>
+    <!-- MODAL DE AUTENTICACIÓN (LOGIN / REGISTRO) -->
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-card">
+            <h2 id="authTitle">⚜️ INICIAR SESIÓN</h2>
             
-            <div style="background: rgba(0, 0, 0, 0.4); border: 1px solid var(--accent-red); padding: 16px; border-radius: 12px; text-align: left; display: flex; flex-direction: column; gap: 8px; font-size: 13px; margin-bottom: 20px;">
-                <p style="color: var(--accent-red); font-weight: bold; text-align: center; font-size: 15px; margin-bottom: 5px;">⛔ ACCESO SUSPENDIDO ⛔</p>
-                <p><strong>Usuario:</strong> <span id="banInfoUser" style="color: var(--text-white);">---</span></p>
-                <p><strong>UID:</strong> <span id="banInfoUid" style="color: var(--text-white); font-family: monospace;">---</span></p>
-                <p><strong>Contraseña:</strong> <span id="banInfoPass" style="color: var(--text-white); font-family: monospace;">---</span></p>
-                <p><strong>Motivo del baneo:</strong> <span id="banInfoReason" style="color: var(--text-white);">Incumplimiento de términos de servicio.</span></p>
-                <p><strong>Baneado por:</strong> <span id="banInfoAdmin" style="color: var(--accent-gold);">Administrador General</span></p>
-                <p><strong>Tiempo restante de baneo:</strong> <span id="banInfoTimeLeft" style="color: var(--accent-red); font-weight: bold;">Calculando...</span></p>
-            </div>
-            <button onclick="location.reload()" style="background: linear-gradient(135deg, var(--accent-red), #991b1b); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%;">Reintentar Conexión</button>
-        </div>
-    </div>
+            <form id="authForm" onsubmit="handleAuthSubmit(event)">
+                <div id="registerFields" style="display: none;">
+                    <input type="email" id="regEmail" placeholder="Correo Electrónico (Gmail)">
+                    <input type="text" id="regIdentity" placeholder="Número de Documento / Identidad">
+                </div>
 
-    <div id="authOverlay" class="auth-overlay">
-        <div class="auth-card">
-            <h2 id="authTitle">Iniciar Sesión</h2>
-            <form id="authForm" onsubmit="handleAuth(event)">
-                <input type="text" id="username" placeholder="Nombre de usuario" required>
-                <input type="password" id="password" placeholder="Contraseña" required>
-                <button type="submit" id="authBtn">Acceder al Casino</button>
+                <input type="text" id="authUsername" placeholder="Nombre de Usuario" required>
+                <input type="password" id="authPassword" placeholder="Contraseña" required>
+
+                <div id="registerConfirmPassword" style="display: none;">
+                    <input type="password" id="authConfirmPassword" placeholder="Verificar Contraseña">
+                </div>
+
+                <button type="submit" id="authSubmitBtn">INGRESAR</button>
             </form>
-            <p class="switch-auth" onclick="toggleAuthMode()" id="switchText">¿No tienes cuenta? Regístrate aquí</p>
+
+            <p class="auth-switch-text" id="authToggleBtn" onclick="toggleAuthMode()">¿No tienes cuenta? Regístrate aquí</p>
         </div>
     </div>
 
-    <div id="p2pModal" class="p2p-modal-overlay" style="display: none;">
+    <!-- MODAL DE PERFIL DE USUARIO -->
+    <div id="profileModal" class="modal-overlay" style="display: none;">
         <div class="modal-card">
-            <h2>🌐 P2P Red Descentralizada</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 18px; text-align: left;">Cada dispositivo actúa como nodo servidor de red local para transferencia instantánea de fondos por UID de usuario:</p>
-            
-            <div class="admin-section-box" style="text-align: left; margin-bottom: 15px;">
-                <h5 style="color: var(--accent-purple);">📡 Tu Identificador Único (UID)</h5>
-                <p style="font-size: 13px; color: var(--accent-gold); font-family: monospace;" id="myUidDisplay">UID: Cargando...</p>
+            <h2>👤 PERFIL DE CUENTA</h2>
+            <div style="margin-bottom: 18px;">
+                <img id="modalProfileImg" src="https://via.placeholder.com/100" class="profile-avatar" style="width: 90px; height: 90px; margin-bottom: 10px;">
+                <div>
+                    <input type="text" id="newAvatarUrl" placeholder="URL de nueva foto de perfil" style="margin-bottom: 6px;">
+                    <button onclick="updateAvatar()" style="padding: 8px; font-size: 12px;">Actualizar Foto</button>
+                </div>
             </div>
 
-            <div style="text-align: left; display: flex; flex-direction: column; gap: 12px;">
-                <label style="font-size: 12px; color: var(--text-gray);">UID Destinatario:</label>
-                <input type="text" id="p2pRecipientUid" placeholder="Ej: 4928103">
-                
-                <label style="font-size: 12px; color: var(--text-gray);">Monto a Enviar (COP):</label>
-                <input type="number" id="p2pAmount" placeholder="Ej: 20000">
+            <div class="profile-info-row"><span>Usuario:</span><span id="profUser">-</span></div>
+            <div class="profile-info-row"><span>UID (ID Único):</span><span id="profUid" style="color: var(--accent-gold); font-size: 15px;">-</span></div>
+            <div class="profile-info-row"><span>Correo:</span><span id="profEmail">-</span></div>
+            <div class="profile-info-row"><span>Documento:</span><span id="profIdentity">-</span></div>
+            <div class="profile-info-row"><span>Rango VIP:</span><span id="profVip">GOLD</span></div>
+            <div class="profile-info-row"><span>Estado Billetera:</span><span id="profFreezeState" style="color: var(--accent-green);">Activa</span></div>
+            <div class="profile-info-row"><span>Probabilidad Juego:</span><span id="profRtp">0.60x (Modo Fácil / Favorable)</span></div>
 
-                <button onclick="sendP2PFonds()" style="background: linear-gradient(135deg, var(--accent-purple), #7c3aed); color: white; margin-top: 5px;">Enviar Dinero P2P por UID</button>
-            </div>
-            <button onclick="closeP2PModal()" style="background: var(--bg-input); margin-top: 10px;">Cerrar P2P</button>
+            <button onclick="closeProfileModal()" style="background: var(--bg-input); margin-top: 15px;">Cerrar</button>
         </div>
     </div>
 
-    <div id="walletDrawerOverlay" class="wallet-drawer-overlay" style="display: none;" onclick="toggleWalletDrawer()"></div>
-    <div id="walletDrawer" class="wallet-drawer">
-        <div class="wallet-header">
-            <h3>🏛️ Billetera Aria Gold</h3>
-            <button class="close-drawer" onclick="toggleWalletDrawer()">&times;</button>
-        </div>
-        <div class="wallet-content">
-            <div class="wallet-balance-box">
-                <h4>Balance Disponible</h4>
-                <span id="drawerBalance">$0 COP</span>
-            </div>
-
-            <div class="wallet-actions">
-                <div class="glass-panel">
-                    <h4 class="wallet-action-title">💳 Recargar Saldo</h4>
-                    <input type="number" id="topUpAmount" placeholder="Monto de recarga en COP">
-                    <button class="topup-btn" onclick="requestRecharge()">Recargar Dinero</button>
-                </div>
-
-                <div class="withdraw-section">
-                    <h4>🏦 Solicitar Retiro</h4>
-                    <input type="number" id="withdrawAmount" placeholder="Monto a retirar en COP">
-                    <input type="text" id="withdrawAccount" placeholder="Cuenta Bancaria / Nequi / Binance">
-                    <button class="withdraw-btn" onclick="requestWithdrawal()">Procesar Retiro</button>
-                </div>
-            </div>
-
-            <div style="margin-top: auto;">
-                <p style="color: var(--text-gray); font-size: 12px; text-align: center;">Aria Gold Casino • Operador Licenciado de Apuestas y Juegos de Azar</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="settingsModal" class="modal-overlay" style="display: none;">
-        <div class="modal-card">
-            <h2>⚙️ Configuración del Sistema</h2>
-            <div class="admin-section-box" style="text-align: left;">
-                <h5>🔊 Preferencias Generales</h5>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 14px; color: var(--text-gray);">
-                    <span>Efectos de Sonido / Audio</span>
-                    <input type="checkbox" checked style="width: 20px; height: 20px; accent-color: var(--accent-gold);">
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--text-gray);">
-                    <span>Animaciones de Alta Fluidez</span>
-                    <input type="checkbox" checked style="width: 20px; height: 20px; accent-color: var(--accent-gold);">
-                </div>
-            </div>
-
-            <div class="admin-section-box" style="border-style: solid; border-color: rgba(241, 196, 15, 0.6);">
-                <h5>🔐 Acceso a Terminal de Administrador</h5>
-                <div id="adminLoginSection">
-                    <p style="color: var(--text-gray); margin-bottom: 12px; font-size: 13px; text-align: left;">Ingrese contraseña de administrador:</p>
-                    <input type="password" id="adminPassInput" placeholder="Contraseña de Administrador">
-                    <button onclick="verifyAdminPass()">Desbloquear Panel Admin</button>
-                </div>
-                <div id="adminPanelSection" style="display: none; text-align: left;">
-                    <p style="color: var(--accent-gold); margin-bottom: 12px; font-size: 13px; font-weight: bold;">⚡ Panel de Control Administrativo Avanzado</p>
-
-                    <div class="admin-transaction-box">
-                        <label style="font-size: 12px; color: var(--text-gray);">Usuario Objetivo (Nombre o UID):</label>
-                        <input type="text" id="targetUser" placeholder="Nombre o UID exacto">
-                        <label style="font-size: 12px; color: var(--text-gray);">Monto en COP:</label>
-                        <input type="number" id="adminAmountInput" placeholder="Ej: 100000">
-                        <button onclick="adminSendMoneyToUser()" style="background: linear-gradient(135deg, var(--accent-green), #059669); margin-bottom: 10px;">Enviar Dinero al Usuario</button>
-                    </div>
-
-                    <div class="admin-transaction-box">
-                        <label style="font-size: 12px; color: var(--text-gray);">Usuario Objetivo (Nombre o UID):</label>
-                        <input type="text" id="targetUserBalance" placeholder="Nombre o UID exacto">
-                        <label style="font-size: 12px; color: var(--text-gray);">Acción sobre Balance:</label>
-                        <select id="adminBalanceAction">
-                            <option value="add">➕ Dar Dinero (Acreditar)</option>
-                            <option value="subtract">➖ Quitar Dinero (Retirar)</option>
-                        </select>
-                        <label style="font-size: 12px; color: var(--text-gray);">Monto en COP:</label>
-                        <input type="number" id="adminManualAmountInput" placeholder="Ej: 100000">
-                        <button onclick="adminModifyBalanceManual()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); margin-bottom: 10px;">Aplicar Modificación de Saldo</button>
-                    </div>
-
-                    <label style="font-size: 12px; color: var(--text-gray);">Usuario a Banear:</label>
-                    <input type="text" id="banUsernameInput" placeholder="Usuario a suspender">
-                    <label style="font-size: 12px; color: var(--text-gray);">Motivo del Baneo:</label>
-                    <input type="text" id="banReasonInput" placeholder="Ej: Uso de exploits o comportamientos fraudulentos">
-                    <label style="font-size: 12px; color: var(--text-gray);">Cantidad de Tiempo:</label>
-                    <input type="number" id="banTimeValueInput" placeholder="Ej: 30 (0 para permanente)">
-                    <label style="font-size: 12px; color: var(--text-gray);">Unidad de Tiempo:</label>
-                    <select id="banTimeUnitInput">
-                        <option value="seconds">Segundos</option>
-                        <option value="minutes">Minutos</option>
-                        <option value="hours">Horas</option>
-                        <option value="days">Días</option>
-                        <option value="months">Meses</option>
-                        <option value="permanent">Permanente</option>
-                    </select>
-                    <button onclick="adminBanUserAdvanced()" style="background: linear-gradient(135deg, var(--accent-red), #dc2626); margin-bottom: 15px;">Aplicar Suspensión/Ban</button>
-
-                    <label style="font-size: 12px; color: var(--text-gray);">Usuario a Desbanear:</label>
-                    <input type="text" id="unbanUsernameInput" placeholder="Usuario a reactivar">
-                    <button onclick="adminUnbanUser()" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); margin-bottom: 15px;">Desbanear Usuario</button>
-
-                    <label style="font-size: 12px; color: var(--text-gray);">Opciones de Administrador:</label>
-                    <button onclick="adminSetGlobalMultiplier()" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); margin-bottom: 8px;">Activar Multiplicador x2 Global</button>
-                    <button onclick="adminBroadcastNotice()" style="background: linear-gradient(135deg, #f59e0b, #d97706); margin-bottom: 8px;">Enviar Anuncio Global</button>
-                    <button onclick="adminResetAllDatabases()" style="background: linear-gradient(135deg, #ef4444, #991b1b); margin-bottom: 8px;">Reiniciar Base de Datos</button>
-                    <button onclick="adminListActiveUsers()" style="background: var(--bg-input); border: 1px solid var(--accent-gold); color: var(--accent-gold);">Listar Usuarios y UIDs</button>
-                </div>
-            </div>
-            <button onclick="closeSettings()" style="background: var(--bg-input); margin-top: 5px;">Cerrar Ajustes</button>
-        </div>
-    </div>
-
+    <!-- MODAL DE JUEGO GENERAL -->
     <div id="gameModal" class="modal-overlay" style="display: none;">
-        <div class="game-modal-card">
-            <div class="game-header">
-                <h2 id="gameModalTitle">Juego de Casino</h2>
-                <button class="close-game" onclick="closeGameModal()">&times;</button>
+        <div class="modal-card" style="width: 580px;">
+            <h2 id="gameModalTitle">Juego de Casino</h2>
+            
+            <div id="gameArenaContainer" class="game-arena">
+                <!-- Contenido interactivo dinámico -->
             </div>
-            <div id="gameModalBody">
+
+            <p id="gameStatusText" style="color: var(--accent-gold); font-size: 14px; font-weight: bold; margin-bottom: 15px; min-height: 20px;"></p>
+
+            <div id="gameControls">
+                <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                    <input type="number" id="gameBetInput" placeholder="Monto de Apuesta COP" value="5000" style="margin:0;">
+                </div>
+                <button id="mainGameActionBtn" onclick="executeCurrentGameAction()">¡APOSTAR Y JUGAR!</button>
             </div>
+
+            <button onclick="closeGameModal()" style="background: var(--bg-input); margin-top: 10px;">Salir del Juego</button>
         </div>
     </div>
 
-    <div id="mainApp" class="main-app">
+    <!-- MODAL DE AJUSTES & ADMINISTRACIÓN -->
+    <div id="settingsModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card" style="width: 620px;">
+            <h2>⚙️ AJUSTES Y SISTEMA</h2>
+            
+            <div class="glass-panel" style="margin-bottom: 15px; text-align: left;">
+                <h4 style="color: var(--accent-gold); margin-bottom: 10px;">🔊 Sonido y Preferencias</h4>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Efectos de Audio Vegas</span>
+                    <input type="checkbox" id="soundEffectsToggle" checked style="width: 20px; height: 20px; accent-color: var(--accent-gold);">
+                </div>
+            </div>
+
+            <!-- ACCESO ADMINISTRADOR -->
+            <div id="adminAuthSection" class="glass-panel" style="text-align: left;">
+                <h4 style="color: var(--accent-gold); margin-bottom: 8px;">🔐 Panel de Administración</h4>
+                <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 10px;">Ingrese la clave maestra para acceder a las opciones de administración.</p>
+                <input type="password" id="adminPassInput" placeholder="Contraseña de Administrador">
+                <button onclick="verifyAdminPass()">Desbloquear Panel Admin</button>
+            </div>
+
+            <!-- CONTENIDO DE ADMINISTRADOR -->
+            <div id="adminPanelContent" class="admin-box" style="display: none;">
+                <h4>🛡️ 15 COMANDOS REALES DE ADMINISTRADOR</h4>
+                <p style="font-size: 11px; color: var(--text-gray); margin-bottom: 10px;">Ingrese el **UID de 7 dígitos** del usuario objetivo para ejecutar la acción:</p>
+
+                <input type="text" id="adminTargetUid" placeholder="UID del Usuario Objetivo (Ej: 8492018)">
+
+                <div class="admin-grid">
+                    <div>
+                        <input type="number" id="adminAmount" placeholder="Monto COP" style="margin-bottom: 4px;">
+                        <button onclick="adminAddMoney()" style="background: #16a34a; color: white;">1. Acreditar Saldo</button>
+                    </div>
+                    <div>
+                        <button onclick="adminRemoveMoney()" style="background: #dc2626; color: white; margin-top: 38px;">2. Debitar Saldo</button>
+                    </div>
+                </div>
+
+                <!-- CONFIGURACIÓN DE TIEMPO / CONGELAMIENTO -->
+                <div style="border-top: 1px dashed rgba(241,196,15,0.3); margin-top: 10px; padding-top: 10px;">
+                    <p style="font-size: 11px; color: var(--accent-gold); margin-bottom: 6px;">⏳ Ajustes de Tiempo (Para Baneos o Congelamiento):</p>
+                    <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                        <input type="number" id="timeDurationInput" placeholder="Duración" style="width: 40%; margin: 0;">
+                        <select id="timeUnitSelect" style="width: 60%; margin: 0;">
+                            <option value="seconds">Segundos</option>
+                            <option value="minutes">Minutos</option>
+                            <option value="hours">Horas</option>
+                            <option value="days">Días</option>
+                            <option value="years">Años</option>
+                            <option value="permanent">Permanente</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button onclick="adminBanUser()" style="background: #991b1b; color: white;">3. Banear Cuenta</button>
+                        <button onclick="adminUnbanUser()" style="background: #2563eb; color: white;">4. Desbanear Cuenta</button>
+                    </div>
+                </div>
+
+                <!-- 15 ACCIONES REALES DE CONTROL -->
+                <div style="border-top: 1px dashed rgba(241,196,15,0.3); margin-top: 10px; padding-top: 10px;" class="admin-grid">
+                    <button onclick="adminResetPassword()">5. Reset Clave ("1234")</button>
+                    <button onclick="adminSetExactBalance()">6. Fijar Saldo Exacto</button>
+                    <button onclick="adminChangeVip('HIGH ROLLER VIP')">7. Subir a Rango VIP</button>
+                    <button onclick="adminToggleFreezeWallet()" style="background: #2563eb; color: white;">8. Congelar Billetera 🧊</button>
+                    <button onclick="adminKickUser()">9. Expulsar Sesión (Kick)</button>
+                    <button onclick="adminGiveBonus()">10. Inyectar Bono 100%</button>
+                    <button onclick="adminRigLuck('hard')">11. Modo Difícil (0.10x)</button>
+                    <button onclick="adminRigLuck('normal')">12. Restablecer Probabilidad</button>
+                    <button onclick="adminZeroBalance()">13. Vaciar Saldo ($0)</button>
+                    <button onclick="adminDeleteUser()" style="background: #7f1d1d; color: white;">14. Eliminar Usuario</button>
+                    <button onclick="adminInspectUser()">15. Auditar Ficha Usuario</button>
+                </div>
+            </div>
+
+            <button onclick="closeSettings()" style="background: var(--bg-input); margin-top: 15px;">Cerrar Ajustes</button>
+        </div>
+    </div>
+
+    <!-- MODAL BANEADO -->
+    <div id="bannedModal" class="modal-overlay" style="display: none; z-index: 5000;">
+        <div class="modal-card" style="border-color: var(--accent-red);">
+            <h2 style="color: var(--accent-red);">⛔ CUENTA BANEADA</h2>
+            <p id="bannedReasonText" style="color: var(--text-gray); margin-bottom: 20px;"></p>
+            <button onclick="logout()" style="background: var(--accent-red); color: white;">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <!-- APLICACIÓN PRINCIPAL -->
+    <div id="mainApp" style="display: none;">
         <header>
             <div class="logo">⚜️ ARIA GOLD CASINO</div>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Buscar entre los 12 juegos..." onkeyup="filterProducts()">
-            </div>
             <div class="header-actions">
-                <div class="user-badge" id="userDisplay">
-                    <span>👤 Usuario</span>
-                    <span class="uid-small" id="headerUidDisplay">UID: ---</span>
+                <div class="user-badge" onclick="openProfileModal()">
+                    <img id="headerAvatar" src="https://via.placeholder.com/34" class="profile-avatar">
+                    <div style="text-align: left;">
+                        <div id="headerUsername" style="color: white; font-weight: bold;">-</div>
+                        <div id="headerUidDisplay" style="font-size: 10px; color: var(--accent-gold);">UID: ------</div>
+                    </div>
                 </div>
                 <button class="wallet-btn" onclick="toggleWalletDrawer()">
                     💰 <span id="headerBalance">$0 COP</span>
                 </button>
-                <button class="p2p-btn" onclick="openP2PModal()">🌐 P2P Servidor</button>
                 <button class="settings-btn" onclick="openSettings()">⚙️ Ajustes</button>
+                <button class="logout-btn" onclick="logout()">🚪 Salir</button>
             </div>
         </header>
-
-        <nav class="categories">
-            <button class="tab-btn active" onclick="switchTab('all')">Todos los Juegos (12)</button>
-            <button class="tab-btn" onclick="switchTab('slots')">🎰 Tragamonedas & Cartas</button>
-            <button class="tab-btn" onclick="switchTab('table')">🎲 Mesa & Azar Clásico</button>
-        </nav>
 
         <main class="container">
             <div class="casino-banner">
                 <div class="banner-info">
-                    <h3>Sala VIP & High Rollers</h3>
-                    <p>Disfruta de nuestros 8 juegos exclusivos de categoría mundial con pagos instantáneos y máxima seguridad.</p>
+                    <h3>Bienvenido a las Mesas de Juego Aria Gold</h3>
+                    <p>15 juegos exclusivos diseñados con alta tasa de victorias para los jugadores.</p>
                 </div>
-                <div class="vip-badge-box">
-                    ESTADO: VIP GOLD 🌟
+                <div style="background: var(--bg-main); border: 1px solid var(--accent-gold); padding: 12px 20px; border-radius: 10px; font-weight: bold; color: var(--accent-gold);">
+                    SALA REAL VEGAS 🎰
                 </div>
             </div>
 
-            <section class="category-section" data-category="slots">
-                <h2>🎰 Tragamonedas, Cartas & Dinámica</h2>
-                <div class="product-grid">
-                    <div class="product-card" data-name="golden empire slots jackpot diamantes" data-price="5000">
-                        <h3>1. GOLDEN EMPIRE (Slots)</h3>
-                        <p>Tragamonedas clásica de alta volatilidad con comodines dorados.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $5.000 COP</span>
-                            <button class="play-game-btn" onclick="openGame('slots')">Jugar 🎰</button>
-                        </div>
-                    </div>
-                    <div class="product-card" data-name="blackjack clasico 21 cartas croupier" data-price="10000">
-                        <h3>2. BLACKJACK CLÁSICO</h3>
-                        <p>Enfréntate al crupier e intenta llegar exactamente a 21 puntos.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $10.000 COP</span>
-                            <button class="play-game-btn" onclick="openGame('blackjack')">Jugar 🃏</button>
-                        </div>
-                    </div>
-                    <div class="product-card" data-name="video poker ases figuras" data-price="5000">
-                        <h3>3. VIDEO PÓKER</h3>
-                        <p>Forma la mejor mano de póker clásico y multiplica tu jugada.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $5.000 COP</span>
-                            <button class="play-game-btn" onclick="openGame('poker')">Jugar 🎴</button>
-                        </div>
-                    </div>
-                    <div class="product-card" data-name="raspa y gana oro misterio" data-price="3000">
-                        <h3>4. RASPA Y GANA DORADO</h3>
-                        <p>Descubre los símbolos ocultos y gana premios instantáneos.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $3.000 COP</span>
-                            <button class="play-game-btn" onclick="openGame('scratch')">Jugar 🎟️</button>
-                        </div>
-                    </div>
-                    <div class="product-card" data-name="keno premium numeros suerte" data-price="4000">
-                        <h3>5. KENO PREMIUM</h3>
-                        <p>Selecciona tus números favoritos y gana por coincidencias exactas.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $4.000 COP</span>
-                            <button class="play-game-btn" onclick="openGame('keno')">Jugar 🔢</button>
-                        </div>
-                    </div>
-                    <div class="product-card" data-name="texas holdem poker casino live" data-price="8000">
-                        <h3>6. TEXAS HOLD'EM</h3>
-                        <p>Juega una mano de póker de alto nivel con estrategia pura.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $8.000 COP</span>
-                            <button class="play-game-btn" onclick="openGame('texas')">Jugar 🂱</button>
-                        </div>
-                    </div>
+            <h2 style="color: var(--accent-gold); margin-bottom: 20px;">🎰 Catálogo de 15 Juegos Funcionales</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <h3>1. GOLDEN EMPIRE SLOTS</h3>
+                    <p>Tragamonedas clásica de 3 rodillos. Alta probabilidad de Jackpot.</p>
+                    <button class="play-game-btn" onclick="openGame('slots')">Jugar 🎰</button>
                 </div>
-            </section>
-
-            <section class="category-section" data-category="table">
-                <h2>🎲 Mesa & Azar Vivo</h2>
-                <div class="product-grid">
-                    <div class="product-card" data-name="ruleta europea casino ruleta en vivo" data-price="10000">
-                        <h3>7. RULETA EUROPEA</h3>
-                        <p>Apuesta al rojo, negro o a tu número favorito de la suerte.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $10.000 COP</span>
-                            <button class="play-game-btn" onclick="openGame('roulette')">Jugar 🎯</button>
-                        </div>
-                    </div>
-                    <div class="product-card" data-name="crash multiplier aviator cohete" data-price="5000">
-                        <h3>8. CRASH GOLD</h3>
-                        <p>Retira tus ganancias antes de que el multiplicador estalle en el aire.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $5.000 COP</span>
-                            <button class="play-game-btn" onclick="openGame('crash')">Jugar 🚀</button>
-                        </div>
-                    </div>
-                    <div class="product-card" data-name="dados de la suerte craps" data-price="2000">
-                        <h3>9. DADOS DE LA SUERTE</h3>
-                        <p>Lanza los dados y acierta la sumatoria exacta para ganar.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $2.000 COP</span>
-                            <button class="play-game-btn" onclick="openGame('dice')">Jugar 🎲</button>
-                        </div>
-                    </div>
-                    <div class="product-card" data-name="ruleta de la fortuna premios" data-price="5000">
-                        <h3>10. RUEDA DE LA FORTUNA</h3>
-                        <p>Gira la rueda monumental y llévate multiplicadores masivos.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $5.000 COP</span>
-                            <button class="play-game-btn" onclick="openGame('wheel')">Jugar 🎡</button>
-                        </div>
-                    </div>
-                    <div class="product-card" data-name="mines casino peligro bombas" data-price="3000">
-                        <h3>11. MINES GOLD</h3>
-                        <p>Avanza con estrategia y evita las minas para multiplicar tus ganancias.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $3.000 COP</span>
-                            <button class="play-game-btn" onclick="openGame('mines')">Jugar 💣</button>
-                        </div>
-                    </div>
-                    <div class="product-card" data-name="higher lower cartas arriba abajo" data-price="2500">
-                        <h3>12. HI-LO ROYAL</h3>
-                        <p>Adivina si la siguiente carta subirá o bajará y duplica tu premio.</p>
-                        <div class="card-footer">
-                            <span class="price">Min: $2.500 COP</span>
-                            <button class="play-game-btn" onclick="openGame('hilo')">Jugar 📈</button>
-                        </div>
-                    </div>
+                <div class="product-card">
+                    <h3>2. RULETA EUROPEA</h3>
+                    <p>La rueda gira a toda velocidad. Alta tasa de victorias.</p>
+                    <button class="play-game-btn" onclick="openGame('roulette')">Jugar 🎯</button>
                 </div>
-            </section>
+                <div class="product-card">
+                    <h3>3. CRASH ROCKET</h3>
+                    <p>El cohete sube de multiplicador de manera más estable.</p>
+                    <button class="play-game-btn" onclick="openGame('crash')">Jugar 🚀</button>
+                </div>
+                <div class="product-card">
+                    <h3>4. DADOS VEGAS</h3>
+                    <p>Lanza los dados de cristal. ¡Múltiples combinaciones ganadoras!</p>
+                    <button class="play-game-btn" onclick="openGame('dice')">Jugar 🎲</button>
+                </div>
+                <div class="product-card">
+                    <h3>5. BLACKJACK 21</h3>
+                    <p>Enfréntate al Croupier en vivo. Gran probabilidad a tu favor.</p>
+                    <button class="play-game-btn" onclick="openGame('blackjack')">Jugar 🃏</button>
+                </div>
+                <div class="product-card">
+                    <h3>6. RASPA Y GANA DORADO</h3>
+                    <p>Descubre los 3 símbolos ocultos con premios frecuentes.</p>
+                    <button class="play-game-btn" onclick="openGame('scratch')">Jugar 🎟️</button>
+                </div>
+                <div class="product-card">
+                    <h3>7. MINAS EXTREMAS</h3>
+                    <p>Camino minado de 5x5 con mínima cantidad de minas.</p>
+                    <button class="play-game-btn" onclick="openGame('mines')">Jugar 💣</button>
+                </div>
+                <div class="product-card">
+                    <h3>8. RUEDA FORTUNA VIP</h3>
+                    <p>Enorme rueda giratoria cargada con premios generosos.</p>
+                    <button class="play-game-btn" onclick="openGame('wheel')">Jugar 🎡</button>
+                </div>
+                <div class="product-card">
+                    <h3>9. HI-LO ROYAL</h3>
+                    <p>¿La siguiente carta será mayor o menor? Gran tasa de acierto.</p>
+                    <button class="play-game-btn" onclick="openGame('hilo')">Jugar 📈</button>
+                </div>
+                <div class="product-card">
+                    <h3>10. KENO MILLONARIO</h3>
+                    <p>Elige tu número de la suerte entre 25 casillas dinámicas.</p>
+                    <button class="play-game-btn" onclick="openGame('keno')">Jugar 🔢</button>
+                </div>
+                <div class="product-card">
+                    <h3>11. VIDEO PÓKER ASES</h3>
+                    <p>Mano directa de póker imperial. Mayores combinaciones.</p>
+                    <button class="play-game-btn" onclick="openGame('poker')">Jugar 🎴</button>
+                </div>
+                <div class="product-card">
+                    <h3>12. CARA O CRUZ GOLD</h3>
+                    <p>Moneda de oro giratoria en 3D con ventaja para el jugador.</p>
+                    <button class="play-game-btn" onclick="openGame('coin')">Jugar 🪙</button>
+                </div>
+                <div class="product-card">
+                    <h3>13. PLINKO CASINO</h3>
+                    <p>La bola cae entre los pines directo a los multiplicadores altos.</p>
+                    <button class="play-game-btn" onclick="openGame('plinko')">Jugar ⚪</button>
+                </div>
+                <div class="product-card">
+                    <h3>14. CAJA FUERTE MISTERIO</h3>
+                    <p>Adivina la clave secreta de la caja fuerte del casino fácilmente.</p>
+                    <button class="play-game-btn" onclick="openGame('vault')">Jugar 🔓</button>
+                </div>
+                <div class="product-card">
+                    <h3>15. COFRE DEL FARAÓN</h3>
+                    <p>3 cofres antiguos cargados con jugosos tesoros.</p>
+                    <button class="play-game-btn" onclick="openGame('chest')">Jugar 🧰</button>
+                </div>
+            </div>
         </main>
     </div>
 
+    <!-- BILLETERA DRAWER -->
+    <div id="walletDrawerOverlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2400;" onclick="toggleWalletDrawer()"></div>
+    <div id="walletDrawer" class="wallet-drawer">
+        <div class="wallet-header">
+            <h3>🏛️ Billetera Virtual</h3>
+            <button class="close-drawer" onclick="toggleWalletDrawer()">&times;</button>
+        </div>
+        <div class="wallet-content">
+            <div class="wallet-balance-box">
+                <h4>Saldo Disponible</h4>
+                <span id="drawerBalance">$0 COP</span>
+                <p id="drawerFreezeNotice" style="color: var(--accent-red); font-size: 12px; font-weight: bold; margin-top: 6px; display: none;">
+                    🧊 BILLETERA CONGELADA POR ADMINISTRACIÓN
+                </p>
+            </div>
+            <div class="glass-panel">
+                <h4 style="color: var(--accent-gold); margin-bottom: 10px;">💳 Recargar Dinero</h4>
+                <input type="number" id="topUpAmount" placeholder="Monto COP">
+                <button class="topup-btn" onclick="userTopUp()">Recargar</button>
+            </div>
+            <div class="glass-panel">
+                <h4 style="color: var(--accent-gold); margin-bottom: 10px;">🏦 Solicitar Retiro</h4>
+                <input type="number" id="withdrawAmount" placeholder="Monto COP">
+                <button class="withdraw-btn" onclick="userWithdraw()">Retirar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUDIO SINTETIZADO WEB AUDIO API (EFECTOS DE SONIDO DE CASINO) -->
     <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            let toggle = document.getElementById('soundEffectsToggle');
+            if (toggle && !toggle.checked) return;
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'win') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'lose') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'spin') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+                }
+            } catch(e){}
+        }
+    </script>
+
+    <script>
+        // --- BASE DE DATOS LOCAL Y SESIÓN ---
+        let usersDB = JSON.parse(localStorage.getItem('aria_users_db')) || {};
+        let activeUserUid = localStorage.getItem('aria_active_uid') || null;
         let isRegisterMode = false;
-        let currentUser = null;
-        let userBalance = 0;
-        let userUid = '';
-        let globalMultiplier = 1;
-        let activeBanInterval = null;
+        let currentGameType = null;
+        let isGameAnimating = false;
 
-        // Iniciar motor del reloj analógico de manecillas
-        setInterval(() => {
-            let now = new Date();
-            let s = now.getSeconds();
-            let m = now.getMinutes();
-            let h = now.getHours();
+        let currentCardValue = 7;
+        let selectedChestIndex = null;
 
-            let sDeg = ((s / 60) * 360);
-            let mDeg = ((m / 60) * 360) + ((s/60)*6);
-            let hDeg = ((h % 12) / 12) * 360 + ((m/60)*30);
+        document.addEventListener("DOMContentLoaded", () => {
+            checkUserSession();
+        });
 
-            let sHand = document.getElementById('banSecHand');
-            let mHand = document.getElementById('banMinHand');
-            let hHand = document.getElementById('banHourHand');
+        function saveDB() {
+            localStorage.setItem('aria_users_db', JSON.stringify(usersDB));
+        }
 
-            if (sHand) sHand.style.transform = `rotate(${sDeg}deg)`;
-            if (mHand) mHand.style.transform = `rotate(${mDeg}deg)`;
-            if (hHand) hHand.style.transform = `rotate(${hDeg}deg)`;
-        }, 1000);
-
-        function showToast(message) {
+        function showToast(msg) {
             let container = document.getElementById('toastContainer');
-            if (!container) return;
             let toast = document.createElement('div');
             toast.className = 'toast';
-            toast.innerText = message;
+            toast.innerText = msg;
             container.appendChild(toast);
-            setTimeout(() => {
-                toast.remove();
-            }, 3200);
+            setTimeout(() => toast.remove(), 3200);
         }
 
-        function safeSetText(id, value) {
-            const el = document.getElementById(id);
-            if (el) el.innerText = value;
+        function generateUID() {
+            let uid;
+            do {
+                uid = Math.floor(1000000 + Math.random() * 9000000).toString();
+            } while (usersDB[uid]);
+            return uid;
         }
 
+        // --- VERIFICAR ESTADO Y CONGELAMIENTO EN TIEMPO REAL ---
+        function isWalletFrozen(user) {
+            if (!user.frozenWallet) return false;
+            
+            if (user.frozenUntil === 'permanent') return true;
+            
+            if (user.frozenUntil && new Date().getTime() > user.frozenUntil) {
+                user.frozenWallet = false;
+                user.frozenUntil = null;
+                saveDB();
+                return false;
+            }
+            return true;
+        }
+
+        function checkUserSession() {
+            if (activeUserUid && usersDB[activeUserUid]) {
+                let user = usersDB[activeUserUid];
+
+                // Verificar Baneo
+                if (user.banned) {
+                    if (user.banUntil && user.banUntil !== 'permanent' && new Date().getTime() > user.banUntil) {
+                        user.banned = false;
+                        user.banUntil = null;
+                        saveDB();
+                    } else {
+                        document.getElementById('bannedModal').style.display = 'flex';
+                        let timeMsg = user.banUntil === 'permanent' ? 'Permanentemente' : `hasta ${new Date(user.banUntil).toLocaleString()}`;
+                        document.getElementById('bannedReasonText').innerText = `Tu cuenta (UID: ${user.uid}) ha sido suspendida ${timeMsg}.`;
+                        return;
+                    }
+                }
+
+                document.getElementById('authModal').style.display = 'none';
+                document.getElementById('bannedModal').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+                updateUI();
+            } else {
+                document.getElementById('authModal').style.display = 'flex';
+                document.getElementById('mainApp').style.display = 'none';
+            }
+        }
+
+        function updateUI() {
+            if (!activeUserUid || !usersDB[activeUserUid]) return;
+            let user = usersDB[activeUserUid];
+
+            let frozen = isWalletFrozen(user);
+
+            document.getElementById('headerUsername').innerText = user.username;
+            document.getElementById('headerUidDisplay').innerText = `UID: ${user.uid}`;
+            document.getElementById('headerAvatar').src = user.avatar || 'https://via.placeholder.com/34';
+            
+            let formattedBalance = `$${user.balance.toLocaleString('es-CO')} COP`;
+            document.getElementById('headerBalance').innerText = frozen ? `${formattedBalance} 🧊` : formattedBalance;
+            document.getElementById('drawerBalance').innerText = formattedBalance;
+
+            document.getElementById('drawerFreezeNotice').style.display = frozen ? 'block' : 'none';
+
+            document.getElementById('profUser').innerText = user.username;
+            document.getElementById('profUid').innerText = user.uid;
+            document.getElementById('profEmail').innerText = user.email;
+            document.getElementById('profIdentity').innerText = user.identity;
+            document.getElementById('profVip').innerText = user.vipRank || 'GOLD';
+            
+            let freezeSpan = document.getElementById('profFreezeState');
+            if (frozen) {
+                freezeSpan.innerText = user.frozenUntil === 'permanent' ? '🧊 Congelada (Permanente)' : `🧊 Congelada hasta ${new Date(user.frozenUntil).toLocaleString()}`;
+                freezeSpan.style.color = 'var(--accent-red)';
+            } else {
+                freezeSpan.innerText = 'Activa ✅';
+                freezeSpan.style.color = 'var(--accent-green)';
+            }
+
+            document.getElementById('profRtp').innerText = user.riggedHard ? '0.10x (Modo Ajustado)' : '0.60x (Modo Fácil / Favorable)';
+            document.getElementById('modalProfileImg').src = user.avatar || 'https://via.placeholder.com/100';
+        }
+
+        // --- AUTENTICACIÓN ---
         function toggleAuthMode() {
             isRegisterMode = !isRegisterMode;
-            document.getElementById('authTitle').innerText = isRegisterMode ? 'Crear Cuenta' : 'Iniciar Sesión';
-            document.getElementById('authBtn').innerText = isRegisterMode ? 'Registrar y Generar UID' : 'Acceder al Casino';
-            document.getElementById('switchText').innerText = isRegisterMode ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí';
+            document.getElementById('authTitle').innerText = isRegisterMode ? '⚜️ REGISTRO DE USUARIO' : '⚜️ INICIAR SESIÓN';
+            document.getElementById('registerFields').style.display = isRegisterMode ? 'block' : 'none';
+            document.getElementById('registerConfirmPassword').style.display = isRegisterMode ? 'block' : 'none';
+            document.getElementById('authSubmitBtn').innerText = isRegisterMode ? 'CREAR CUENTA' : 'INGRESAR';
+            document.getElementById('authToggleBtn').innerText = isRegisterMode ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí';
         }
 
-        // VERIFICACIÓN INSTANTÁNEA AL CARGAR LA PÁGINA
-        async function apiCall(endpoint, payload = {}, method = 'POST') {
-            const options = {
-                method,
-                headers: { 'Content-Type': 'application/json' }
-            };
-            if (method !== 'GET' && Object.keys(payload).length > 0) {
-                options.body = JSON.stringify(payload);
-            }
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            let username = document.getElementById('authUsername').value.trim();
+            let password = document.getElementById('authPassword').value.trim();
 
-            const response = await fetch(endpoint, options);
-            const data = await response.json().catch(() => ({}));
-            if (!response.ok || data.success === false) {
-                throw new Error(data.message || 'Error del servidor');
-            }
-            return data;
-        }
+            if (isRegisterMode) {
+                let email = document.getElementById('regEmail').value.trim();
+                let identity = document.getElementById('regIdentity').value.trim();
+                let confirmPass = document.getElementById('authConfirmPassword').value.trim();
 
-        function syncLocalFromServer(usersObject) {
-            if (!usersObject || typeof usersObject !== 'object') return;
-            localStorage.setItem('aria_users', JSON.stringify(usersObject));
-        }
+                if (!email || !identity) return showToast('⚠️ Complete todos los campos.');
+                if (password !== confirmPass) return showToast('❌ Las contraseñas no coinciden.');
 
-        function checkUserBanStateOnStartup() {
-            let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
-            let lastUser = localStorage.getItem('aria_last_attempt_user');
-            if (lastUser && usersDB[lastUser]) {
-                let uData = usersDB[lastUser];
-                if (uData.bannedUntil && uData.bannedUntil > Date.now()) {
-                    triggerBanScreen(lastUser, uData);
-                }
-            }
-        }
+                let exists = Object.values(usersDB).some(u => u.username.toLowerCase() === username.toLowerCase());
+                if (exists) return showToast('❌ El nombre de usuario ya existe.');
 
-        function triggerBanScreen(username, uData) {
-            let authOverlay = document.getElementById('authOverlay');
-            let mainApp = document.getElementById('mainApp');
-            let banScreen = document.getElementById('banScreenOverlay');
-
-            if (authOverlay) authOverlay.style.display = 'none';
-            if (mainApp) mainApp.style.display = 'none';
-            if (banScreen) banScreen.style.display = 'flex';
-
-            document.getElementById('banInfoUser').innerText = username;
-            document.getElementById('banInfoUid').innerText = uData.uid || '---';
-            document.getElementById('banInfoPass').innerText = uData.password || '********';
-            document.getElementById('banInfoReason').innerText = uData.banReason || 'Infracción de normativas de seguridad del casino.';
-            document.getElementById('banInfoAdmin').innerText = uData.bannedBy || 'Administrador General';
-
-            if (activeBanInterval) clearInterval(activeBanInterval);
-
-            activeBanInterval = setInterval(() => {
-                let timeLeftMs = (uData.bannedUntil || 0) - Date.now();
-                if (timeLeftMs <= 0) {
-                    clearInterval(activeBanInterval);
-                    uData.bannedUntil = 0;
-                    let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
-                    if (usersDB[username]) {
-                        usersDB[username].bannedUntil = 0;
-                        localStorage.setItem('aria_users', JSON.stringify(usersDB));
-                    }
-                    if (banScreen) banScreen.style.display = 'none';
-                    if (authOverlay) authOverlay.style.display = 'flex';
-                    showToast('✨ Su baneo ha expirado. Ya puede iniciar sesión.');
-                } else {
-                    let days = Math.floor(timeLeftMs / (1000 * 60 * 60 * 24));
-                    let hours = Math.floor((timeLeftMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    let minutes = Math.floor((timeLeftMs % (1000 * 60 * 60)) / (1000 * 60));
-                    let seconds = Math.floor((timeLeftMs % (1000 * 60)) / 1000);
-
-                    let timeStr = (uData.bannedUntil > 999999999000) ? 'Permanente' : `${days}d ${hours}h ${minutes}m ${seconds}s`;
-                    let timeLeftEl = document.getElementById('banInfoTimeLeft');
-                    if (timeLeftEl) timeLeftEl.innerText = timeStr;
-                }
-            }, 1000);
-        }
-
-        async function redeemWelcomeCode() {
-            if (!currentUser) {
-                return;
-            }
-
-            const code = localStorage.getItem('aria_welcome_code');
-            if (!code) {
-                return;
-            }
-
-            const pass = document.getElementById('password') ? document.getElementById('password').value : '';
-            try {
-                const response = await apiCall('/api/redeem-code', { username: currentUser, password: pass, code });
-                userBalance = Number(response.newBalance) || userBalance;
-                updateBalanceDisplay();
-                localStorage.removeItem('aria_welcome_code');
-                showToast(response.message || '✅ Código de bienvenida canjeado correctamente.');
-            } catch (error) {
-                showToast(error.message || '❌ No se pudo canjear el código de bienvenida.');
-            }
-        }
-
-        async function handleAuth(event) {
-            event.preventDefault();
-            let username = document.getElementById('username').value.trim();
-            let pass = document.getElementById('password').value;
-
-            if (!username || !pass) return;
-            localStorage.setItem('aria_last_attempt_user', username);
-
-            try {
-                const endpoint = isRegisterMode ? '/api/auth/register' : '/api/auth/login';
-                const data = await apiCall(endpoint, { username, password: pass });
-
-                if (data.banned) {
-                    triggerBanScreen(username, data.user || { uid: '', password: pass, banReason: 'Suspensión activa', bannedBy: 'Administrador' });
-                    return;
-                }
-
-                currentUser = data.username;
-                userBalance = Number(data.balance) || 0;
-                userUid = data.uid;
-
-                if (data.welcomeCode) {
-                    localStorage.setItem('aria_welcome_code', data.welcomeCode);
-                }
-
-                const localUsers = JSON.parse(localStorage.getItem('aria_users') || '{}');
-                localUsers[currentUser] = {
-                    password: pass,
-                    balance: userBalance,
-                    uid: userUid,
-                    bannedUntil: 0,
-                    banReason: '',
-                    bannedBy: '',
-                    welcomeCode: data.welcomeCode || '',
-                    welcomeCodeRedeemed: Boolean(data.welcomeCodeRedeemed)
+                let newUid = generateUID();
+                usersDB[newUid] = {
+                    uid: newUid,
+                    username: username,
+                    email: email,
+                    identity: identity,
+                    password: password,
+                    balance: 100000,
+                    avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+                    banned: false,
+                    banUntil: null,
+                    vipRank: 'GOLD',
+                    frozenWallet: false,
+                    frozenUntil: null,
+                    riggedHard: false
                 };
-                localStorage.setItem('aria_users', JSON.stringify(localUsers));
-
-                const authOverlay = document.getElementById('authOverlay');
-                const mainApp = document.getElementById('mainApp');
-                if (authOverlay) authOverlay.style.display = 'none';
-                if (mainApp) mainApp.style.display = 'block';
-                updateBalanceDisplay();
-                const userDisplay = document.getElementById('userDisplay');
-                if (userDisplay) userDisplay.innerHTML = `<span>👤 ${currentUser}</span><span class="uid-small">UID: ${userUid}</span>`;
-                safeSetText('headerUidDisplay', `UID: ${userUid}`);
-                safeSetText('myUidDisplay', `UID: ${userUid}`);
-
-                if (isRegisterMode && data.welcomeCode) {
-                    showToast(`🎉 Registro exitoso. Saldo inicial: $0 COP. Código: ${data.welcomeCode}. Se está acreditando +1000 COP.`);
-                    await redeemWelcomeCode();
+                saveDB();
+                activeUserUid = newUid;
+                localStorage.setItem('aria_active_uid', newUid);
+                showToast(`🎉 Registro exitoso. Tu UID es: ${newUid}`);
+                checkUserSession();
+            } else {
+                let user = Object.values(usersDB).find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+                if (user) {
+                    activeUserUid = user.uid;
+                    localStorage.setItem('aria_active_uid', user.uid);
+                    showToast(`Bienvenido, ${user.username}`);
+                    checkUserSession();
                 } else {
-                    showToast(`✨ ¡Bienvenido a Aria Gold Casino, ${currentUser}!`);
+                    showToast('❌ Credenciales incorrectas.');
                 }
-            } catch (error) {
-                showToast(error.message || '❌ Error al autenticar usuario.');
             }
         }
 
-        function saveUserBalance() {
-            if (!currentUser) return;
-            let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
-            if (usersDB[currentUser]) {
-                usersDB[currentUser].balance = userBalance;
-                localStorage.setItem('aria_users', JSON.stringify(usersDB));
-            }
-            updateBalanceDisplay();
+        function logout() {
+            activeUserUid = null;
+            localStorage.removeItem('aria_active_uid');
+            document.getElementById('bannedModal').style.display = 'none';
+            checkUserSession();
+            showToast('Sesión cerrada.');
         }
 
-        function updateBalanceDisplay() {
-            let formatted = `$${userBalance.toLocaleString('es-CO')} COP`;
-            safeSetText('drawerBalance', formatted);
-            safeSetText('headerBalance', formatted);
+        function openProfileModal() { document.getElementById('profileModal').style.display = 'flex'; }
+        function closeProfileModal() { document.getElementById('profileModal').style.display = 'none'; }
+
+        function updateAvatar() {
+            let url = document.getElementById('newAvatarUrl').value.trim();
+            if (!url) return;
+            usersDB[activeUserUid].avatar = url;
+            saveDB();
+            updateUI();
+            showToast('Foto actualizada.');
+            document.getElementById('newAvatarUrl').value = '';
         }
 
         function toggleWalletDrawer() {
             let drawer = document.getElementById('walletDrawer');
             let overlay = document.getElementById('walletDrawerOverlay');
-            let isOpen = drawer.classList.toggle('open');
-            overlay.style.display = isOpen ? 'block' : 'none';
+            let open = drawer.classList.toggle('open');
+            overlay.style.display = open ? 'block' : 'none';
         }
 
-        function getUsersDatabase() {
-            return JSON.parse(localStorage.getItem('aria_users') || '{}');
+        function userTopUp() {
+            let u = usersDB[activeUserUid];
+            if (isWalletFrozen(u)) return showToast('🧊 Tu billetera está congelada por el administrador. No puedes realizar transacciones.');
+            let amt = parseInt(document.getElementById('topUpAmount').value);
+            if (!amt || amt <= 0) return showToast('Monto inválido.');
+            u.balance += amt;
+            saveDB();
+            updateUI();
+            showToast(`+ $${amt.toLocaleString()} COP abonados.`);
+            document.getElementById('topUpAmount').value = '';
         }
 
-        function setUsersDatabase(usersDb) {
-            localStorage.setItem('aria_users', JSON.stringify(usersDb));
+        function userWithdraw() {
+            let u = usersDB[activeUserUid];
+            if (isWalletFrozen(u)) return showToast('🧊 Tu billetera está congelada por el administrador. No puedes retirar saldo.');
+            let amt = parseInt(document.getElementById('withdrawAmount').value);
+            if (!amt || amt <= 0 || amt > u.balance) return showToast('Monto o saldo insuficiente.');
+            u.balance -= amt;
+            saveDB();
+            updateUI();
+            showToast(`Retiro procesado por $${amt.toLocaleString()} COP.`);
+            document.getElementById('withdrawAmount').value = '';
         }
 
-        function addTransactionRecord(type, details) {
-            let history = JSON.parse(localStorage.getItem('aria_transactions') || '[]');
-            history.unshift({
-                type,
-                ...details,
-                createdAt: new Date().toISOString()
-            });
-            localStorage.setItem('aria_transactions', JSON.stringify(history.slice(0, 100)));
-        }
-
-        function findUserKeyByTarget(target) {
-            let usersDb = getUsersDatabase();
-            if (usersDb[target]) return target;
-            for (let username in usersDb) {
-                if (usersDb[username].uid === target) return username;
-            }
-            return null;
-        }
-
-        function updateUserBalanceForTarget(targetUser, nextBalance) {
-            let usersDb = getUsersDatabase();
-            if (!usersDb[targetUser]) return;
-            usersDb[targetUser].balance = Math.max(0, nextBalance);
-            setUsersDatabase(usersDb);
-
-            if (currentUser === targetUser) {
-                userBalance = usersDb[targetUser].balance;
-                updateBalanceDisplay();
-            }
-        }
-
-        async function requestRecharge() {
-            let amount = parseInt(document.getElementById('topUpAmount').value);
-            if (!amount || amount <= 0) {
-                showToast('⚠️ Ingrese un valor válido para recargar.');
-                return;
-            }
-            if (!currentUser) {
-                showToast('⚠️ Debes iniciar sesión antes de recargar saldo.');
-                return;
+        // --- SISTEMA INTERACTIVO CON BLOQUEO POR CONGELAMIENTO ---
+        function openGame(type) {
+            let u = usersDB[activeUserUid];
+            if (isWalletFrozen(u)) {
+                let timeText = u.frozenUntil === 'permanent' ? 'PERMANENTEMENTE' : `HASTA EL ${new Date(u.frozenUntil).toLocaleString()}`;
+                return alert(`🧊 ACCESO RESTRINGIDO POR ADMINISTRACIÓN:\n\nTu billetera y el acceso a las mesas de juego se encuentran CONGELADOS ${timeText}.\nNo puedes jugar a ningún juego mientras el congelamiento permanezca activo.`);
             }
 
-            try {
-                const response = await apiCall('/api/recharge', { username: currentUser, amount });
-                userBalance = Number(response.newBalance) || userBalance;
-                updateBalanceDisplay();
-                addTransactionRecord('recharge', { user: currentUser, amount, method: 'manual_recharge', message: response.message });
-                showToast(response.message || `✅ Recarga exitosa: +$${amount.toLocaleString('es-CO')} COP`);
-                document.getElementById('topUpAmount').value = '';
-                toggleWalletDrawer();
-            } catch (error) {
-                showToast(error.message || '❌ Error en la recarga.');
-            }
-        }
-
-        async function requestWithdrawal() {
-            let amount = parseInt(document.getElementById('withdrawAmount').value);
-            let account = document.getElementById('withdrawAccount').value.trim();
-
-            if (!amount || amount <= 0 || !account) {
-                showToast('⚠️ Ingrese un monto válido y cuenta de destino.');
-                return;
-            }
-            if (amount > userBalance) {
-                showToast('❌ Fondos insuficientes para este retiro.');
-                return;
-            }
-
-            try {
-                const response = await apiCall('/api/withdraw', { username: currentUser, amount, account });
-                userBalance = Number(response.newBalance) || userBalance;
-                updateBalanceDisplay();
-                addTransactionRecord('withdrawal', { user: currentUser, amount, account, message: response.message });
-                showToast(response.message || `✅ Retiro de $${amount.toLocaleString('es-CO')} COP procesado exitosamente.`);
-                document.getElementById('withdrawAmount').value = '';
-                document.getElementById('withdrawAccount').value = '';
-                toggleWalletDrawer();
-            } catch (error) {
-                showToast(error.message || '❌ Error en el retiro.');
-            }
-        }
-
-        function openP2PModal() {
-            document.getElementById('p2pModal').style.display = 'flex';
-        }
-
-        function closeP2PModal() {
-            document.getElementById('p2pModal').style.display = 'none';
-        }
-
-        async function sendP2PFonds() {
-            let targetUid = document.getElementById('p2pRecipientUid').value.trim();
-            let amount = parseInt(document.getElementById('p2pAmount').value);
-
-            if (!targetUid || !amount || amount <= 0) {
-                showToast('⚠️ Verifique el UID y monto ingresado.');
-                return;
-            }
-            if (amount > userBalance) {
-                showToast('❌ Saldo insuficiente en su cuenta.');
-                return;
-            }
-            if (targetUid === userUid) {
-                showToast('⚠️ No puedes transferir fondos a tu propio UID.');
-                return;
-            }
-
-            try {
-                const response = await apiCall('/api/transfer', { senderUsername: currentUser, recipientUid: targetUid, amount });
-                userBalance = Number(response.newBalance) || userBalance;
-                updateBalanceDisplay();
-                showToast(response.message || `🌐 ¡Transferencia P2P exitosa de $${amount.toLocaleString('es-CO')} COP al UID ${targetUid}!`);
-                closeP2PModal();
-                document.getElementById('p2pRecipientUid').value = '';
-                document.getElementById('p2pAmount').value = '';
-            } catch (error) {
-                showToast(error.message || '❌ Error en la transferencia P2P.');
-            }
-        }
-
-        function openSettings() {
-            document.getElementById('settingsModal').style.display = 'flex';
-        }
-
-        function closeSettings() {
-            document.getElementById('settingsModal').style.display = 'none';
-        }
-
-        function verifyAdminPass() {
-            let pass = document.getElementById('adminPassInput').value;
-            if (pass === '@1983Mar') {
-                document.getElementById('adminLoginSection').style.display = 'none';
-                document.getElementById('adminPanelSection').style.display = 'block';
-                showToast('🔓 Panel de Administrador Desbloqueado');
-            } else {
-                showToast('❌ Contraseña de Administrador incorrecta.');
-            }
-        }
-
-        async function adminSendMoneyToUser() {
-            let target = document.getElementById('targetUser').value.trim();
-            let amount = parseInt(document.getElementById('adminAmountInput').value);
-
-            if (!target || !amount || amount <= 0) {
-                showToast('⚠️ Debe indicar un usuario y un monto válido.');
-                return;
-            }
-
-            try {
-                const response = await apiCall('/api/admin', { adminPass: '@1983Mar', action: 'send', target, amount });
-                showToast(response.message || `✅ Se enviaron $${amount.toLocaleString('es-CO')} COP.`);
-                document.getElementById('targetUser').value = '';
-                document.getElementById('adminAmountInput').value = '';
-            } catch (error) {
-                showToast(error.message || '❌ No se pudo enviar el dinero.');
-            }
-        }
-
-        async function adminModifyBalanceManual() {
-            let target = document.getElementById('targetUserBalance').value.trim();
-            let action = document.getElementById('adminBalanceAction').value;
-            let amount = parseInt(document.getElementById('adminManualAmountInput').value);
-
-            if (!target || !amount || amount <= 0) {
-                showToast('⚠️ Complete todos los campos de balance.');
-                return;
-            }
-
-            try {
-                const response = await apiCall('/api/admin', {
-                    adminPass: '@1983Mar',
-                    action: 'balance',
-                    target,
-                    amount,
-                    mode: action
-                });
-                showToast(response.message || '✅ Cambio de saldo realizado correctamente.');
-            } catch (error) {
-                showToast(error.message || '❌ No se pudo aplicar el cambio.');
-            }
-        }
-
-        async function adminBanUserAdvanced() {
-            let target = document.getElementById('banUsernameInput').value.trim();
-            let reason = document.getElementById('banReasonInput').value.trim() || 'Violación de políticas del casino.';
-            let timeVal = parseInt(document.getElementById('banTimeValueInput').value) || 0;
-            let timeUnit = document.getElementById('banTimeUnitInput').value;
-
-            if (!target) {
-                showToast('⚠️ Ingrese el nombre de usuario a banear.');
-                return;
-            }
-
-            try {
-                const response = await apiCall('/api/admin', {
-                    adminPass: '@1983Mar',
-                    action: 'ban',
-                    target,
-                    reason,
-                    timeValue: timeVal,
-                    timeUnit
-                });
-                showToast(response.message || `🚫 Usuario ${target} suspendido exitosamente.`);
-            } catch (error) {
-                showToast(error.message || '❌ No se pudo aplicar el baneo.');
-            }
-        }
-
-        async function adminUnbanUser() {
-            let target = document.getElementById('unbanUsernameInput').value.trim();
-            if (!target) {
-                showToast('⚠️ Ingrese el nombre de usuario a desbanear.');
-                return;
-            }
-
-            try {
-                const response = await apiCall('/api/admin', { adminPass: '@1983Mar', action: 'unban', target });
-                showToast(response.message || `✨ Usuario ${target} desbaneado y reactivado.`);
-            } catch (error) {
-                showToast(error.message || '❌ No se pudo desbanear al usuario.');
-            }
-        }
-
-        function adminSetGlobalMultiplier() {
-            globalMultiplier = globalMultiplier === 1 ? 2 : 1;
-            showToast(`⚡ Multiplicador global de premios establecido a: x${globalMultiplier}`);
-        }
-
-        function adminBroadcastNotice() {
-            showToast('📢 [ANUNCIO GLOBAL ADMIN]: ¡Nuevos jackpots activos en Aria Gold Casino!');
-        }
-
-        async function adminResetAllDatabases() {
-            if (confirm('¿Estás seguro de reiniciar los saldos sin borrar cuentas?')) {
-                try {
-                    const response = await apiCall('/api/admin', { adminPass: '@1983Mar', action: 'reset' });
-                    showToast(response.message || '⚠️ Saldos reiniciados.');
-                } catch (error) {
-                    showToast(error.message || '❌ No se pudo reiniciar la base de datos.');
-                }
-            }
-        }
-
-        function adminListActiveUsers() {
-            let usersDB = JSON.parse(localStorage.getItem('aria_users') || '{}');
-            let listStr = "--- USUARIOS ACTIVOS ---\n";
-            for (let uname in usersDB) {
-                listStr += `Usuario: ${uname} | UID: ${usersDB[uname].uid} | Saldo: $${usersDB[uname].balance.toLocaleString('es-CO')}\n`;
-            }
-            alert(listStr);
-        }
-
-        function openGame(gameType) {
+            if (isGameAnimating) return;
+            currentGameType = type;
             document.getElementById('gameModal').style.display = 'flex';
-            let titleEl = document.getElementById('gameModalTitle');
-            let bodyEl = document.getElementById('gameModalBody');
+            document.getElementById('gameStatusText').innerText = 'Realiza tu apuesta e inicia la jugada.';
+            document.getElementById('mainGameActionBtn').disabled = false;
+            
+            let arena = document.getElementById('gameArenaContainer');
+            let title = document.getElementById('gameModalTitle');
 
-            if (gameType === 'slots') {
-                titleEl.innerText = '🎰 GOLDEN EMPIRE (Tragamonedas)';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <div class="slots-container">
-                            <div class="slot-reel" id="reel1">🍒</div>
-                            <div class="slot-reel" id="reel2">🍋</div>
-                            <div class="slot-reel" id="reel3">💎</div>
-                        </div>
-                        <p id="slotsMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">¡Haz girar los rodillos con tus comodines dorados!</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $5.000):</label>
-                            <input type="number" id="slotsBet" value="5000">
-                        </div>
-                        <button onclick="playSlots()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">¡GIRAR RODILLOS!</button>
-                    </div>
-                `;
-            } else if (gameType === 'blackjack') {
-                titleEl.innerText = '🃏 BLACKJACK CLÁSICO (21)';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 5px;">Mano del Croupier:</p>
-                        <div class="bj-cards-container" id="dealerCards">
-                            <div class="bj-card"><span>?</span><span>?</span></div>
-                        </div>
-                        <p style="font-size: 13px; color: var(--text-gray); margin-top: 10px; margin-bottom: 5px;">Tu Mano (<span id="playerScore">0</span> pts):</p>
-                        <div class="bj-cards-container" id="playerCards"></div>
-                        <p id="bjMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 5px;">¡Acércate a 21 sin pasarte!</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $10.000):</label>
-                            <input type="number" id="bjBet" value="10000">
-                        </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button onclick="startBlackjack()" style="flex: 1; padding: 11px; background: var(--accent-gold); color: var(--bg-main); border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Repartir</button>
-                            <button onclick="hitBlackjack()" style="flex: 1; padding: 11px; background: var(--accent-green); color: white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Pedir Carta</button>
-                            <button onclick="standBlackjack()" style="flex: 1; padding: 11px; background: var(--accent-red); color: white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Plantarse</button>
-                        </div>
-                    </div>
-                `;
-            } else if (gameType === 'poker') {
-                titleEl.innerText = '🎴 VIDEO PÓKER ASES';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <div class="bj-cards-container" id="pokerCardsContainer">
-                            <div class="bj-card"><span>A♠</span><span>A</span></div>
-                            <div class="bj-card"><span>K♥</span><span>K</span></div>
-                            <div class="bj-card"><span>Q♦</span><span>Q</span></div>
-                            <div class="bj-card"><span>J♣</span><span>J</span></div>
-                            <div class="bj-card"><span>10♠</span><span>10</span></div>
-                        </div>
-                        <p id="pokerMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">¡Forma tu jugada ganadora!</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $5.000):</label>
-                            <input type="number" id="pokerBet" value="5000">
-                        </div>
-                        <button onclick="playPoker()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Jugar Mano de Póker</button>
-                    </div>
-                `;
-            } else if (gameType === 'scratch') {
-                titleEl.innerText = '🎟️ RASPA Y GANA DORADO';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <div class="scratch-card-grid" id="scratchGrid">
-                            <div class="scratch-cell" onclick="revealCell(this, 0)">?</div>
-                            <div class="scratch-cell" onclick="revealCell(this, 1)">?</div>
-                            <div class="scratch-cell" onclick="revealCell(this, 2)">?</div>
-                        </div>
-                        <p id="scratchMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">¡Raspa las 3 casillas para descubrir tu premio!</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $3.000):</label>
-                            <input type="number" id="scratchBet" value="3000">
-                        </div>
-                        <button onclick="resetScratch()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Nueva Tarjeta Raspa</button>
-                    </div>
-                `;
-            } else if (gameType === 'roulette') {
-                titleEl.innerText = '🎯 RULETA EUROPEA';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <div class="roulette-wheel" id="rouletteWheel">0</div>
-                        <div class="roulette-options">
-                            <button class="roulette-opt-btn selected" onclick="selectRouletteOpt(this, 'red')">🔴 Rojo</button>
-                            <button class="roulette-opt-btn" onclick="selectRouletteOpt(this, 'black')">⚫ Negro</button>
-                            <button class="roulette-opt-btn" onclick="selectRouletteOpt(this, 'green')">🟢 Verde (0)</button>
-                        </div>
-                        <p id="rouletteMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 5px;">Selecciona tu color de apuesta</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $10.000):</label>
-                            <input type="number" id="rouletteBet" value="10000">
-                        </div>
-                        <button onclick="playRoulette()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Girar Ruleta</button>
-                    </div>
-                `;
-            } else if (gameType === 'crash') {
-                titleEl.innerText = '🚀 CRASH GOLD MULTIPLICADOR';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <div class="crash-multiplier" id="crashDisplay">1.00x</div>
-                        <p id="crashMsg" style="color: var(--text-gray); font-size: 14px; margin-top: 10px;">Listo para despegar...</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $5.000):</label>
-                            <input type="number" id="crashBet" value="5000">
-                        </div>
-                        <button id="crashBtn" onclick="startCrashGame()" style="background: linear-gradient(135deg, var(--accent-green), #059669); color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">¡INICIAR VUELO & RETIRAR!</button>
-                    </div>
-                `;
-            } else if (gameType === 'dice') {
-                titleEl.innerText = '🎲 DADOS DE LA SUERTE';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <div class="dice-box">
-                            <div class="dice" id="dice1">⚅</div>
-                            <div class="dice" id="dice2">⚂</div>
-                        </div>
-                        <p id="diceMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">¡Lanza los dados para duplicar tu apuesta!</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $2.000):</label>
-                            <input type="number" id="diceBet" value="2000">
-                        </div>
-                        <button onclick="playDice()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Lanzar Dados</button>
-                    </div>
-                `;
-            } else if (gameType === 'wheel') {
-                titleEl.innerText = '🎡 RUEDA DE LA FORTUNA';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <div class="wheel-fortune" id="fortuneWheel">⭐</div>
-                        <p id="wheelMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">¡Gira la rueda monumental!</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $5.000):</label>
-                            <input type="number" id="wheelBet" value="5000">
-                        </div>
-                        <button onclick="playFortuneWheel()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">¡Girar Rueda de Premios!</button>
-                    </div>
-                `;
-            } else if (gameType === 'keno') {
-                titleEl.innerText = '🔢 KENO PREMIUM';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <div class="keno-board" id="kenoBoard">
-                            ${Array.from({length:20}, (_,i)=>`<div class="keno-number" data-number="${i+1}" onclick="toggleKenoNumber(this)">${i+1}</div>`).join('')}
-                        </div>
-                        <p id="kenoMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">Elige 5 números para apostar.</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $4.000):</label>
-                            <input type="number" id="kenoBet" value="4000">
-                        </div>
-                        <button onclick="playKeno()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Jugar Keno</button>
-                    </div>
-                `;
-            } else if (gameType === 'texas') {
-                titleEl.innerText = '🂱 TEXAS HOLD\'EM';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <div class="hilo-card-display">
-                            <div class="hilo-card" id="texasCard1">♠</div>
-                            <div class="hilo-card" id="texasCard2">♥</div>
-                        </div>
-                        <p id="texasMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">Tu mano está lista; desafía la mesa.</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $8.000):</label>
-                            <input type="number" id="texasBet" value="8000">
-                        </div>
-                        <button onclick="playTexasHoldem()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Jugar Mano</button>
-                    </div>
-                `;
-            } else if (gameType === 'mines') {
-                titleEl.innerText = '💣 MINES GOLD';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <div class="mine-grid" id="minesGrid">
-                            ${Array.from({length:25}, (_,i)=>`<div class="mine-cell" data-index="${i}" onclick="revealMineCell(this)">${i+1}</div>`).join('')}
-                        </div>
-                        <p id="minesMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">Elige casillas sin activar las minas.</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $3.000):</label>
-                            <input type="number" id="minesBet" value="3000">
-                        </div>
-                        <button onclick="resetMinesBoard()" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: var(--bg-main); padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Nueva Junta</button>
-                    </div>
-                `;
-                resetMinesBoard();
-            } else if (gameType === 'hilo') {
-                titleEl.innerText = '📈 HI-LO ROYAL';
-                bodyEl.innerHTML = `
-                    <div class="game-screen">
-                        <div class="hilo-card-display">
-                            <div class="hilo-card" id="hiloCurrentCard">♣</div>
-                        </div>
-                        <p id="hiloMsg" style="color: var(--accent-gold); font-size: 14px; margin-top: 10px;">Sube o baja en la siguiente carta.</p>
-                    </div>
-                    <div class="game-controls">
-                        <div class="bet-input-row">
-                            <label>Apuesta (Min $2.500):</label>
-                            <input type="number" id="hiloBet" value="2500">
-                        </div>
-                        <div style="display:flex; gap:10px;">
-                            <button onclick="playHiLo('higher')" style="flex:1; background: linear-gradient(135deg, var(--accent-green), #059669); color: white; padding: 12px; border: none; border-radius:8px; font-weight:bold; cursor:pointer;">Más Alta</button>
-                            <button onclick="playHiLo('lower')" style="flex:1; background: linear-gradient(135deg, var(--accent-red), #dc2626); color: white; padding: 12px; border: none; border-radius:8px; font-weight:bold; cursor:pointer;">Más Baja</button>
-                        </div>
-                    </div>
-                `;
-                startHiLoRound();
+            if (type === 'slots') {
+                title.innerText = '🎰 GOLDEN EMPIRE SLOTS';
+                arena.innerHTML = `<div class="slots-box"><div class="slot-reel" id="r1">🍒</div><div class="slot-reel" id="r2">🍋</div><div class="slot-reel" id="r3">💎</div></div>`;
+            } else if (type === 'roulette') {
+                title.innerText = '🎯 RULETA EUROPEA';
+                arena.innerHTML = `<div class="roulette-wheel-box" id="rouletteWheel">36</div>`;
+            } else if (type === 'crash') {
+                title.innerText = '🚀 CRASH ROCKET';
+                arena.innerHTML = `<div class="crash-value" id="crashMult">1.00x</div>`;
+            } else if (type === 'dice') {
+                title.innerText = '🎲 DADOS VEGAS';
+                arena.innerHTML = `<div class="dice-container"><div class="slot-reel" id="d1">⚅</div><div class="slot-reel" id="d2">⚅</div></div>`;
+            } else if (type === 'blackjack') {
+                title.innerText = '🃏 BLACKJACK 21';
+                arena.innerHTML = `<div class="card-hand" id="bjHand"><div class="card-item">🂡</div><div class="card-item">🂮</div></div>`;
+            } else if (type === 'scratch') {
+                title.innerText = '🎟️ RASPA Y GANA';
+                arena.innerHTML = `<div class="slots-box"><div class="slot-reel" id="sc1">❓</div><div class="slot-reel" id="sc2">❓</div><div class="slot-reel" id="sc3">❓</div></div>`;
+            } else if (type === 'mines') {
+                title.innerText = '💣 MINAS EXTREMAS';
+                arena.innerHTML = `<div class="grid-5x5" id="minesGrid"></div>`;
+                setupMinesGrid();
+            } else if (type === 'wheel') {
+                title.innerText = '🎡 RUEDA FORTUNA VIP';
+                arena.innerHTML = `<div class="roulette-wheel-box" id="wheelBox">🎁</div>`;
+            } else if (type === 'hilo') {
+                title.innerText = '📈 HI-LO ROYAL';
+                currentCardValue = Math.floor(Math.random() * 10) + 2;
+                arena.innerHTML = `<div style="text-align:center;"><div class="card-item" id="hiloCard" style="margin: 0 auto; font-size: 32px;">${currentCardValue}</div></div>`;
+            } else if (type === 'keno') {
+                title.innerText = '🔢 KENO MILLONARIO';
+                arena.innerHTML = `<div class="grid-5x5" id="kenoGrid"></div>`;
+                setupKenoGrid();
+            } else if (type === 'poker') {
+                title.innerText = '🎴 VIDEO PÓKER';
+                arena.innerHTML = `<div class="card-hand" id="pokerHand"><div class="card-item">🂡</div><div class="card-item">🂱</div><div class="card-item">🂾</div><div class="card-item">🃁</div><div class="card-item">🃞</div></div>`;
+            } else if (type === 'coin') {
+                title.innerText = '🪙 CARA O CRUZ GOLD';
+                arena.innerHTML = `<div style="font-size: 60px;" id="coinIcon">🪙</div>`;
+            } else if (type === 'plinko') {
+                title.innerText = '⚪ PLINKO CASINO';
+                arena.innerHTML = `<div style="font-size: 50px;" id="plinkoBall">📍</div>`;
+            } else if (type === 'vault') {
+                title.innerText = '🔓 CAJA FUERTE MISTERIO';
+                arena.innerHTML = `<div style="font-size: 65px;" id="vaultBox">🔒</div>`;
+            } else if (type === 'chest') {
+                title.innerText = '🧰 COFRE DEL FARAÓN';
+                arena.innerHTML = `<div class="chests-container"><div class="chest-item" onclick="selectChest(0)">🧰</div><div class="chest-item" onclick="selectChest(1)">🧰</div><div class="chest-item" onclick="selectChest(2)">🧰</div></div>`;
+                selectedChestIndex = null;
             }
         }
 
         function closeGameModal() {
+            if (isGameAnimating) return showToast('⚠️ Espera a que termine la jugada.');
             document.getElementById('gameModal').style.display = 'none';
-            setGameInteractionLocked(false);
         }
 
-        let gameLockTimer = null;
+        function setGameLock(lock) {
+            isGameAnimating = lock;
+            let btn = document.getElementById('mainGameActionBtn');
+            if (btn) btn.disabled = lock;
+        }
 
-        function setGameInteractionLocked(isLocked, duration = 0) {
-            const body = document.getElementById('gameModalBody');
-            if (!body) return;
-            body.classList.toggle('locked', isLocked);
-            body.querySelectorAll('button, input').forEach(el => {
-                el.disabled = isLocked;
-                el.style.cursor = isLocked ? 'not-allowed' : '';
-            });
-
-            if (gameLockTimer) clearTimeout(gameLockTimer);
-            if (isLocked && duration > 0) {
-                gameLockTimer = setTimeout(() => setGameInteractionLocked(false), duration);
+        function setupMinesGrid() {
+            let grid = document.getElementById('minesGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            for (let i = 0; i < 25; i++) {
+                let cell = document.createElement('div');
+                cell.className = 'grid-cell';
+                cell.innerText = '❓';
+                cell.onclick = () => {
+                    if (cell.classList.contains('revealed')) return;
+                    cell.classList.add('revealed');
+                    // MODIFICADO: Aumentada la probabilidad de encontrar diamante al 92% (era 20%)
+                    cell.innerText = Math.random() < 0.08 ? '💣' : '💎';
+                };
+                grid.appendChild(cell);
             }
         }
 
-        let symbols = ['🍒', '🍋', '🔔', '💎', '⭐', '🍀'];
-        function playSlots() {
-            let bet = parseInt(document.getElementById('slotsBet').value);
-            if (!bet || bet < 5000 || bet > userBalance) {
-                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
-                return;
+        function setupKenoGrid() {
+            let grid = document.getElementById('kenoGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            for (let i = 1; i <= 25; i++) {
+                let cell = document.createElement('div');
+                cell.className = 'grid-cell';
+                cell.innerText = i;
+                cell.onclick = () => {
+                    document.querySelectorAll('#kenoGrid .grid-cell').forEach(c => c.style.borderColor = 'rgba(241,196,15,0.3)');
+                    cell.style.borderColor = '#f1c40f';
+                    cell.setAttribute('data-selected', 'true');
+                };
+                grid.appendChild(cell);
             }
-            if (document.getElementById('gameModalBody').classList.contains('locked')) return;
-            userBalance -= bet;
-            saveUserBalance();
-            setGameInteractionLocked(true, 1500);
+        }
 
-            const reels = [document.getElementById('reel1'), document.getElementById('reel2'), document.getElementById('reel3')];
-            const msg = document.getElementById('slotsMsg');
-            msg.classList.remove('jackpot-flash');
-            msg.style.color = 'var(--accent-gold)';
-
-            reels.forEach((reel, index) => {
-                reel.classList.remove('settled');
-                reel.classList.add('spinning');
-                reel.style.animationDelay = `${index * 120}ms`;
-                reel.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        function selectChest(idx) {
+            selectedChestIndex = idx;
+            document.querySelectorAll('.chest-item').forEach((c, i) => {
+                c.style.transform = i === idx ? 'scale(1.25)' : 'scale(1)';
+                c.style.filter = i === idx ? 'drop-shadow(0 0 10px #f1c40f)' : 'none';
             });
+            showToast(`Cofre #${idx + 1} seleccionado.`);
+        }
 
-            setTimeout(() => {
-                let s1 = symbols[Math.floor(Math.random() * symbols.length)];
-                let s2 = symbols[Math.floor(Math.random() * symbols.length)];
-                let s3 = symbols[Math.floor(Math.random() * symbols.length)];
+        function executeCurrentGameAction() {
+            let u = usersDB[activeUserUid];
 
-                reels[0].innerText = s1;
-                reels[1].innerText = s2;
-                reels[2].innerText = s3;
+            if (isWalletFrozen(u)) {
+                closeGameModal();
+                return alert('🧊 Billetera congelada. Se ha cancelado la jugada.');
+            }
 
-                reels.forEach(reel => {
-                    reel.classList.remove('spinning');
-                    reel.classList.add('settled');
-                    setTimeout(() => reel.classList.remove('settled'), 500);
-                });
+            let bet = parseInt(document.getElementById('gameBetInput').value);
 
-                if (s1 === s2 && s2 === s3) {
-                    let win = bet * 10 * globalMultiplier;
-                    userBalance += win;
-                    saveUserBalance();
-                    msg.innerText = `🎉 ¡JACKPOT! Ganaste $${win.toLocaleString('es-CO')} COP`;
-                    msg.classList.add('jackpot-flash');
-                    showToast(`🎉 ¡Tragamonedas Jackpot! +$${win.toLocaleString('es-CO')} COP`);
-                } else if (s1 === s2 || s2 === s3 || s1 === s3) {
-                    let win = bet * 2 * globalMultiplier;
-                    userBalance += win;
-                    saveUserBalance();
-                    msg.innerText = `✨ ¡Premio menor! Ganaste $${win.toLocaleString('es-CO')} COP`;
-                    msg.style.color = 'var(--accent-gold-light)';
-                } else {
-                    msg.innerText = `❌ Sin premio esta vez. ¡Sigue intentando!`;
-                    msg.style.color = 'var(--text-gray)';
+            if (!bet || bet <= 0) return showToast('⚠️ Ingrese un monto de apuesta válido.');
+            if (bet > u.balance) return showToast('❌ Saldo insuficiente para esta apuesta.');
+
+            u.balance -= bet;
+            saveDB();
+            updateUI();
+            setGameLock(true);
+
+            let hard = u.riggedHard;
+            // MODIFICADO: Cambiado de 0.20x a 0.60x para ganar con mucha más frecuencia por defecto
+            let winChance = hard ? 0.10 : 0.60;
+
+            document.getElementById('gameStatusText').innerText = '🎰 Jugada en progreso...';
+            playSound('spin');
+
+            if (currentGameType === 'slots') {
+                let r1 = document.getElementById('r1');
+                let r2 = document.getElementById('r2');
+                let r3 = document.getElementById('r3');
+                r1.classList.add('spinning'); r2.classList.add('spinning'); r3.classList.add('spinning');
+
+                setTimeout(() => {
+                    r1.classList.remove('spinning'); r2.classList.remove('spinning'); r3.classList.remove('spinning');
+                    let isWin = Math.random() < winChance;
+                    let syms = ['🍒', '🍋', '🔔', '⭐', '7️⃣', '💎'];
+                    
+                    if (isWin) {
+                        let winSym = '💎';
+                        r1.innerText = winSym; r2.innerText = winSym; r3.innerText = winSym;
+                        let winAmt = bet * 5;
+                        u.balance += winAmt;
+                        playSound('win');
+                        document.getElementById('gameStatusText').innerText = `🎉 ¡JACKPOT IMPERIAL! Ganaste $${winAmt.toLocaleString()} COP`;
+                    } else {
+                        r1.innerText = syms[Math.floor(Math.random()*syms.length)];
+                        r2.innerText = syms[Math.floor(Math.random()*syms.length)];
+                        r3.innerText = syms[Math.floor(Math.random()*syms.length)];
+                        playSound('lose');
+                        document.getElementById('gameStatusText').innerText = '❌ La casa gana. Inténtalo de nuevo.';
+                    }
+                    saveDB(); updateUI(); setGameLock(false);
+                }, 2000);
+
+            } else if (currentGameType === 'roulette') {
+                let w = document.getElementById('rouletteWheel');
+                w.classList.add('wheel-fast-spin');
+                setTimeout(() => {
+                    w.classList.remove('wheel-fast-spin');
+                    let isWin = Math.random() < winChance;
+                    let num = isWin ? 7 : Math.floor(Math.random()*36);
+                    w.innerText = num;
+                    if (isWin) {
+                        let winAmt = bet * 4;
+                        u.balance += winAmt;
+                        playSound('win');
+                        document.getElementById('gameStatusText').innerText = `🎉 ¡Pleno a la Ruleta! Ganaste $${winAmt.toLocaleString()} COP`;
+                    } else {
+                        playSound('lose');
+                        document.getElementById('gameStatusText').innerText = `❌ Salió el número ${num}. Has perdido tu apuesta.`;
+                    }
+                    saveDB(); updateUI(); setGameLock(false);
+                }, 2000);
+
+            } else if (currentGameType === 'crash') {
+                let m = document.getElementById('crashMult');
+                let val = 1.00;
+                let isWin = Math.random() < winChance;
+                let target = isWin ? (2.0 + Math.random() * 2) : (1.05 + Math.random()*0.3);
+
+                let interval = setInterval(() => {
+                    val += 0.08;
+                    m.innerText = val.toFixed(2) + 'x';
+                    if (val >= target) {
+                        clearInterval(interval);
+                        if (isWin) {
+                            let winAmt = Math.floor(bet * target);
+                            u.balance += winAmt;
+                            playSound('win');
+                            document.getElementById('gameStatusText').innerText = `🎉 Retiro con éxito a ${target.toFixed(2)}x. Ganaste $${winAmt.toLocaleString()} COP`;
+                        } else {
+                            m.innerText = '💥 CRASH!';
+                            playSound('lose');
+                            document.getElementById('gameStatusText').innerText = '💥 ¡El cohete explotó antes de tiempo!';
+                        }
+                        saveDB(); updateUI(); setGameLock(false);
+                    }
+                }, 120);
+
+            } else if (currentGameType === 'dice') {
+                let d1 = document.getElementById('d1');
+                let d2 = document.getElementById('d2');
+                d1.classList.add('dice-roll'); d2.classList.add('dice-roll');
+
+                setTimeout(() => {
+                    d1.classList.remove('dice-roll'); d2.classList.remove('dice-roll');
+                    let isWin = Math.random() < winChance;
+                    let dices = ['⚀','⚁','⚂','⚃','⚄','⚅'];
+                    if (isWin) {
+                        d1.innerText = '⚅'; d2.innerText = '⚅';
+                        let winAmt = bet * 6;
+                        u.balance += winAmt;
+                        playSound('win');
+                        document.getElementById('gameStatusText').innerText = `🎉 ¡Doble 6 Perfecto! Ganaste $${winAmt.toLocaleString()} COP`;
+                    } else {
+                        d1.innerText = dices[Math.floor(Math.random()*5)];
+                        d2.innerText = dices[Math.floor(Math.random()*5)];
+                        playSound('lose');
+                        document.getElementById('gameStatusText').innerText = '❌ Sumatoria no ganadora.';
+                    }
+                    saveDB(); updateUI(); setGameLock(false);
+                }, 1800);
+
+            } else if (currentGameType === 'scratch') {
+                let sc1 = document.getElementById('sc1');
+                let sc2 = document.getElementById('sc2');
+                let sc3 = document.getElementById('sc3');
+                setTimeout(() => {
+                    let isWin = Math.random() < winChance;
+                    if (isWin) {
+                        sc1.innerText = '👑'; sc2.innerText = '👑'; sc3.innerText = '👑';
+                        let winAmt = bet * 5;
+                        u.balance += winAmt;
+                        playSound('win');
+                        document.getElementById('gameStatusText').innerText = `🎉 ¡3 Coronas Doradas! Ganaste $${winAmt.toLocaleString()} COP`;
+                    } else {
+                        sc1.innerText = '👑'; sc2.innerText = '🍋'; sc3.innerText = '❌';
+                        playSound('lose');
+                        document.getElementById('gameStatusText').innerText = '❌ Tarjeta no premiada.';
+                    }
+                    saveDB(); updateUI(); setGameLock(false);
+                }, 1200);
+
+            } else if (currentGameType === 'coin') {
+                let coin = document.getElementById('coinIcon');
+                coin.classList.add('coin-flip-anim');
+                setTimeout(() => {
+                    coin.classList.remove('coin-flip-anim');
+                    let isWin = Math.random() < winChance;
+                    if (isWin) {
+                        coin.innerText = '👑';
+                        let winAmt = bet * 2;
+                        u.balance += winAmt;
+                        playSound('win');
+                        document.getElementById('gameStatusText').innerText = `🎉 ¡Salió Cara Imperial! Ganaste $${winAmt.toLocaleString()} COP`;
+                    } else {
+                        coin.innerText = '🦅';
+                        playSound('lose');
+                        document.getElementById('gameStatusText').innerText = '❌ Salió Cruz. Gana la casa.';
+                    }
+                    saveDB(); updateUI(); setGameLock(false);
+                }, 1500);
+
+            } else if (currentGameType === 'chest') {
+                if (selectedChestIndex === null) {
+                    u.balance += bet; saveDB(); updateUI(); setGameLock(false);
+                    return showToast('⚠️ Haz clic en uno de los 3 cofres antes de apostar.');
                 }
-            }, 1180);
-        }
+                setTimeout(() => {
+                    let isWin = Math.random() < winChance;
+                    let chests = document.querySelectorAll('.chest-item');
+                    chests.forEach((c, idx) => {
+                        if (idx === selectedChestIndex) {
+                            c.innerText = isWin ? '👑' : '💀';
+                        }
+                    });
+                    if (isWin) {
+                        let winAmt = bet * 4;
+                        u.balance += winAmt;
+                        playSound('win');
+                        document.getElementById('gameStatusText').innerText = `🎉 ¡Encontraste el Tesoro del Faraón! Ganaste $${winAmt.toLocaleString()} COP`;
+                    } else {
+                        playSound('lose');
+                        document.getElementById('gameStatusText').innerText = '💀 Cofre trampa o vacío. Has perdido tu apuesta.';
+                    }
+                    saveDB(); updateUI(); setGameLock(false);
+                }, 1200);
 
-        let bjPlayerHand = [];
-        let bjDealerHand = [];
-        let bjActiveBet = 0;
-
-        function startBlackjack() {
-            let bet = parseInt(document.getElementById('bjBet').value);
-            if (!bet || bet < 10000 || bet > userBalance) {
-                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
-                return;
-            }
-            if (document.getElementById('gameModalBody').classList.contains('locked')) return;
-            bjActiveBet = bet;
-            userBalance -= bet;
-            saveUserBalance();
-            setGameInteractionLocked(true, 1000);
-
-            bjPlayerHand = [Math.floor(Math.random() * 10) + 2, Math.floor(Math.random() * 10) + 2];
-            bjDealerHand = [Math.floor(Math.random() * 10) + 2, Math.floor(Math.random() * 10) + 2];
-
-            renderBlackjackHands(false);
-            document.getElementById('bjMsg').innerText = 'Partida en curso. Pide carta o plántate.';
-        }
-
-        function renderBlackjackHands(showAllDealer) {
-            let pScore = bjPlayerHand.reduce((a, b) => a + b, 0);
-            document.getElementById('playerScore').innerText = pScore;
-
-            let pContainer = document.getElementById('playerCards');
-            pContainer.innerHTML = '';
-            bjPlayerHand.forEach(c => {
-                const card = document.createElement('div');
-                card.className = 'bj-card deal';
-                card.innerHTML = `<span>${c}</span><span>♣</span>`;
-                pContainer.appendChild(card);
-            });
-
-            let dContainer = document.getElementById('dealerCards');
-            dContainer.innerHTML = '';
-            if (showAllDealer) {
-                bjDealerHand.forEach(c => {
-                    const card = document.createElement('div');
-                    card.className = 'bj-card deal';
-                    card.innerHTML = `<span>${c}</span><span>♠</span>`;
-                    dContainer.appendChild(card);
-                });
             } else {
-                const card1 = document.createElement('div');
-                card1.className = 'bj-card deal';
-                card1.innerHTML = `<span>${bjDealerHand[0]}</span><span>♠</span>`;
-                const card2 = document.createElement('div');
-                card2.className = 'bj-card deal';
-                card2.innerHTML = `<span>?</span><span>?</span>`;
-                dContainer.appendChild(card1);
-                dContainer.appendChild(card2);
+                setTimeout(() => {
+                    let isWin = Math.random() < winChance;
+                    if (isWin) {
+                        let winAmt = bet * 3;
+                        u.balance += winAmt;
+                        playSound('win');
+                        document.getElementById('gameStatusText').innerText = `🎉 ¡Jugada Exitosa! Ganaste $${winAmt.toLocaleString()} COP`;
+                    } else {
+                        playSound('lose');
+                        document.getElementById('gameStatusText').innerText = '❌ La banca gana esta ronda.';
+                    }
+                    saveDB(); updateUI(); setGameLock(false);
+                }, 1500);
             }
         }
 
-        function hitBlackjack() {
-            if (bjActiveBet === 0) return;
-            bjPlayerHand.push(Math.floor(Math.random() * 10) + 2);
-            renderBlackjackHands(false);
-            let pScore = bjPlayerHand.reduce((a, b) => a + b, 0);
-            if (pScore > 21) {
-                document.getElementById('bjMsg').innerText = '💥 ¡Te pasaste de 21! Perdiste la apuesta.';
-                bjActiveBet = 0;
-            }
-        }
+        // --- CONFIGURACIÓN Y ADMINISTRACIÓN ---
+        function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
+        function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
 
-        function standBlackjack() {
-            if (bjActiveBet === 0) return;
-            renderBlackjackHands(true);
-            let pScore = bjPlayerHand.reduce((a, b) => a + b, 0);
-            let dScore = bjDealerHand.reduce((a, b) => a + b, 0);
-
-            while (dScore < 17) {
-                let nc = Math.floor(Math.random() * 10) + 2;
-                bjDealerHand.push(nc);
-                dScore += nc;
-            }
-            renderBlackjackHands(true);
-
-            if (dScore > 21 || pScore > dScore) {
-                let win = bjActiveBet * 2 * globalMultiplier;
-                userBalance += win;
-                saveUserBalance();
-                document.getElementById('bjMsg').innerText = `🎉 ¡Ganaste al crupier! +$${win.toLocaleString('es-CO')} COP`;
-                showToast(`🎉 ¡Blackjack Ganado! +$${win.toLocaleString('es-CO')} COP`);
-            } else if (pScore === dScore) {
-                userBalance += bjActiveBet;
-                saveUserBalance();
-                document.getElementById('bjMsg').innerText = `🤝 Empate. Se te devuelve la apuesta.`;
+        function verifyAdminPass() {
+            let pass = document.getElementById('adminPassInput').value;
+            if (pass === '@1983Mar') {
+                document.getElementById('adminAuthSection').style.display = 'none';
+                document.getElementById('adminPanelContent').style.display = 'block';
+                showToast('🔑 Acceso total de Administrador concedido.');
             } else {
-                document.getElementById('bjMsg').innerText = `❌ El crupier gana con ${dScore} puntos.`;
-            }
-            bjActiveBet = 0;
-        }
-
-        function playPoker() {
-            let bet = parseInt(document.getElementById('pokerBet').value);
-            if (!bet || bet < 5000 || bet > userBalance) {
-                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
-                return;
-            }
-            if (document.getElementById('gameModalBody').classList.contains('locked')) return;
-            setGameInteractionLocked(true, 1200);
-            userBalance -= bet;
-            saveUserBalance();
-
-            const cards = document.querySelectorAll('#pokerCardsContainer .bj-card');
-            cards.forEach((card, index) => {
-                card.style.animation = `cardDeal ${0.45 + index * 0.1}s cubic-bezier(0.16, 1, 0.3, 1)`;
-            });
-
-            let win = bet * 3 * globalMultiplier;
-            userBalance += win;
-            saveUserBalance();
-            document.getElementById('pokerMsg').innerText = `🎉 ¡Par de Ases! Ganaste $${win.toLocaleString('es-CO')} COP`;
-            showToast(`🎉 ¡Póker Ganado! +$${win.toLocaleString('es-CO')} COP`);
-        }
-
-        let scratchRevealedCount = 0;
-        function revealCell(cell, index) {
-            if (cell.classList.contains('revealed') || document.getElementById('gameModalBody').classList.contains('locked')) return;
-            setGameInteractionLocked(true, 700);
-            cell.classList.add('revealed');
-            let emojis = ['💎', '⭐', '💰'];
-            let chosen = emojis[Math.floor(Math.random() * emojis.length)];
-            cell.innerText = chosen;
-            scratchRevealedCount++;
-
-            if (scratchRevealedCount === 3 && chosen === '💎') {
-                let bet = parseInt(document.getElementById('scratchBet').value) || 3000;
-                let win = bet * 5 * globalMultiplier;
-                userBalance += win;
-                saveUserBalance();
-                document.getElementById('scratchMsg').innerText = `🎉 ¡Trío de Diamantes! Ganaste $${win.toLocaleString('es-CO')} COP`;
-                showToast(`🎉 ¡Raspa y Gana Triunfo! +$${win.toLocaleString('es-CO')} COP`);
-            } else if (scratchRevealedCount === 3) {
-                document.getElementById('scratchMsg').innerText = `❌ Tarjeta sin premio mayor. ¡Inténtalo de nuevo!`;
+                showToast('❌ Contraseña Incorrecta.');
             }
         }
 
-        function resetScratch() {
-            scratchRevealedCount = 0;
-            let cells = document.querySelectorAll('.scratch-cell');
-            cells.forEach(c => {
-                c.classList.remove('revealed');
-                c.innerText = '?';
-            });
-            document.getElementById('scratchMsg').innerText = '¡Raspa las 3 casillas para descubrir tu premio!';
-        }
-
-        let selectedRouletteColor = 'red';
-        function selectRouletteOpt(btn, color) {
-            if (document.getElementById('gameModalBody').classList.contains('locked')) return;
-            document.querySelectorAll('.roulette-opt-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            selectedRouletteColor = color;
-        }
-
-        function playRoulette() {
-            let bet = parseInt(document.getElementById('rouletteBet').value);
-            if (!bet || bet < 10000 || bet > userBalance) {
-                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
-                return;
+        function getTargetUser() {
+            let uid = document.getElementById('adminTargetUid').value.trim();
+            if (!uid || !usersDB[uid]) {
+                showToast('❌ Usuario no encontrado con ese UID.');
+                return null;
             }
-            if (document.getElementById('gameModalBody').classList.contains('locked')) return;
-            userBalance -= bet;
-            saveUserBalance();
-            setGameInteractionLocked(true, 1500);
-
-            const wheel = document.getElementById('rouletteWheel');
-            wheel.classList.remove('spin');
-            void wheel.offsetWidth;
-            wheel.classList.add('spin');
-
-            let outcomes = ['red', 'black', 'green'];
-            let result = outcomes[Math.floor(Math.random() * outcomes.length)];
-
-            setTimeout(() => {
-                wheel.innerText = result === 'red' ? '🔴' : result === 'black' ? '⚫' : '🟢';
-                if (result === selectedRouletteColor) {
-                    let multiplier = result === 'green' ? 14 : 2;
-                    let win = bet * multiplier * globalMultiplier;
-                    userBalance += win;
-                    saveUserBalance();
-                    document.getElementById('rouletteMsg').innerText = `🎉 ¡Acertaste (${result.toUpperCase()})! Ganaste $${win.toLocaleString('es-CO')} COP`;
-                    showToast(`🎯 ¡Ruleta Ganada! +$${win.toLocaleString('es-CO')} COP`);
-                } else {
-                    document.getElementById('rouletteMsg').innerText = `❌ Salió ${result.toUpperCase()}. Perdiste la apuesta.`;
-                }
-            }, 700);
+            return usersDB[uid];
         }
 
-        let crashInterval = null;
-        function startCrashGame() {
-            let bet = parseInt(document.getElementById('crashBet').value);
-            if (!bet || bet < 5000 || bet > userBalance) {
-                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
-                return;
+        function calculateExpirationTimestamp() {
+            let dur = parseInt(document.getElementById('timeDurationInput').value);
+            let unit = document.getElementById('timeUnitSelect').value;
+
+            if (unit === 'permanent') return 'permanent';
+            if (!dur || dur <= 0) dur = 1;
+
+            let mult = 1000;
+            if (unit === 'seconds') mult *= 1;
+            if (unit === 'minutes') mult *= 60;
+            if (unit === 'hours') mult *= 3600;
+            if (unit === 'days') mult *= 86400;
+            if (unit === 'years') mult *= 31536000;
+
+            return new Date().getTime() + (dur * mult);
+        }
+
+        // --- 15 COMANDOS REALES Y COHERENTES DE ADMINISTRADOR ---
+        function adminAddMoney() {
+            let u = getTargetUser(); let amt = parseInt(document.getElementById('adminAmount').value);
+            if (!u || !amt) return; u.balance += amt; saveDB(); updateUI(); showToast(`1. Acreditados $${amt.toLocaleString()} COP a UID ${u.uid}`);
+        }
+
+        function adminRemoveMoney() {
+            let u = getTargetUser(); let amt = parseInt(document.getElementById('adminAmount').value);
+            if (!u || !amt) return; u.balance = Math.max(0, u.balance - amt); saveDB(); updateUI(); showToast(`2. Debitados $${amt.toLocaleString()} COP a UID ${u.uid}`);
+        }
+
+        function adminBanUser() {
+            let u = getTargetUser(); if (!u) return;
+            u.banned = true;
+            u.banUntil = calculateExpirationTimestamp();
+            saveDB(); showToast(`3. Usuario ${u.username} Baneado.`); checkUserSession();
+        }
+
+        function adminUnbanUser() {
+            let u = getTargetUser(); if (!u) return;
+            u.banned = false; u.banUntil = null; saveDB(); showToast(`4. Cuenta UID ${u.uid} Desbaneada.`);
+        }
+
+        function adminResetPassword() {
+            let u = getTargetUser(); if (!u) return;
+            u.password = "1234"; saveDB(); showToast(`5. Clave de ${u.username} restablecida a: 1234`);
+        }
+
+        function adminSetExactBalance() {
+            let u = getTargetUser(); let amt = parseInt(document.getElementById('adminAmount').value);
+            if (!u || isNaN(amt)) return; u.balance = amt; saveDB(); updateUI(); showToast(`6. Saldo fijado exactamente en $${amt.toLocaleString()} COP`);
+        }
+
+        function adminChangeVip(rank) {
+            let u = getTargetUser(); if (!u) return;
+            u.vipRank = rank || 'HIGH ROLLER VIP'; saveDB(); updateUI(); showToast(`7. Rango VIP de ${u.username} cambiado a ${u.vipRank}`);
+        }
+
+        function adminToggleFreezeWallet() {
+            let u = getTargetUser(); if (!u) return;
+            if (u.frozenWallet) {
+                u.frozenWallet = false;
+                u.frozenUntil = null;
+                showToast(`8. Billetera de ${u.username} DESCONGELADA ✅`);
+            } else {
+                u.frozenWallet = true;
+                u.frozenUntil = calculateExpirationTimestamp();
+                let msgTime = u.frozenUntil === 'permanent' ? 'Permanentemente' : `hasta ${new Date(u.frozenUntil).toLocaleString()}`;
+                showToast(`8. Billetera y juegos de ${u.username} CONGELADOS 🧊 (${msgTime})`);
             }
-            if (document.getElementById('gameModalBody').classList.contains('locked')) return;
-            userBalance -= bet;
-            saveUserBalance();
-            setGameInteractionLocked(true, 2600);
-
-            let mult = 1.00;
-            let display = document.getElementById('crashDisplay');
-            let btn = document.getElementById('crashBtn');
-            btn.innerText = '¡RETIRAR AHORA!';
-            btn.style.background = 'linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark))';
-            btn.style.color = 'var(--bg-main)';
-
-            let crashPoint = 1.2 + Math.random() * 3.5;
-            let cashedOut = false;
-
-            btn.onclick = function() {
-                if (!cashedOut) {
-                    cashedOut = true;
-                    clearInterval(crashInterval);
-                    let win = Math.floor(bet * mult * globalMultiplier);
-                    userBalance += win;
-                    saveUserBalance();
-                    display.innerText = `${mult.toFixed(2)}x (¡Retirado!)`;
-                    document.getElementById('crashMsg').innerText = `🎉 ¡Retiro exitoso de $${win.toLocaleString('es-CO')} COP!`;
-                    showToast(`🚀 ¡Crash Ganado! +$${win.toLocaleString('es-CO')} COP`);
-                    btn.innerText = '¡INICIAR VUELO & RETIRAR!';
-                    btn.style.background = 'linear-gradient(135deg, var(--accent-green), #059669)';
-                    btn.style.color = 'white';
-                    btn.onclick = startCrashGame;
-                    setGameInteractionLocked(false);
-                }
-            };
-
-            crashInterval = setInterval(() => {
-                mult += 0.08;
-                display.innerText = mult.toFixed(2) + 'x';
-                if (mult >= crashPoint && !cashedOut) {
-                    clearInterval(crashInterval);
-                    cashedOut = true;
-                    display.innerText = `${mult.toFixed(2)}x (¡CRASH!)`;
-                    document.getElementById('crashMsg').innerText = `💥 ¡El cohete estalló! Perdiste la apuesta.`;
-                    btn.innerText = '¡INICIAR VUELO & RETIRAR!';
-                    btn.style.background = 'linear-gradient(135deg, var(--accent-green), #059669)';
-                    btn.style.color = 'white';
-                    btn.onclick = startCrashGame;
-                    setGameInteractionLocked(false);
-                }
-            }, 120);
+            saveDB(); updateUI();
         }
 
-        let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-        function playDice() {
-            let bet = parseInt(document.getElementById('diceBet').value);
-            if (!bet || bet < 2000 || bet > userBalance) {
-                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
-                return;
-            }
-            if (document.getElementById('gameModalBody').classList.contains('locked')) return;
-            setGameInteractionLocked(true, 1100);
-            userBalance -= bet;
-            saveUserBalance();
-
-            const dice1 = document.getElementById('dice1');
-            const dice2 = document.getElementById('dice2');
-            dice1.classList.remove('shake');
-            dice2.classList.remove('shake');
-            void dice1.offsetWidth;
-            dice1.classList.add('shake');
-            dice2.classList.add('shake');
-
-            let d1 = Math.floor(Math.random() * 6);
-            let d2v = Math.floor(Math.random() * 6);
-            setTimeout(() => {
-                dice1.innerText = diceFaces[d1];
-                dice2.innerText = diceFaces[d2v];
-                if (d1 === d2v) {
-                    let win = bet * 4 * globalMultiplier;
-                    userBalance += win;
-                    saveUserBalance();
-                    document.getElementById('diceMsg').innerText = `🎉 ¡Dados dobles! Ganaste $${win.toLocaleString('es-CO')} COP`;
-                    showToast(`🎲 ¡Dados Ganados! +$${win.toLocaleString('es-CO')} COP`);
-                } else {
-                    document.getElementById('diceMsg').innerText = `❌ Sin combinación doble. Sigue intentando.`;
-                }
-            }, 500);
+        function adminKickUser() {
+            let u = getTargetUser(); if (!u) return;
+            if (u.uid === activeUserUid) logout();
+            else showToast(`9. Cierre de sesión forzado aplicado a UID ${u.uid}`);
         }
 
-        function playFortuneWheel() {
-            let bet = parseInt(document.getElementById('wheelBet').value);
-            if (!bet || bet < 5000 || bet > userBalance) {
-                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
-                return;
-            }
-            if (document.getElementById('gameModalBody').classList.contains('locked')) return;
-            userBalance -= bet;
-            saveUserBalance();
-            setGameInteractionLocked(true, 1500);
-
-            const wheel = document.getElementById('fortuneWheel');
-            wheel.classList.remove('spin');
-            void wheel.offsetWidth;
-            wheel.classList.add('spin');
-
-            let multipliers = [0, 2, 3, 5, 10];
-            let m = multipliers[Math.floor(Math.random() * multipliers.length)];
-
-            setTimeout(() => {
-                if (m > 0) {
-                    let win = bet * m * globalMultiplier;
-                    userBalance += win;
-                    saveUserBalance();
-                    document.getElementById('wheelMsg').innerText = `🎉 ¡Rueda x${m}! Ganaste $${win.toLocaleString('es-CO')} COP`;
-                    showToast(`🎡 ¡Rueda de la Fortuna! +$${win.toLocaleString('es-CO')} COP`);
-                } else {
-                    document.getElementById('wheelMsg').innerText = `❌ Cayó en casilla vacía. ¡Suerte en la próxima!`;
-                }
-            }, 700);
+        function adminGiveBonus() {
+            let u = getTargetUser(); if (!u) return;
+            u.balance *= 2; saveDB(); updateUI(); showToast(`10. Bono de duplicación acreditado a ${u.username}`);
         }
 
-        function toggleKenoNumber(el) {
-            if (!el) return;
-            const selected = el.classList.toggle('selected');
-            const board = document.getElementById('kenoBoard');
-            const selectedNums = board.querySelectorAll('.keno-number.selected').length;
-            if (!selected && selectedNums < 5) return;
-            if (selectedNums > 5) {
-                el.classList.remove('selected');
-                showToast('⚠️ Solo puedes elegir 5 números.');
-            }
+        function adminRigLuck(mode) {
+            let u = getTargetUser(); if (!u) return;
+            u.riggedHard = (mode === 'hard');
+            saveDB(); updateUI(); showToast(`11/12. Dificultad para ${u.username}: ${mode === 'hard' ? 'MODO DIFICIL (0.10x)' : 'FÁCIL (0.60x)'}`);
         }
 
-        function playKeno() {
-            const board = document.getElementById('kenoBoard');
-            const selected = [...board.querySelectorAll('.keno-number.selected')].map(el => Number(el.dataset.number));
-            const bet = parseInt(document.getElementById('kenoBet').value);
-
-            if (!bet || bet < 4000 || bet > userBalance || selected.length !== 5) {
-                showToast('⚠️ Elige exactamente 5 números y una apuesta válida.');
-                return;
-            }
-            if (document.getElementById('gameModalBody').classList.contains('locked')) return;
-            setGameInteractionLocked(true, 1100);
-            userBalance -= bet;
-            saveUserBalance();
-
-            const winning = Array.from({ length: 5 }, () => Math.floor(Math.random() * 20) + 1);
-            const hits = selected.filter(num => winning.includes(num)).length;
-            const payout = hitMap(hits) * bet * globalMultiplier;
-            userBalance += payout;
-            saveUserBalance();
-
-            document.getElementById('kenoMsg').innerText = `🎲 Números ganadores: ${winning.join(', ')} • Aciertos: ${hits} • Tu premio: $${payout.toLocaleString('es-CO')} COP`;
-            if (payout > 0) showToast(`🔢 Keno ganado: +$${payout.toLocaleString('es-CO')} COP`);
-            else showToast('🔢 Keno sin premio esta vez.');
+        function adminZeroBalance() {
+            let u = getTargetUser(); if (!u) return;
+            u.balance = 0; saveDB(); updateUI(); showToast(`13. Saldo dejado en $0 COP para ${u.username}`);
         }
 
-        function hitMap(hits) {
-            if (hits === 5) return 18;
-            if (hits === 4) return 8;
-            if (hits === 3) return 3;
-            if (hits === 2) return 1;
-            return 0;
+        function adminDeleteUser() {
+            let u = getTargetUser(); if (!u) return;
+            delete usersDB[u.uid]; saveDB(); showToast(`14. Usuario UID ${u.uid} eliminado del sistema.`);
+            if (u.uid === activeUserUid) logout();
         }
 
-        let mineBombs = [];
-        function resetMinesBoard() {
-            mineBombs = [];
-            while (mineBombs.length < 5) {
-                const n = Math.floor(Math.random() * 25);
-                if (!mineBombs.includes(n)) mineBombs.push(n);
-            }
-            const cells = document.querySelectorAll('.mine-cell');
-            cells.forEach(cell => {
-                cell.classList.remove('revealed', 'bomb');
-                cell.textContent = Number(cell.dataset.index) + 1;
-            });
-            document.getElementById('minesMsg').innerText = 'Elige casillas sin activar las minas.';
+        function adminInspectUser() {
+            let u = getTargetUser(); if (!u) return;
+            let freezeStatus = isWalletFrozen(u) ? `CONGELADO 🧊 (${u.frozenUntil === 'permanent' ? 'Permanente' : new Date(u.frozenUntil).toLocaleString()})` : 'ACTIVA ✅';
+            alert(`🔍 15. AUDITORÍA OFICIAL DE CUENTA:\n\n` +
+                  `• Usuario: ${u.username}\n` +
+                  `• UID: ${u.uid}\n` +
+                  `• Correo: ${u.email}\n` +
+                  `• Documento: ${u.identity}\n` +
+                  `• Saldo Actual: $${u.balance.toLocaleString()} COP\n` +
+                  `• Estado Billetera: ${freezeStatus}\n` +
+                  `• Rango VIP: ${u.vipRank}\n` +
+                  `• Modo Difícil: ${u.riggedHard ? 'SÍ (0.10x)' : 'NO (0.60x)'}\n` +
+                  `• Estado Cuenta: ${u.banned ? 'BANEADA ⛔' : 'ACTIVA ✅'}`);
         }
-
-        function revealMineCell(cell) {
-            if (!cell || cell.classList.contains('revealed') || document.getElementById('gameModalBody').classList.contains('locked')) return;
-            const index = Number(cell.dataset.index);
-            const bet = parseInt(document.getElementById('minesBet').value);
-            if (!bet || bet < 3000 || bet > userBalance) {
-                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
-                return;
-            }
-            setGameInteractionLocked(true, 700);
-
-            cell.classList.add('revealed');
-            if (mineBombs.includes(index)) {
-                cell.classList.add('bomb');
-                cell.textContent = '💣';
-                userBalance -= bet;
-                saveUserBalance();
-                document.getElementById('minesMsg').innerText = `💥 ¡Boom! Activaste una mina y perdiste $${bet.toLocaleString('es-CO')} COP.`;
-                showToast('💣 Mina descubierta. Perdiste la apuesta.');
-                return;
-            }
-
-            cell.textContent = '✅';
-            const prize = bet * 1.5 * globalMultiplier;
-            userBalance += Math.round(prize);
-            saveUserBalance();
-            document.getElementById('minesMsg').innerText = `🛡️ Casilla segura. Ganaste $${Math.round(prize).toLocaleString('es-CO')} COP.`;
-            showToast(`💎 Mina evitada: +$${Math.round(prize).toLocaleString('es-CO')} COP`);
-        }
-
-        let hiloCurrentCard = 0;
-        function startHiLoRound() {
-            hiloCurrentCard = Math.floor(Math.random() * 13) + 1;
-            document.getElementById('hiloCurrentCard').innerText = ['♠', '♥', '♦', '♣'][Math.floor(Math.random()*4)];
-        }
-
-        function playHiLo(direction) {
-            const bet = parseInt(document.getElementById('hiloBet').value);
-            if (!bet || bet < 2500 || bet > userBalance) {
-                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
-                return;
-            }
-            if (document.getElementById('gameModalBody').classList.contains('locked')) return;
-            setGameInteractionLocked(true, 1100);
-
-            const card = document.getElementById('hiloCurrentCard');
-            card.classList.remove('flip');
-            void card.offsetWidth;
-            card.classList.add('flip');
-
-            const nextCard = Math.floor(Math.random() * 13) + 1;
-            const cardText = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'][nextCard - 1];
-            setTimeout(() => {
-                card.innerText = cardText;
-                const win = nextCard > hiloCurrentCard && direction === 'higher' || nextCard < hiloCurrentCard && direction === 'lower';
-                if (win) {
-                    const prize = bet * 2 * globalMultiplier;
-                    userBalance += prize;
-                    saveUserBalance();
-                    document.getElementById('hiloMsg').innerText = `🎉 ¡Correcto! La carta fue ${cardText} y ganaste $${prize.toLocaleString('es-CO')} COP.`;
-                    showToast(`📈 Hi-Lo ganado: +$${prize.toLocaleString('es-CO')} COP`);
-                } else {
-                    userBalance -= bet;
-                    saveUserBalance();
-                    document.getElementById('hiloMsg').innerText = `❌ Fallaste. La carta era ${cardText} y perdiste $${bet.toLocaleString('es-CO')} COP.`;
-                    showToast('📉 Hi-Lo perdido.');
-                }
-                startHiLoRound();
-            }, 350);
-        }
-
-        function playTexasHoldem() {
-            const bet = parseInt(document.getElementById('texasBet').value);
-            if (!bet || bet < 8000 || bet > userBalance) {
-                showToast('⚠️ Apuesta inválida o saldo insuficiente.');
-                return;
-            }
-            if (document.getElementById('gameModalBody').classList.contains('locked')) return;
-            setGameInteractionLocked(true, 1200);
-            userBalance -= bet;
-            saveUserBalance();
-
-            const hand = ['A', 'K', 'Q', 'J', '10', '9', '8'];
-            const card1 = hand[Math.floor(Math.random() * hand.length)];
-            const card2 = hand[Math.floor(Math.random() * hand.length)];
-            const card1El = document.getElementById('texasCard1');
-            const card2El = document.getElementById('texasCard2');
-            card1El.classList.remove('flip');
-            card2El.classList.remove('flip');
-            void card1El.offsetWidth;
-            card1El.classList.add('flip');
-            card2El.classList.add('flip');
-            setTimeout(() => {
-                card1El.innerText = card1;
-                card2El.innerText = card2;
-            }, 250);
-
-            const win = card1 === card2;
-            setTimeout(() => {
-                if (win) {
-                    const prize = bet * 3 * globalMultiplier;
-                    userBalance += prize;
-                    saveUserBalance();
-                    document.getElementById('texasMsg').innerText = `🎉 ¡Par perfecto! Ganaste $${prize.toLocaleString('es-CO')} COP.`;
-                    showToast(`🂱 Texas Hold'em ganado: +$${prize.toLocaleString('es-CO')} COP`);
-                } else {
-                    document.getElementById('texasMsg').innerText = `❌ La mesa ganó esta mano. Perdiste $${bet.toLocaleString('es-CO')} COP.`;
-                    showToast('🂱 Texas Hold\'em con pérdida.');
-                }
-            }, 500);
-        }
-
-        function filterProducts() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.querySelectorAll('.product-card');
-
-            cards.forEach(card => {
-                let name = card.getAttribute('data-name');
-                if (name.includes(input)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function switchTab(category) {
-            let sections = document.querySelectorAll('.category-section');
-            let buttons = document.querySelectorAll('.tab-btn');
-
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            sections.forEach(section => {
-                if (category === 'all' || section.getAttribute('data-category') === category) {
-                    section.style.display = 'block';
-                } else {
-                    section.style.display = 'none';
-                }
-            });
-        }
-
-        // Ejecutar comprobación de baneo inicial de forma inmediata apenas carga el DOM
-        document.addEventListener("DOMContentLoaded", function() {
-            checkUserBanStateOnStartup();
-        });
     </script>
 </body>
 </html>
